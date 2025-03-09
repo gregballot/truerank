@@ -5,6 +5,7 @@ import { configureEnv } from './config/env';
 
 const fastify = Fastify({ logger: true });
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const start = async () => {
   try {
     await configureEnv(fastify);
@@ -12,12 +13,12 @@ const start = async () => {
 
     const port = parseInt(fastify.config.PORT);
 
-    await fastify.listen({ 
-      port
+    await fastify.listen({
+      port,
     });
 
     fastify.log.info(`Server listening on ${fastify.server.address()}`);
-} catch (err) {
+  } catch (err) {
     fastify.log.error(err);
     process.exit(1);
   }

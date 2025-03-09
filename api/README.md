@@ -9,9 +9,9 @@ This is the backend API for the TrueRank application, built with Fastify and Typ
 
 ## Installation
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 ## Configuration
 
@@ -38,6 +38,7 @@ This uses nodemon to watch for changes and automatically restart the server.
 To run the API in production mode:
 
 1. Build the TypeScript code:
+
    ```bash
    npm run build
    ```
@@ -56,8 +57,9 @@ curl http://localhost:3000/
 ```
 
 You should receive a response:
+
 ```json
-{"status":"ok"}
+{ "status": "ok" }
 ```
 
 ## Available Scripts
