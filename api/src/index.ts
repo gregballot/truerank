@@ -17,7 +17,7 @@ const start = async () => {
       port,
     });
 
-    fastify.log.info(`Server listening on ${fastify.server.address()}`);
+    fastify.log.info(`Server listening on port ${port}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
