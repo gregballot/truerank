@@ -9,15 +9,15 @@ const schema = {
   properties: {
     PORT: {
       type: 'string',
-      default: '3000'
-    }
-  }
+      default: '3000',
+    },
+  },
 };
 
 const options = {
   confKey: 'config',
   schema: schema,
-  dotenv: true
+  dotenv: true,
 };
 
 export async function configureEnv(fastify: FastifyInstance) {
@@ -28,6 +28,6 @@ declare module 'fastify' {
   interface FastifyInstance {
     config: {
       PORT: string;
-    }
+    };
   }
-} 
+}

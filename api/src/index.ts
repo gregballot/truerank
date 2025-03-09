@@ -12,12 +12,12 @@ const start = async () => {
 
     const port = parseInt(fastify.config.PORT);
 
-    await fastify.listen({ 
-      port
+    await fastify.listen({
+      port,
     });
 
     fastify.log.info(`Server listening on ${fastify.server.address()}`);
-} catch (err) {
+  } catch (err) {
     fastify.log.error(err);
     process.exit(1);
   }

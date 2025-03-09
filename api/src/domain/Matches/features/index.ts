@@ -1,5 +1,5 @@
-import { getMatches } from "./getMatches";
+import { getMatches } from './getMatches';
 
 export const Features = {
-    getMatches,
-}
+  getMatches,
+};
