@@ -1,7 +1,7 @@
-import Fastify from "fastify";
-import { routes } from "./routes";
+import Fastify from 'fastify';
+import { routes } from './routes';
 
-import { configureEnv } from "./config/env";
+import { configureEnv } from './config/env';
 
 const fastify = Fastify({ logger: true });
 

@@ -1,5 +1,5 @@
 import { Features } from './features';
 
-export const Matches = {
+export const Summoners = {
   Features,
 };
