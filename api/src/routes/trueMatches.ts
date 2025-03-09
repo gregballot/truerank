@@ -11,7 +11,7 @@ export const TrueMatchesRoute = {
 type TrueMatchesRequest = FastifyRequest<{
   Querystring: {
     summonerName: string;
-    region: string;
+    summonerTag: string;
   };
 }>;
 
@@ -24,18 +24,18 @@ export const trueMatches: FastifyPluginAsync = async (fastify) => {
         throw new Error('RIOT_API_KEY is not set');
       }
 
-      const { summonerName, region } = request.query;
+      const { summonerName, summonerTag } = request.query;
 
-      if (!summonerName || !region) {
+      if (!summonerName || !summonerTag) {
         return reply
           .status(400)
-          .send({ error: 'summonerName and region are required' });
+          .send({ error: 'summonerName and summonerTag are required' });
       }
 
       const matches = await Summoners.Features.getSummonerMatches(
         {
           summonerName,
-          region,
+          summonerTag,
         },
         {
           matchAdapter: new MatchAdapter(riotApiKey),

@@ -4,7 +4,7 @@ import { SummonerMatch } from '../entities/SummonerMatch';
 
 type Params = {
   summonerName: string;
-  region: string;
+  summonerTag: string;
 };
 
 type Dependencies = {
@@ -13,12 +13,12 @@ type Dependencies = {
 };
 
 export const getSummonerMatches = async (
-  { summonerName, region }: Params,
+  { summonerName, summonerTag }: Params,
   { matchAdapter, summonerAdapter }: Dependencies
 ): Promise<object[]> => {
   const summoner = await summonerAdapter.getSummonerByName(
     summonerName,
-    region
+    summonerTag
   );
 
   const matches = await matchAdapter.getMatches(summoner.puuid);
