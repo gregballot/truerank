@@ -1,6 +1,6 @@
-import { HealthCheckRoute } from "./healthcheck"
+import { TrueHealthCheckRoute } from "./trueHealthcheck"
 
 export const Routes = {
-  healthcheck: HealthCheckRoute,
+  trueHealthcheck: TrueHealthCheckRoute,
 }
 

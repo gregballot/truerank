@@ -1,8 +1,6 @@
 import { FastifyPluginAsync } from 'fastify';
-import healthcheck from './healthcheck';
+import { trueHealthcheck} from './trueHealthcheck';
 
-const routes: FastifyPluginAsync = async (fastify) => {
-  await fastify.register(healthcheck, {});
+export const routes: FastifyPluginAsync = async (fastify) => {
+  await fastify.register(trueHealthcheck, {});
 };
-
-export default routes;
