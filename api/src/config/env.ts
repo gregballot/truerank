@@ -1,30 +1,29 @@
-// @ts-ignore
-import fastifyEnv from '@fastify/env';
+import fastifyEnv from "@fastify/env";
 
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance } from "fastify";
 
 const schema = {
-  type: 'object',
-  required: ['PORT'],
+  type: "object",
+  required: ["PORT"],
   properties: {
     PORT: {
-      type: 'string',
-      default: '3000',
+      type: "string",
+      default: "3000",
     },
   },
 };
 
 const options = {
-  confKey: 'config',
+  confKey: "config",
   schema: schema,
   dotenv: true,
 };
 
-export async function configureEnv(fastify: FastifyInstance) {
+export async function configureEnv(fastify: FastifyInstance): Promise<void> {
   await fastify.register(fastifyEnv, options);
 }
 
-declare module 'fastify' {
+declare module "fastify" {
   interface FastifyInstance {
     config: {
       PORT: string;
