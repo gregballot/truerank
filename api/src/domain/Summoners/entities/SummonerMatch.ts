@@ -1,7 +1,7 @@
 import { Match, MatchDetails } from '../../Matches/entities/Match';
 import { Summoner, SummonerDetails } from './Summoner';
 
-type SummonerMatchDetails = {
+export type SummonerMatchDetails = {
   isWinner: boolean;
   match: MatchDetails;
   summoner: SummonerDetails;
