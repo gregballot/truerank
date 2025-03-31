@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "shared"
+    ],
+    "packageManager": "yarn@4.6.0+sha224.acd0786f07ffc6c933940eb65fc1d627131ddf5455bddcc295dc90fd",
+    "scripts": {
+        "api:run": "yarn workspace @truerank/api dev",
+        "webapp:run": "yarn workspace @truerank/web-app dev",
+        "dev": "concurrently -n shared,api,web -c yellow,green,cyan \"yarn shared:build --watch\" \"yarn api:run\" \"yarn webapp:run\"",
+        "shared:build": "yarn workspace @truerank/shared build",
+        "api:build": "yarn workspace @truerank/api build",
+        "webapp:build": "yarn workspace @truerank/web-app build",
+        "build": "concurrently -n shared,api,web -c yellow,green,cyan \"yarn shared:build\" \"yarn api:build\" \"yarn webapp:build\"",
+        "shared:clean": "yarn workspace @truerank/shared clean",
+        "api:clean": "yarn workspace @truerank/api clean",
+        "webapp:clean": "yarn workspace @truerank/web-app clean",
+        "clean": "concurrently -n shared,api,web -c yellow,green,cyan \"yarn shared:clean\" \"yarn api:clean\" \"yarn webapp:clean\""
+    },
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    }
+}
