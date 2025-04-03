@@ -1,16 +1,19 @@
-.footer {
+.footerContainer {
     position: fixed;
     bottom: 0;
     width: 100%;
     height: var(--footer-height);
-    z-index: var(--z-footer);
+    background: silver;
+}
+
+.footer {
+    width: var(--site-width);
+    height: 100%;
+    margin: 0 auto;
 
     display: flex;
     justify-content: center;
     align-items: center;
-
-    margin: auto 0;
-    background: silver;
 }
 
 .footer p{

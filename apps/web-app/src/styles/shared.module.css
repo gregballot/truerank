@@ -1,4 +1,4 @@
 .view {
-    width: var(--view-width);
+    width: var(--site-width);
     margin: 0 auto;
 }
