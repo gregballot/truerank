@@ -10,7 +10,7 @@ const router = createBrowserRouter([
       element: <MainLayout />,
       children: [
         { path: '/', element: <Home /> },
-        { path: '/player/:username', element: <PlayerProfile /> },
+        { path: '/player/:playerName/:playerTag', element: <PlayerProfile /> },
       ]
     }
   ])

@@ -4,7 +4,10 @@ import { FastifyInstance } from 'fastify';
 
 const schema = {
   type: 'object',
-  required: ['PORT'],
+  required: [
+    'PORT',
+    'RIOT_API_KEY',
+  ],
   properties: {
     PORT: {
       type: 'string',
@@ -12,6 +15,7 @@ const schema = {
     },
     RIOT_API_KEY: {
       type: 'string',
+      pattern: '^RGAPI-[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}$',
     },
   },
 };

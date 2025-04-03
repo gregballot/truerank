@@ -1,6 +1,6 @@
 import { MatchAdapter } from '../../Matches/adapters/matchAdapter';
 import { SummonerAdapter } from '../adapters/summonerAdapter';
-import { SummonerMatch } from '../entities/SummonerMatch';
+import { SummonerMatch, SummonerMatchDetails } from '../entities/SummonerMatch';
 
 type Params = {
   summonerName: string;
@@ -15,7 +15,7 @@ type Dependencies = {
 export const getSummonerMatches = async (
   { summonerName, summonerTag }: Params,
   { matchAdapter, summonerAdapter }: Dependencies
-): Promise<object[]> => {
+): Promise<SummonerMatchDetails[]> => {
   const summoner = await summonerAdapter.getSummonerByName(
     summonerName,
     summonerTag
