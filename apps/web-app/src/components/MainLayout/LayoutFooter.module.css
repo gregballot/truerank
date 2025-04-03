@@ -1,0 +1,19 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: var(--footer-height);
+    z-index: var(--z-footer);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto 0;
+    background: silver;
+}
+
+.footer p{
+    font-size: 1.2em;
+    font-weight: bold;
+}

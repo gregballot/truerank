@@ -1,0 +1,17 @@
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: var(--header-height);
+    z-index: var(--z-header);
+
+    display: flex;
+    align-items: center;
+
+    background: silver;
+}
+
+.header h2 {
+    justify-self: start;
+    padding-left: 20px;
+}

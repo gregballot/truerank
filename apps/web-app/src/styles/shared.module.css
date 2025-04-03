@@ -1,0 +1,4 @@
+.view {
+    width: var(--view-width);
+    margin: 0 auto;
+}
