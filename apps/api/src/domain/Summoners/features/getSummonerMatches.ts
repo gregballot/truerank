@@ -1,5 +1,5 @@
-import { MatchAdapter } from '../../Matches/adapters/matchAdapter';
-import { SummonerAdapter } from '../adapters/summonerAdapter';
+import { MatchAdapter } from '../../Matches/matchAdapter';
+import { SummonerAdapter } from '../summonerAdapter';
 import { SummonerMatch, SummonerMatchDetails } from '../entities/SummonerMatch';
 
 type Params = {

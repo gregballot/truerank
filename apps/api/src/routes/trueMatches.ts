@@ -1,7 +1,7 @@
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 import { Summoners } from '../domain/Summoners';
-import { MatchAdapter } from '../domain/Matches/adapters/matchAdapter';
-import { SummonerAdapter } from '../domain/Summoners/adapters/summonerAdapter';
+import { MatchAdapter } from '../domain/Matches/matchAdapter';
+import { SummonerAdapter } from '../domain/Summoners/summonerAdapter';
 
 export const TrueMatchesRoute = {
   path: '/matches',
