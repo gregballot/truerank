@@ -3,19 +3,7 @@ import { Match, MatchParticipant } from './entities/Match';
 import { queueNameMapping } from './helpers/queueNameMapping';
 import { RiotApiDriver } from '../../helpers/riotApiDriver';
 
-type RiotParticipant = {
-  puuid: string;
-  riotIdGameName: string;
-  riotIdTagline: string;
-  championId: number;
-  championName: string;
-  championLevel: number;
-  kills: number;
-  deaths: number;
-  assists: number;
-  totalMinionsKilled: number;
-  win: boolean;
-};
+import { type RiotParticipant } from '../../helpers/riotApiDriver/types';
 
 export class MatchAdapter {
   private riotApi: RiotApiDriver;
@@ -25,7 +13,7 @@ export class MatchAdapter {
   }
 
   async getMatches(puuid: string, params?: { start?: number }): Promise<Match[]> {
-    const matchIds = await this.riotApi.getMatchesByPuuid(puuid, params);
+    const matchIds = await this.riotApi.getMatchIdsByPuuid(puuid, params);
     const matches = await this.riotApi.getMatchesByIds(matchIds);
 
     return matches.map((match) => {

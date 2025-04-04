@@ -1,3 +1,1 @@
-export const shared = {
-    foo: 'bar',
-};
+export * as types from './types';

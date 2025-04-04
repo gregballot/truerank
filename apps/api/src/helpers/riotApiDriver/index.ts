@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { RiotSummonerAccount } from './types';
+import { Region } from '@truerank/shared/types';
 
-const riotBaseUrlMap = {
+import { RiotMatch, RiotSummonerAccount } from './types';
+
+const riotBaseUrlMap: Record<Region, string> = {
     BR: 'https://br.api.riotgames.com/lol',
     EUNE: 'https://eune.api.riotgames.com/lol',
     EUW: 'https://europe.api.riotgames.com/lol',
@@ -27,7 +29,6 @@ const riotBaseUrlMap = {
     VN: 'https://vn.api.riotgames.com/lol',
 } as const;
 
-type Region = keyof typeof riotBaseUrlMap;
 type BaseURL = typeof riotBaseUrlMap[Region]
 
 export class RiotApiDriver {
@@ -38,7 +39,7 @@ export class RiotApiDriver {
         private readonly apiKey: string,
         private readonly region: Region
     ) {
-        this.regionBaseUrl = riotBaseUrlMap[region];
+        this.regionBaseUrl = riotBaseUrlMap[this.region];
     }
 
     private async get<T>(
@@ -75,7 +76,7 @@ export class RiotApiDriver {
         );
     }
 
-    public getMatchesByPuuid(puuid: string, params?: {
+    public getMatchIdsByPuuid(puuid: string, params?: {
         start?: number,
         pageSize?: number
     }): Promise<string[]> {
@@ -89,14 +90,14 @@ export class RiotApiDriver {
           );
     }
 
-    public getMatchById(matchId: string): Promise<any> {
-        return this.get<any>(
+    public getMatchById(matchId: string): Promise<RiotMatch> {
+        return this.get<RiotMatch>(
             this.regionBaseUrl,
             `match/v5/matches/${matchId}`
         );
     }
 
-    public getMatchesByIds(matchIds: string[]): Promise<any[]> {
+    public getMatchesByIds(matchIds: string[]): Promise<RiotMatch[]> {
         return Promise.all(
             matchIds.map((matchId) => this.getMatchById(matchId))
         );
