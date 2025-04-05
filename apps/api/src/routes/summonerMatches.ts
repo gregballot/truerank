@@ -1,24 +1,21 @@
+import { z } from 'zod'; 
+
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
+
+import { Routes } from '@truerank/shared';
+
 import { Summoners } from '../domain/Summoners';
 import { MatchAdapter } from '../domain/Matches/matchAdapter';
 import { SummonerAdapter } from '../domain/Summoners/summonerAdapter';
 
-export const TrueMatchesRoute = {
-  path: '/matches',
-  method: 'GET',
-};
-
-type TrueMatchesRequest = FastifyRequest<{
-  Querystring: {
-    summonerName: string;
-    summonerTag: string;
-  };
+type SummonerMatchesRequest = FastifyRequest<{
+  Querystring: z.infer<NonNullable<typeof Routes.SummonerMatchesRoute.query>>;
 }>;
 
-export const trueMatches: FastifyPluginAsync = async (fastify) => {
+export const summonerMatches: FastifyPluginAsync = async (fastify) => {
   fastify.get(
-    TrueMatchesRoute.path,
-    async (request: TrueMatchesRequest, reply) => {
+    Routes.SummonerMatchesRoute.path,
+    async (request: SummonerMatchesRequest, reply) => {
       const { summonerName, summonerTag } = request.query;
 
       if (!summonerName || !summonerTag) {

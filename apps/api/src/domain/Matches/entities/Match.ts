@@ -1,40 +1,13 @@
-import { SummonerDetails } from '../../Summoners/entities/Summoner';
-
-type MatchMetadata = {
-  gameDuration: number;
-  gameMode: string;
-  queue: string;
-  gameId: string;
-  gameCreation: Date;
-};
-
-export type MatchParticipant = {
-  summoner: SummonerDetails;
-  championId: number;
-  championName: string;
-  championLevel: number;
-  kills: number;
-  deaths: number;
-  assists: number;
-  totalMinionsKilled: number;
-  won: boolean;
-};
-
-export type MatchDetails = {
-  metadata: MatchMetadata;
-  redTeam: MatchParticipant[];
-  blueTeam: MatchParticipant[];
-  winnerSide: 'red' | 'blue';
-};
+import { SharedTypes } from "@truerank/shared";
 
 export class Match {
   constructor(
-    private readonly metadata: MatchMetadata,
-    private readonly redTeam: MatchParticipant[],
-    private readonly blueTeam: MatchParticipant[]
+    private readonly metadata: SharedTypes.MatchMetadata,
+    private readonly redTeam: SharedTypes.MatchParticipant[],
+    private readonly blueTeam: SharedTypes.MatchParticipant[]
   ) {}
 
-  get details(): MatchDetails {
+  get details(): SharedTypes.MatchData  {
     return {
       metadata: this.metadata,
       redTeam: this.redTeam,

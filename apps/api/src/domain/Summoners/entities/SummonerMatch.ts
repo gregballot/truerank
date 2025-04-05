@@ -1,11 +1,7 @@
-import { Match, MatchDetails } from '../../Matches/entities/Match';
-import { Summoner, SummonerDetails } from './Summoner';
+import { Match } from '../../Matches/entities/Match';
+import { Summoner } from './Summoner';
 
-export type SummonerMatchDetails = {
-  isWinner: boolean;
-  match: MatchDetails;
-  summoner: SummonerDetails;
-};
+import { SharedTypes } from '@truerank/shared';
 
 export class SummonerMatch {
   constructor(
@@ -17,7 +13,7 @@ export class SummonerMatch {
     return this.match.isParticipantWinner(this.summoner.puuid);
   }
 
-  get details(): SummonerMatchDetails {
+  get details(): SharedTypes.SummonerMatchData {
     return {
       isWinner: this.isWinner,
       match: this.match.details,

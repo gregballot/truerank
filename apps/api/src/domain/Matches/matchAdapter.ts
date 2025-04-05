@@ -1,4 +1,6 @@
-import { Match, MatchParticipant } from './entities/Match';
+import { SharedTypes } from '@truerank/shared';
+
+import { Match } from './entities/Match';
 
 import { queueNameMapping } from './helpers/queueNameMapping';
 import { RiotApiDriver } from '../../helpers/riotApiDriver';
@@ -20,7 +22,7 @@ export class MatchAdapter {
       const redTeamParticipants = match.info.participants.slice(0, 5);
       const blueTeamParticipants = match.info.participants.slice(5, 10);
 
-      const mapMatchParticipantData = (p: RiotParticipant): MatchParticipant => ({
+      const mapParticipantData = (p: RiotParticipant): SharedTypes.MatchParticipant => ({
         summoner: {
           puuid: p.puuid,
           gameName: p.riotIdGameName,
@@ -46,8 +48,8 @@ export class MatchAdapter {
             match.info.queueId as keyof typeof queueNameMapping
           ],
         },
-        redTeamParticipants.map(mapMatchParticipantData),
-        blueTeamParticipants.map(mapMatchParticipantData)
+        redTeamParticipants.map(mapParticipantData),
+        blueTeamParticipants.map(mapParticipantData)
       );
     });
   }

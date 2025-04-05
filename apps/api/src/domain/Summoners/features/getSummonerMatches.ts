@@ -1,6 +1,8 @@
+import { SharedTypes } from '@truerank/shared';
+
 import { MatchAdapter } from '../../Matches/matchAdapter';
 import { SummonerAdapter } from '../summonerAdapter';
-import { SummonerMatch, SummonerMatchDetails } from '../entities/SummonerMatch';
+import { SummonerMatch } from '../entities/SummonerMatch';
 
 type Params = {
   summonerName: string;
@@ -15,7 +17,7 @@ type Dependencies = {
 export const getSummonerMatches = async (
   { summonerName, summonerTag }: Params,
   { matchAdapter, summonerAdapter }: Dependencies
-): Promise<SummonerMatchDetails[]> => {
+): Promise<SharedTypes.SummonerMatchData[]> => {
   const summoner = await summonerAdapter.getSummonerByName(
     summonerName,
     summonerTag

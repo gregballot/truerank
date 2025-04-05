@@ -1,17 +1,15 @@
-export type SummonerDetails = {
-  puuid: string;
-  gameName: string;
-  tagLine: string;
-};
+import { SharedTypes } from "@truerank/shared";
 
 export class Summoner {
-  constructor(private readonly data: SummonerDetails) {}
+  constructor(
+    private readonly data: SharedTypes.SummonerData
+  ) {}
 
   get puuid(): string {
     return this.data.puuid;
   }
 
-  get details(): SummonerDetails {
+  get details(): SharedTypes.SummonerData {
     return {
       puuid: this.puuid,
       gameName: this.data.gameName,
