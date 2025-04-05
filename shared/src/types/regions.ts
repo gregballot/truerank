@@ -1,0 +1,26 @@
+export const regions = [
+    'BR',
+    'EUNE',
+    'EUW',
+    'HK',
+    'ID',
+    'JP',
+    'KR',
+    'LAN',
+    'LAS',
+    'MO',
+    'MY',
+    'NA',
+    'OCE',
+    'PBE',
+    'PH',
+    'RU',
+    'SEA',
+    'SG',
+    'TH',
+    'TR',
+    'TW',
+    'VN',
+] as const;
+
+export type Region = typeof regions[number];

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Region } from '@truerank/shared/types';
+import { SharedTypes } from '@truerank/shared';
 
 import { RiotMatch, RiotSummonerAccount } from './types';
 
-const riotBaseUrlMap: Record<Region, string> = {
+const riotBaseUrlMap: Record<SharedTypes.Region, string> = {
     BR: 'https://br.api.riotgames.com/lol',
     EUNE: 'https://eune.api.riotgames.com/lol',
     EUW: 'https://europe.api.riotgames.com/lol',
@@ -29,7 +29,7 @@ const riotBaseUrlMap: Record<Region, string> = {
     VN: 'https://vn.api.riotgames.com/lol',
 } as const;
 
-type BaseURL = typeof riotBaseUrlMap[Region]
+type BaseURL = typeof riotBaseUrlMap[SharedTypes.Region]
 
 export class RiotApiDriver {
     private globalBaseUrl = 'https://europe.api.riotgames.com';
@@ -37,7 +37,7 @@ export class RiotApiDriver {
 
     constructor(
         private readonly apiKey: string,
-        private readonly region: Region
+        private readonly region: SharedTypes.Region
     ) {
         this.regionBaseUrl = riotBaseUrlMap[this.region];
     }

@@ -1,1 +1,1 @@
-export * as types from './types';
+export * as SharedTypes from './types';
