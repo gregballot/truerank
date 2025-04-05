@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { SharedTypes } from '@truerank/shared';
+
+import { CacheAdapter } from '../cache/cacheAdapter';
+import { lruCacheAdapterSingleton } from '../cache/lruCacheAdapter';
 
 import { RiotMatch, RiotSummonerAccount } from './types';
 
+const RiotTokenHeaderName = 'X-Riot-Token';
 const riotBaseUrlMap: Record<SharedTypes.Region, string> = {
     BR: 'https://br.api.riotgames.com/lol',
     EUNE: 'https://eune.api.riotgames.com/lol',
@@ -29,17 +31,19 @@ const riotBaseUrlMap: Record<SharedTypes.Region, string> = {
     VN: 'https://vn.api.riotgames.com/lol',
 } as const;
 
-type BaseURL = typeof riotBaseUrlMap[SharedTypes.Region]
+type BaseURL = typeof riotBaseUrlMap[SharedTypes.Region];
 
 export class RiotApiDriver {
     private globalBaseUrl = 'https://europe.api.riotgames.com';
     private regionBaseUrl: BaseURL;
+    private cacheAdapter: CacheAdapter;
 
     constructor(
         private readonly apiKey: string,
-        private readonly region: SharedTypes.Region
+        private readonly region: SharedTypes.Region,
     ) {
         this.regionBaseUrl = riotBaseUrlMap[this.region];
+        this.cacheAdapter = lruCacheAdapterSingleton; // change this to use a different cache
     }
 
     private async get<T>(
@@ -47,26 +51,34 @@ export class RiotApiDriver {
         path: string,
         params?: Record<string, string | number>
     ): Promise<T> {
-        const url = new URL(`${baseUrl}/${path}`);
+        const urlBuilder = new URL(`${baseUrl}/${path}`);
 
         if (params) {
             Object.entries(params).forEach(([key, value]) => {
-                url.searchParams.append(key, String(value));
+                urlBuilder.searchParams.append(key, String(value));
             });
         }
 
-        const res = await fetch(url.toString(), {
+        const url = urlBuilder.toString();
+        const cachedResult = this.cacheAdapter.get<T>(url);
+        if (cachedResult) {
+            return cachedResult;
+        }
+
+        const res = await fetch(url, {
             headers: {
-                'X-Riot-Token': this.apiKey,
+                [RiotTokenHeaderName]: this.apiKey,
             },
         });
 
         if (!res.ok) {
-            const text = await res.text().catch(() => '');
-            throw new Error(`[Riot API] ${res.status} ${res.statusText}: ${text || 'No body'}`);
+            const error = await res.text().catch(() => '');
+            throw new Error(`[Riot API] ${res.status} ${res.statusText}: ${error || 'No body'}`);
         }
 
-        return res.json() as Promise<T>;
+        const data = await res.json();
+        this.cacheAdapter.set(url, data);
+        return data;
     };
 
     public getSummonerByName(name: string, tag: string): Promise<RiotSummonerAccount> {

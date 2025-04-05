@@ -12,7 +12,8 @@
   "dependencies": {
     "@fastify/env": "^5.0.2",
     "@truerank/shared": "workspace:*",
-    "fastify": "^5.2.1"
+    "fastify": "^5.2.1",
+    "lru-cache": "^11.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.13.10",

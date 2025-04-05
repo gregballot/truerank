@@ -945,6 +945,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^10.1.1"
     fastify: "npm:^5.2.1"
+    lru-cache: "npm:^11.1.0"
     nodemon: "npm:^3.1.9"
     prettier: "npm:^3.5.3"
     rimraf: "npm:^6.0.1"
@@ -2905,7 +2906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^11.0.0":
+"lru-cache@npm:^11.0.0, lru-cache@npm:^11.1.0":
   version: 11.1.0
   resolution: "lru-cache@npm:11.1.0"
   checksum: 10c0/85c312f7113f65fae6a62de7985348649937eb34fb3d212811acbf6704dc322a421788aca253b62838f1f07049a84cc513d88f494e373d3756514ad263670a64

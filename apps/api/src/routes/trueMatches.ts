@@ -19,11 +19,6 @@ export const trueMatches: FastifyPluginAsync = async (fastify) => {
   fastify.get(
     TrueMatchesRoute.path,
     async (request: TrueMatchesRequest, reply) => {
-      const riotApiKey = fastify.config.RIOT_API_KEY;
-      if (!riotApiKey) {
-        throw new Error('RIOT_API_KEY is not set');
-      }
-
       const { summonerName, summonerTag } = request.query;
 
       if (!summonerName || !summonerTag) {
@@ -32,6 +27,7 @@ export const trueMatches: FastifyPluginAsync = async (fastify) => {
           .send({ error: 'summonerName and summonerTag are required' });
       }
 
+      const riotApiKey = fastify.config.RIOT_API_KEY;
       const matches = await Summoners.Features.getSummonerMatches(
         {
           summonerName,
