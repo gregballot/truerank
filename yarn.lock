@@ -959,6 +959,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@truerank/shared@workspace:shared"
   dependencies:
+    "@typescript-eslint/eslint-plugin": "npm:^7.3.1"
+    "@typescript-eslint/parser": "npm:^7.3.1"
+    eslint: "npm:^8.57.0"
+    eslint-config-prettier: "npm:^10.1.1"
     rimraf: "npm:^6.0.1"
     typescript: "npm:^5.8.2"
     zod: "npm:^3.24.2"

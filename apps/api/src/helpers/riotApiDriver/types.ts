@@ -26,5 +26,5 @@ export type RiotMatch = {
     gameCreation: number;
     queueId: number;
     participants: RiotParticipant[];
-  }
+  };
 };
