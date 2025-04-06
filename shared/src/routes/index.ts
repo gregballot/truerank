@@ -1,1 +1,1 @@
-export * from './summoner';
+export { SummonerMatchesRoute } from './summoner.js';

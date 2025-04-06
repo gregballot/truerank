@@ -1,2 +1,2 @@
-export * from './regions';
-export * from './domain';
+export * from './regions.js';
+export * from './domain.js';
