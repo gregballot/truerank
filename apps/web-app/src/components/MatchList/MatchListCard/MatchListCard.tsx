@@ -4,6 +4,8 @@ import { MatchListCardMetadata } from "./MatchListCardMetadata";
 import { MatchListCardPlayerRecap } from "./MatchListCardPlayerRecap";
 import { MatchListCardTeamOverview } from "./MatchListCardTeamOverview";
 
+import styles from "./styles/MatchListCard.module.css";
+
 type Props = {
   summonerMatch: SharedTypes.SummonerMatchData;
 };
@@ -20,7 +22,7 @@ export function MatchListCard({ summonerMatch }: Props) {
   }
 
   return (
-    <div>
+    <div className={styles.matchListCard}>
       <MatchListCardMetadata
         metadata={metadata}
         isWinner={isWinner} />
@@ -29,7 +31,9 @@ export function MatchListCard({ summonerMatch }: Props) {
         player={summonerMatchData}
         gameDuration={metadata.gameDuration} />
 
-      <MatchListCardTeamOverview redTeam={redTeam} blueTeam={blueTeam} />
+      <MatchListCardTeamOverview
+        redTeam={redTeam}
+        blueTeam={blueTeam} />
     </div>
   );
 }

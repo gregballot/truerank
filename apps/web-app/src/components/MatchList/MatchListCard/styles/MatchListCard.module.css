@@ -1,0 +1,9 @@
+.matchListCard {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 120px 1fr 280px;
+  gap: 20px;
+  align-items: center;
+  border: solid 1px black;
+  padding: 0 10px;
+}

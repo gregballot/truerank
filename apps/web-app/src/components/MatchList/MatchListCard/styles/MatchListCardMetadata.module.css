@@ -1,0 +1,27 @@
+.matchListCardMetadata {
+}
+
+.queueName {
+  
+}
+
+.gameDate {
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.separator {
+  width: 50%;
+  border-bottom: solid grey 1px;
+  margin: 5px 0;
+}
+
+.gameDuration {
+  font-size: 0.9em;
+}
+
+.gameResult {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.2em;
+}

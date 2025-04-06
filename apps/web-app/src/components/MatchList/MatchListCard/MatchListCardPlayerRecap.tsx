@@ -1,5 +1,7 @@
 import { SharedTypes } from "@truerank/shared";
 
+import styles from "./styles/MatchListCardPlayerRecap.module.css";
+
 type Props = {
   player: SharedTypes.MatchParticipant;
   gameDuration: number;
@@ -10,42 +12,45 @@ export function MatchListCardPlayerRecap({
   gameDuration
 }: Props) {
   const kda = (player.kills + player.assists) / player.deaths;
-  const csPerMinute = player.totalMinionsKilled / gameDuration;
+  const csPerMinute = player.totalMinionsKilled / (gameDuration / 60);
 
   return (
-    <div>
-      <div>
-        <div>
+    <div className={styles.matchListCardPlayerRecap}>
+      <div className={styles.playerSection}>
+        <div className={styles.championAvatar}>
           { player.championName }
-          { player.championLevel }
+          <div className={styles.championLevel}>
+            { player.championLevel ?? 18 }
+          </div>
         </div>
-        <div>
+        <div className={styles.gameStats}>
           <div>
             <p>{ player.kills } / { player.deaths } / { player.assists }</p>
-            <p>{ kda.toFixed(2) } KDA</p>
+            <p>{ player.deaths > 0 ? kda.toFixed(2) : "Perfect" } KDA</p>
           </div>
           <div>
             <p>{ player.totalMinionsKilled }</p>
-            <p>{ csPerMinute } cs/min</p>
+            <p>{ csPerMinute.toFixed(1) } cs/min</p>
           </div>
         </div>
 
-        <div>
-          <div>Item1</div>
-          <div>Item2</div>
-          <div>Item3</div>
-          <div>Item4</div>
-          <div>Item5</div>
-          <div>Item6</div>
-          <div>Item7</div>
+        <div className={styles.playerItems}>
+          <div className={styles.playerItem}/>
+          <div className={styles.playerItem}/>
+          <div className={styles.playerItem}/>
+          <div className={styles.playerItem}/>
+          <div className={styles.playerItem}/>
+          <div className={styles.playerItem}/>
+          <div className={styles.playerItem}/>
         </div>
       </div>
 
       { /* Tags section */ }
-      <div>
-        <div>Tag</div>
-        <div>Tag</div>
-        <div>Tag</div>
+      <div className={styles.gameTags}>
+        <div className={styles.gameTag}>Team diff</div>
+        <div className={styles.gameTag}>AFK bot</div>
+        <div className={styles.gameTag}>Not winnable</div>
+        <div className={styles.gameTag}>Talon E out the window</div>
       </div>
     </div>
   );

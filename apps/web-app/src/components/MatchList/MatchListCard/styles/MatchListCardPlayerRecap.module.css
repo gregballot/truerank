@@ -1,0 +1,63 @@
+.matchListCardPlayerRecap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.playerSection {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.championAvatar {
+  position: relative;
+  color: white;
+  background: grey;
+  height: 70px;
+  width: 70px;
+  text-align: center;
+}
+
+.championLevel {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+
+  border-radius: 50%;
+  background: brown;
+  width: 20px;
+  height: 20px;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.gameStats {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
+
+.playerItems {
+  justify-self: flex-end;
+  display: grid;
+  grid-template: 30px 30px / 30px 30px 30px 30px;
+}
+
+.playerItem {
+  box-sizing: border-box;
+  background: grey;
+  border: solid 1px silver;
+}
+
+.gameTags {
+  display: flex;
+  gap: 20px;
+}
+
+.gameTag {
+  background: silver;
+  padding: 2px 5px;
+}

@@ -1,0 +1,7 @@
+.matchListCardTeam {
+  list-style: none;
+}
+
+.matchListCardTeam li {
+  font-size: 0.8em;
+}
