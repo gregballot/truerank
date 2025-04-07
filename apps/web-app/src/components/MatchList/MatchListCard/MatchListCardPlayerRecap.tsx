@@ -56,7 +56,7 @@ export function MatchListCardPlayerRecap({
                 <div
                   key={index}
                   className={styles.playerItem}
-                  title={itemData?.name}
+                  title={`${itemData?.name}: ${itemData?.plaintext}`}
                   style={
                     itemId > 0 ? {
                       backgroundImage: `url("${getItemIcon(itemId)}")`,
