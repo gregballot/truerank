@@ -2,10 +2,10 @@ import { SharedTypes } from '@truerank/shared';
 
 import { Match } from './entities/Match';
 
-import { queueNameMapping } from './helpers/queueNameMapping';
 import { RiotApiDriver } from '../../helpers/riotApiDriver';
 
 import { type RiotParticipant } from '../../helpers/riotApiDriver/types';
+import { queueNameMapping, roleMapping } from '../../helpers/riotApiDriver/mappedTypes';
 
 export class MatchAdapter {
   private riotApi: RiotApiDriver;
@@ -29,11 +29,12 @@ export class MatchAdapter {
           tagLine: p.riotIdTagline,
         },
 
-        won: p.win,
+        role: roleMapping[p.teamPosition],
         championId: p.championId,
         championName: p.championName,
         championLevel: p.champLevel,
 
+        won: p.win,
         kills: p.kills,
         deaths: p.deaths,
         assists: p.assists,
@@ -56,7 +57,7 @@ export class MatchAdapter {
           gameMode: match.info.gameMode,
           gameDuration: match.info.gameDuration,
           gameCreation: new Date(match.info.gameCreation),
-          queue: queueNameMapping[
+          queueName: queueNameMapping[
             match.info.queueId as keyof typeof queueNameMapping
           ],
         },

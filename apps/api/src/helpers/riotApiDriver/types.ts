@@ -1,3 +1,5 @@
+import { RiotRole } from "./mappedTypes";
+
 export type RiotSummonerAccount = {
   puuid: string;
   gameName: string;
@@ -9,12 +11,12 @@ export type RiotParticipant = {
   riotIdGameName: string;
   riotIdTagline: string;
 
-  win: boolean;
-  role: string;
+  teamPosition: RiotRole;
   championId: number;
   championName: string;
   champLevel: number;
 
+  win: boolean;
   kills: number;
   deaths: number;
   assists: number;
