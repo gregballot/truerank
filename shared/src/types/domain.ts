@@ -16,14 +16,19 @@ export type MatchMetadata = {
   
 export type MatchParticipant = {
     summoner: SummonerData;
+
+    won: boolean;
     championId: number;
     championName: string;
     championLevel: number;
+
     kills: number;
     deaths: number;
     assists: number;
     totalMinionsKilled: number;
-    won: boolean;
+
+    items: number[];
+    trinket: number;
 };
   
 export type MatchData = {

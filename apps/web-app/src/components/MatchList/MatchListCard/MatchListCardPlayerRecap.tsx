@@ -1,5 +1,8 @@
 import { SharedTypes } from "@truerank/shared";
 
+import { getChampionIcon, getItemData, getItemIcon } from "../../../helpers/datadragon";
+import { formatItemsForDisplay } from "../../../helpers/utils";
+
 import styles from "./styles/MatchListCardPlayerRecap.module.css";
 
 type Props = {
@@ -13,16 +16,21 @@ export function MatchListCardPlayerRecap({
 }: Props) {
   const kda = (player.kills + player.assists) / player.deaths;
   const csPerMinute = player.totalMinionsKilled / (gameDuration / 60);
+  const items = formatItemsForDisplay(player.items, player.trinket);
 
   return (
     <div className={styles.matchListCardPlayerRecap}>
       <div className={styles.playerSection}>
         <div className={styles.championAvatar}>
-          { player.championName }
+          <img
+            src={ getChampionIcon(player.championName) }
+            title={ player.championName }
+          />
           <div className={styles.championLevel}>
-            { player.championLevel ?? 18 }
+            { player.championLevel }
           </div>
         </div>
+
         <div className={styles.gameStats}>
           <div>
             <p>{ player.kills } / { player.deaths } / { player.assists }</p>
@@ -35,17 +43,27 @@ export function MatchListCardPlayerRecap({
         </div>
 
         <div className={styles.playerItems}>
-          <div className={styles.playerItem}/>
-          <div className={styles.playerItem}/>
-          <div className={styles.playerItem}/>
-          <div className={styles.playerItem}/>
-          <div className={styles.playerItem}/>
-          <div className={styles.playerItem}/>
-          <div className={styles.playerItem}/>
+          {
+            items.map((itemId, index) => {
+              const itemData = getItemData(itemId);
+              return (
+                <div
+                  key={index}
+                  className={styles.playerItem}
+                  title={itemData?.name}
+                  style={
+                    itemId > 0 ? {
+                      backgroundImage: `url("${getItemIcon(itemId)}")`,
+                      backgroundSize: "cover"
+                    } : undefined
+                  }
+                />
+              )
+            })
+          }
         </div>
       </div>
 
-      { /* Tags section */ }
       <div className={styles.gameTags}>
         <div className={styles.gameTag}>Team diff</div>
         <div className={styles.gameTag}>AFK bot</div>

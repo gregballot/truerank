@@ -8,14 +8,25 @@ export type RiotParticipant = {
   puuid: string;
   riotIdGameName: string;
   riotIdTagline: string;
+
+  win: boolean;
+  role: string;
   championId: number;
   championName: string;
-  championLevel: number;
+  champLevel: number;
+
   kills: number;
   deaths: number;
   assists: number;
   totalMinionsKilled: number;
-  win: boolean;
+
+  item0: number;
+  item1: number;
+  item2: number;
+  item3: number;
+  item4: number;
+  item5: number;
+  item6: number;
 };
 
 export type RiotMatch = {

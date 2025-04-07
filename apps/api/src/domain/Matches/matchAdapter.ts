@@ -28,14 +28,26 @@ export class MatchAdapter {
           gameName: p.riotIdGameName,
           tagLine: p.riotIdTagline,
         },
+
+        won: p.win,
         championId: p.championId,
         championName: p.championName,
-        championLevel: p.championLevel,
+        championLevel: p.champLevel,
+
         kills: p.kills,
         deaths: p.deaths,
         assists: p.assists,
         totalMinionsKilled: p.totalMinionsKilled,
-        won: p.win,
+
+        items: [
+          p.item0,
+          p.item1,
+          p.item2,
+          p.item3,
+          p.item4,
+          p.item5,
+        ],
+        trinket: p.item6,
       });
 
       return new Match(
