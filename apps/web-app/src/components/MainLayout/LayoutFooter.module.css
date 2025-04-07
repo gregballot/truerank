@@ -1,0 +1,22 @@
+.footerContainer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: var(--footer-height);
+    background: silver;
+}
+
+.footer {
+    width: var(--site-width);
+    height: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer p{
+    font-size: 1.2em;
+    font-weight: bold;
+}

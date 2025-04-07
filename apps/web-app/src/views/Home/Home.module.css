@@ -1,0 +1,13 @@
+.home {
+    text-align: center;
+}
+
+.home h1 {
+    font-size: 3em;
+    font-weight: bold;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+.home form button {
+    margin-left: 10px;
+}

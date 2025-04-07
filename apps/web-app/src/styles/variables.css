@@ -1,0 +1,13 @@
+:root {
+    /* Fonts */
+    --font-main: 'League Spartan', 'Roboto', sans-serif;
+
+    /* Header and Footer */
+    --header-height: 80px;
+    --footer-height: 50px;
+    --z-header: 100;
+    --z-footer: 100;
+
+    /* Layout */
+    --site-width: 80%;
+}

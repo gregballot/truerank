@@ -1,0 +1,48 @@
+{
+  "name": "@truerank/shared",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./types": {
+      "import": "./dist/types/index.js",
+      "require": "./dist/types/index.js"
+    },
+    "./routes": {
+      "import": "./dist/routes/index.js",
+      "require": "./dist/routes/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "routes": [
+        "dist/routes/index.d.ts"
+      ],
+      "types": [
+        "dist/types/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "zod": "^3.24.2"
+  }
+}

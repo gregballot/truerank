@@ -1,0 +1,31 @@
+{
+  "name": "@truerank/api",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc",
+    "serve": "node dist/index.js",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@fastify/env": "^5.0.2",
+    "@truerank/shared": "workspace:*",
+    "fastify": "^5.2.1",
+    "lru-cache": "^11.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^10.1.1",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
