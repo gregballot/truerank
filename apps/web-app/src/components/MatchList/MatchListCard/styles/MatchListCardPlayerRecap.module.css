@@ -40,27 +40,57 @@
 }
 
 .gameStats {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+  width: 160px;
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  column-gap: 10px;
   align-items: center;
+}
+
+.kdaDetailed {
+  grid-column: 1;
+  grid-row: 1;
+  font-weight: bold;
+}
+
+.kdaCalculated {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.farmingCs {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.9em;
+}
+
+.farmingCs .csCount {
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+.farmingCsMin {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 0.9em;
 }
 
 .playerItems {
   justify-self: flex-end;
   display: grid;
   grid-template: 30px 30px / 30px 30px 30px 30px;
+  gap: 2px;
 }
 
 .playerItem {
-  box-sizing: border-box;
-  background: #eee;
-  border: solid 1px silver;
+  background: #ccc;
 }
 
 .gameTags {
   display: flex;
-  gap: 20px;
+  gap: 10px;
 }
 
 .gameTag {

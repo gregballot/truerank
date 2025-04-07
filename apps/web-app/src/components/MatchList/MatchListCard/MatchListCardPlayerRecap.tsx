@@ -32,14 +32,20 @@ export function MatchListCardPlayerRecap({
         </div>
 
         <div className={styles.gameStats}>
-          <div>
-            <p>{ player.kills } / { player.deaths } / { player.assists }</p>
-            <p>{ player.deaths > 0 ? kda.toFixed(2) : "Perfect" } KDA</p>
-          </div>
-          <div>
-            <p>{ player.totalMinionsKilled }</p>
-            <p>{ csPerMinute.toFixed(1) } cs/min</p>
-          </div>
+          <p className={styles.kdaDetailed}>
+            { player.kills } / { player.deaths } / { player.assists }
+          </p>
+          <p className={styles.kdaCalculated}>
+            { player.deaths > 0 ? kda.toFixed(2) : "Perfect" } KDA
+          </p>
+          <p className={styles.farmingCs}>
+            <span className={styles.csCount}>{ player.totalMinionsKilled }</span>
+            {' '} CS
+          </p>
+          <p className={styles.farmingCsMin}>
+            { csPerMinute.toFixed(1) }
+            {' '} cs/min
+          </p>
         </div>
 
         <div className={styles.playerItems}>

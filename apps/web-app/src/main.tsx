@@ -11,7 +11,7 @@ import {
 
 const queryClient = new QueryClient();
 
-async function bootstrap() {
+async function start() {
   await preloadLatestDDragonVersion();
   await preloadItemData();
 
@@ -27,4 +27,4 @@ async function bootstrap() {
   );
 }
 
-bootstrap();
+start();

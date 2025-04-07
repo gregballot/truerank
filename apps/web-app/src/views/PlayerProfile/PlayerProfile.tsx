@@ -13,11 +13,12 @@ import { MatchList } from '../../components/MatchList/MatchList';
 export function PlayerProfile() {
   const { playerName, playerTag } = useParams<{ playerName: string, playerTag: string }>();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['matches', playerName, playerTag],
     queryFn: () => fetchMatches(playerName!, playerTag!),
     enabled: !!playerName && !!playerTag,
     staleTime: 1000 * 60 * 5,
+    retry: false,
   });
 
   return (
@@ -27,6 +28,15 @@ export function PlayerProfile() {
       </p>
 
       <h1>{playerName}#{playerTag}'s true profile</h1>
+
+      <button
+        onClick={() => refetch()}
+        style={{
+          width: 80,
+          marginBottom: 10
+        }} >
+        Refresh
+      </button>
 
       {isLoading && <p>Loading...</p>}
 

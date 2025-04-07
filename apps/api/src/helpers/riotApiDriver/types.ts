@@ -19,6 +19,7 @@ export type RiotParticipant = {
   deaths: number;
   assists: number;
   totalMinionsKilled: number;
+  neutralMinionsKilled: number;
 
   item0: number;
   item1: number;

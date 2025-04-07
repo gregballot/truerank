@@ -37,7 +37,7 @@ export class MatchAdapter {
         kills: p.kills,
         deaths: p.deaths,
         assists: p.assists,
-        totalMinionsKilled: p.totalMinionsKilled,
+        totalMinionsKilled: p.totalMinionsKilled + p.neutralMinionsKilled,
 
         items: [
           p.item0,
