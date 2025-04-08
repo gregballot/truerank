@@ -18,7 +18,7 @@ export function MatchListCardTeam({
         team.map(({ summoner, championName}, index) => {
           const summonerName = summoner.gameName;
           const summonerTag = summoner.tagLine;
-          const playerLink = `/player/${summonerName}/${summonerTag}`;
+          const playerLink = `/summoners/${summonerName}/${summonerTag}`;
 
           return (
             <li key={index}>
