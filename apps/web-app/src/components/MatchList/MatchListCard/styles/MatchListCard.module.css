@@ -1,7 +1,7 @@
 .matchListCard {
   width: 100%;
   display: grid;
-  grid-template-columns: 120px 1fr 280px;
+  grid-template-columns: 120px 1fr 250px;
   gap: 20px;
   align-items: center;
   padding: 0 10px;
