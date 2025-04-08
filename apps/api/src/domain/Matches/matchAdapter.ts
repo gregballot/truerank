@@ -34,6 +34,12 @@ export class MatchAdapter {
         championName: p.championName,
         championLevel: p.champLevel,
 
+        summonerSpells: [
+          p.summoner1Id,
+          p.summoner2Id,
+        ],
+        runeStyles: p.perks.styles.map(perk => perk.style),
+
         won: p.win,
         kills: p.kills,
         deaths: p.deaths,

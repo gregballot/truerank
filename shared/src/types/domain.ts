@@ -53,6 +53,9 @@ export type MatchParticipant = {
     championName: string;
     championLevel: number;
 
+    summonerSpells: number[];
+    runeStyles: number[];
+
     won: boolean;
     kills: number;
     deaths: number;

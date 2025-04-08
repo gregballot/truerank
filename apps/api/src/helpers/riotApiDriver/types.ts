@@ -7,15 +7,30 @@ export type RiotSummonerAccount = {
 };
 
 export type RiotParticipant = {
+  // player info
   puuid: string;
   riotIdGameName: string;
   riotIdTagline: string;
 
+  // role and champion
   teamPosition: RiotRole;
   championId: number;
   championName: string;
   champLevel: number;
 
+  // summoner spells and runes
+  summoner1Id: number;
+  summoner2Id: number;
+  perks: {
+    styles: {
+      style: number;
+      selections: {
+        perk: number;
+      }[];
+    }[];
+  };
+
+  // result and stats
   win: boolean;
   kills: number;
   deaths: number;
@@ -23,6 +38,7 @@ export type RiotParticipant = {
   totalMinionsKilled: number;
   neutralMinionsKilled: number;
 
+  // items
   item0: number;
   item1: number;
   item2: number;

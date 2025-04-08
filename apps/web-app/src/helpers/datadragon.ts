@@ -10,8 +10,8 @@ export const DDRAGON_BASE_URL = "https://ddragon.leagueoflegends.com";
 
 let cachedVersion: string | null = null;
 let cachedItemData: Record<string, ItemData> | null = null;
-let cachedSummonerSpells: Record<string, SummonerSpellData> | null = null;
-let cachedRuneData: RuneStyle[] | null = null;
+let cachedSummonerSpells: Record<number, SummonerSpellData> | null = null;
+let cachedRuneData: Record<number, RuneStyle> | null = null;
 let cachedChampionData: Record<string, ChampionData> | null = null;
 
 /* Riot data preloading */
@@ -58,8 +58,13 @@ export async function preloadSummonerSpellData() {
     throw new Error("Failed to fetch summoner spell data");
   }
 
-  const json = await response.json();
-  cachedSummonerSpells = json.data;
+  const { data } = await response.json();
+
+  cachedSummonerSpells = {};
+  for (const name in data) {
+    const spellData = data[name];
+    cachedSummonerSpells[spellData.key] = spellData;
+  }
 }
 
 export async function preloadRuneData() {
@@ -73,7 +78,11 @@ export async function preloadRuneData() {
   }
 
   const json = await response.json();
-  cachedRuneData = json;
+  
+  cachedRuneData = {};
+  for (const runeStyle of json) {
+    cachedRuneData[runeStyle.id] = runeStyle;
+  }
 }
 
 export async function preloadItemData() {
@@ -96,11 +105,21 @@ export function getItemData(itemId: number): ItemData | undefined {
 }
 
 export const getSummonerSpellData = (spellId: number): SummonerSpellData | undefined => {
-  return cachedSummonerSpells?.[spellId.toString()];
+  return cachedSummonerSpells?.[spellId];
 }
 
-export const getRuneStyleData = (runeIndex: number): RuneStyle | undefined => {
-  return cachedRuneData?.[runeIndex];
+export const getSummonerSpellIcon = (imagePath: string): string => {
+  const version = cachedVersion ?? DEFAULT_DDRAGON_VERSION;
+
+  return `${DDRAGON_BASE_URL}/cdn/${version}/img/spell/${imagePath}`;
+}
+
+export const getRuneStyleData = (runeId: number): RuneStyle | undefined => {
+  return cachedRuneData?.[runeId];
+}
+
+export const getRuneStyleIcon = (runeStyleIcon: string): string | undefined => {
+  return `${DDRAGON_BASE_URL}/cdn/img/${runeStyleIcon}`;
 }
 
 export const getChampionIcon = (championName: string) => {

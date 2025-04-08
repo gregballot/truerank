@@ -39,6 +39,36 @@
   text-align: center;
 }
 
+.playerLoadout {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.loadoutImage {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+
+.summonerSpells {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.runes {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.runes img {
+  margin: 4px;
+  width: 18px;
+  height: 18px;
+}
+
 .gameStats {
   width: 160px;
   display: grid;

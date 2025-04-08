@@ -1,7 +1,15 @@
 import { SharedTypes } from "@truerank/shared";
 
-import { getChampionIcon, getItemData, getItemIcon } from "../../../helpers/datadragon";
 import { formatItemsForDisplay } from "../../../helpers/utils";
+import {
+  getChampionIcon,
+  getSummonerSpellData,
+  getSummonerSpellIcon,
+  getRuneStyleData,
+  getRuneStyleIcon,
+  getItemData,
+  getItemIcon,
+} from "../../../helpers/datadragon";
 
 import styles from "./styles/MatchListCardPlayerRecap.module.css";
 
@@ -28,6 +36,50 @@ export function MatchListCardPlayerRecap({
           />
           <div className={styles.championLevel}>
             { player.championLevel }
+          </div>
+        </div>
+
+        <div className={styles.playerLoadout}>
+          <div className={styles.summonerSpells}>
+            {
+              player.summonerSpells.map(spellId => {
+                const spellData = getSummonerSpellData(spellId);
+
+                if (!spellData) {
+                  return <div>PH</div>
+                }
+
+                return (
+                  <img
+                    src={getSummonerSpellIcon(spellData.image.full)}
+                    alt={spellData.name}
+                    title={spellData.name}
+                    className={styles.loadoutImage}
+                  />
+                )
+              })
+            }
+          </div>
+          <div className={styles.runes}>
+            {
+              player.runeStyles.map(runeId => {
+                const runeStyleData = getRuneStyleData(runeId);
+
+                if (!runeStyleData) {
+                  return <div>PH</div>
+                }
+
+                return (
+                  <div className={styles.loadoutImage}>
+                    <img
+                      src={getRuneStyleIcon(runeStyleData.icon)}
+                      alt={runeStyleData.name}
+                      title={runeStyleData.name}
+                    />
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
 
