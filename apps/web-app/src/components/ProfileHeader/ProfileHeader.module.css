@@ -1,0 +1,6 @@
+.profileHeader {
+  width: var(--site-width);
+  margin: auto;
+
+  padding: 15px;
+}

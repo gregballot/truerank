@@ -1,0 +1,38 @@
+.summonerProfile {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  grid-template-areas:
+    "header   header"
+    "sidebar  matches";
+  gap: 10px;
+
+  @media (max-width: 1350px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "matches";
+  }
+}
+
+.profileHeaderWrap,
+.profileMatchesWrap,
+.profileSidebarWrap {
+  background-color: #f5f5f5;
+}
+
+.profileHeaderWrap {
+  grid-area: header;
+
+  /* CSS Hack to make the header full viewport width */
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.profileSidebarWrap {
+  grid-area: sidebar;
+}
+
+.profileMatchesWrap {
+  grid-area: matches;
+}

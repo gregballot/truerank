@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Home } from './views/Home/Home';
-import { PlayerProfile } from './views/PlayerProfile/PlayerProfile';
+import { SummonerProfile } from './views/SummonerProfile/SummonerProfile';
 
 import { MainLayout } from './components/MainLayout/MainLayout';
 
@@ -10,7 +10,7 @@ const router = createBrowserRouter([
       element: <MainLayout />,
       children: [
         { path: '/', element: <Home /> },
-        { path: '/summoners/:playerName/:playerTag', element: <PlayerProfile /> },
+        { path: '/summoners/:playerName/:playerTag', element: <SummonerProfile /> },
       ]
     }
   ])
