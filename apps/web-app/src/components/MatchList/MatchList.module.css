@@ -1,5 +1,5 @@
 .matchList {
-  min-width: 1000px;
+  min-width: 950px;
   display: flex;
   flex-direction: column;
   gap: 10px;

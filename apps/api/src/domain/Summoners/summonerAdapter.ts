@@ -10,7 +10,24 @@ export class SummonerAdapter {
 
   async getSummonerByName(name: string, tag: string): Promise<Summoner> {
     const account = await this.riotApi.getSummonerByName(name, tag);
+    const profile = await this.riotApi.getSummonerProfile(account.puuid);
 
-    return new Summoner(account);
+    return new Summoner({
+      puuid: account.puuid,
+      gameName: account.gameName,
+      tagLine: account.tagLine,
+      icon: profile.profileIconId,
+      level: profile.summonerLevel,
+    });
+  }
+
+  async getLightSummonerByName(name: string, tag: string): Promise<Summoner> {
+    const account = await this.riotApi.getSummonerByName(name, tag);
+
+    return new Summoner({
+      puuid: account.puuid,
+      gameName: account.gameName,
+      tagLine: account.tagLine,
+    });
   }
 }

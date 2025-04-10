@@ -3,13 +3,13 @@ import { SharedTypes } from '@truerank/shared';
 import { CacheAdapter } from '../cache/cacheAdapter';
 import { lruCacheAdapterSingleton } from '../cache/lruCacheAdapter';
 
-import { RiotMatch, RiotSummonerAccount } from './types';
+import { RiotMatch, RiotSummonerAccount, RiotSummonerProfile } from './types';
 
 const RiotTokenHeaderName = 'X-Riot-Token';
-const riotBaseUrlMap: Record<SharedTypes.Region, string> = {
+const riotRegionBaseUrlMap: Record<SharedTypes.Region, string> = {
   BR: 'https://br.api.riotgames.com/lol',
   EUNE: 'https://eune.api.riotgames.com/lol',
-  EUW: 'https://europe.api.riotgames.com/lol',
+  EUW: 'https://euw1.api.riotgames.com/lol',
   HK: 'https://hk.api.riotgames.com/lol',
   ID: 'https://id.api.riotgames.com/lol',
   JP: 'https://jp.api.riotgames.com/lol',
@@ -31,18 +31,45 @@ const riotBaseUrlMap: Record<SharedTypes.Region, string> = {
   VN: 'https://vn.api.riotgames.com/lol',
 } as const;
 
-type BaseURL = (typeof riotBaseUrlMap)[SharedTypes.Region];
+const riotGlobalBaseUrlMap: Record<SharedTypes.Region, string> = {
+  BR: 'https://americas.api.riotgames.com',
+  EUNE: 'https://europe.api.riotgames.com',
+  EUW: 'https://europe.api.riotgames.com',
+  HK: 'https://asia.api.riotgames.com',
+  ID: 'https://asia.api.riotgames.com',
+  JP: 'https://asia.api.riotgames.com',
+  KR: 'https://asia.api.riotgames.com',
+  LAN: 'https://americas.api.riotgames.com',
+  LAS: 'https://americas.api.riotgames.com',
+  MO: 'https://asia.api.riotgames.com',
+  MY: 'https://asia.api.riotgames.com',
+  NA: 'https://americas.api.riotgames.com',
+  OCE: 'https://sea.api.riotgames.com', // alternate SEA region
+  PBE: 'https://americas.api.riotgames.com', // usually same as NA
+  PH: 'https://asia.api.riotgames.com',
+  RU: 'https://europe.api.riotgames.com',
+  SEA: 'https://sea.api.riotgames.com',
+  SG: 'https://asia.api.riotgames.com',
+  TH: 'https://asia.api.riotgames.com',
+  TR: 'https://europe.api.riotgames.com',
+  TW: 'https://asia.api.riotgames.com',
+  VN: 'https://asia.api.riotgames.com',
+} as const;
+
+type RegionBaseURL = (typeof riotRegionBaseUrlMap)[SharedTypes.Region];
+type GlobalBaseURL = (typeof riotGlobalBaseUrlMap)[SharedTypes.Region];
 
 export class RiotApiDriver {
-  private globalBaseUrl = 'https://europe.api.riotgames.com';
-  private regionBaseUrl: BaseURL;
+  private globalBaseUrl: GlobalBaseURL;
+  private regionBaseUrl: RegionBaseURL;
   private cacheAdapter: CacheAdapter;
 
   constructor(
     private readonly apiKey: string,
     private readonly region: SharedTypes.Region
   ) {
-    this.regionBaseUrl = riotBaseUrlMap[this.region];
+    this.globalBaseUrl = riotGlobalBaseUrlMap[this.region]
+    this.regionBaseUrl = riotRegionBaseUrlMap[this.region];
     this.cacheAdapter = lruCacheAdapterSingleton; // change this to use a different cache
   }
 
@@ -93,6 +120,13 @@ export class RiotApiDriver {
     );
   }
 
+  public getSummonerProfile(puuid: string): Promise<RiotSummonerProfile> {
+    return this.get<RiotSummonerProfile>(
+      this.regionBaseUrl,
+      `summoner/v4/summoners/by-puuid/${puuid}`
+    );
+  }
+
   public getMatchIdsByPuuid(
     puuid: string,
     params?: {
@@ -101,7 +135,7 @@ export class RiotApiDriver {
     }
   ): Promise<string[]> {
     return this.get<string[]>(
-      this.regionBaseUrl,
+      `${this.globalBaseUrl}/lol`,
       `match/v5/matches/by-puuid/${puuid}/ids`,
       {
         start: params?.start ?? 0,
@@ -112,7 +146,7 @@ export class RiotApiDriver {
 
   public getMatchById(matchId: string): Promise<RiotMatch> {
     return this.get<RiotMatch>(
-      this.regionBaseUrl,
+      `${this.globalBaseUrl}/lol`,
       `match/v5/matches/${matchId}`
     );
   }

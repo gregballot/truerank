@@ -18,9 +18,9 @@ export const getSummonerMatches = async (
   { summonerName, summonerTag }: Params,
   { matchAdapter, summonerAdapter }: Dependencies
 ): Promise<SharedTypes.SummonerMatchData[]> => {
-  const summoner = await summonerAdapter.getSummonerByName(
+  const summoner = await summonerAdapter.getLightSummonerByName(
     summonerName,
-    summonerTag
+    summonerTag,
   );
 
   const matches = await matchAdapter.getMatches(summoner.puuid);

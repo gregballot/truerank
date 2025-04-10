@@ -6,6 +6,11 @@ export type RiotSummonerAccount = {
   tagLine: string;
 };
 
+export type RiotSummonerProfile = {
+  summonerLevel: number;
+  profileIconId: number;
+};
+
 export type RiotParticipant = {
   // player info
   puuid: string;

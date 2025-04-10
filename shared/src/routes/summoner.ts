@@ -1,5 +1,18 @@
 import { z } from 'zod';
-import { type SummonerMatchData } from '../types/domain';
+import {
+  type SummonerData,
+  type SummonerMatchData,
+} from '../types/domain';
+
+export const SummonerProfileRoute = {
+  method: 'GET',
+  path: '/summoner',
+  query: z.object({
+    summonerName: z.string(),
+    summonerTag: z.string(),
+  }),
+  response: z.custom<SummonerData>(),
+};
 
 export const SummonerMatchesRoute = {
   method: 'GET',

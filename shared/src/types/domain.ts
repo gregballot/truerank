@@ -3,7 +3,11 @@ export type SummonerData = {
     puuid: string;
     gameName: string;
     tagLine: string;
+    level?: number;
+    icon?: number;
 };
+
+export type SummonerLightDetails = Omit<SummonerData, "level" | "icon">
 
 // Match
 export const QueueNames = {
@@ -77,5 +81,5 @@ export type MatchData = {
 export type SummonerMatchData = {
     isWinner: boolean;
     match: MatchData;
-    summoner: SummonerData;
+    summoner: SummonerLightDetails;
 };

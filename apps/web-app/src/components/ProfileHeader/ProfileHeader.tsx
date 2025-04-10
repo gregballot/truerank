@@ -1,16 +1,38 @@
+import { getProfileIcon } from "../../helpers/datadragon";
 import styles from "./ProfileHeader.module.css";
 
 type Props = {
-  player: {
-    name?: string;
-    tag?: string;
-  }
+  isProfileLoading: boolean,
+  profile?: {
+    puuid: string;
+    gameName: string;
+    tagLine: string;
+    level?: number;
+    icon?: number;
+  },
+  handleUpdate: () => void;
 }
 
-export function ProfileHeader({ player }: Props) {
+export function ProfileHeader({ profile, handleUpdate }: Props) {
   return (
     <div className={styles.profileHeader}>
-      <h1>{ player.name }#{ player.tag }</h1>
+      <div className={styles.summonerAvatar}>
+        {
+          profile?.icon && (
+            <img
+              src={ getProfileIcon(profile.icon) }
+              alt={`Summoner icon ${profile?.icon}`}
+            />
+          )
+        }
+        <div className={styles.summonerLevel}>
+          <p>{ profile?.level }</p>
+        </div>
+      </div>
+      <div className={styles.summonerInfo}>
+        <h1>{ profile?.gameName }#{ profile?.tagLine }</h1>
+        <button onClick={() => handleUpdate()}>Update</button>
+      </div>
     </div>
   );
 }

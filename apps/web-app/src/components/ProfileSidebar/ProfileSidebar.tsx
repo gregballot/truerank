@@ -1,16 +1,17 @@
 import styles from "./ProfileSidebar.module.css";
 
-type Props = {
-  player: {
-    name?: string;
-    tag?: string;
-  }
-}
+// type Props = {
+//   isProfileLoading: boolean,
+//   player: {
+//     name?: string;
+//     tag?: string;
+//   }
+// }
 
-export function ProfileSidebar({ player }: Props) {
+export function ProfileSidebar() {
   return (
     <div className={styles.profileSidebar}>
-      <h2>{player.name} Current Rank</h2>
+      <h3>Ranked Solo/Duo</h3>
       <img
         style={{
           width: 250,

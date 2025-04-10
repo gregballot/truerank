@@ -10,6 +10,10 @@ export class Summoner {
   }
 
   get details(): SharedTypes.SummonerData {
+    return this.data;
+  }
+
+  get lightDetails(): SharedTypes.SummonerLightDetails {
     return {
       puuid: this.puuid,
       gameName: this.data.gameName,

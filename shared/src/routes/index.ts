@@ -1,1 +1,4 @@
-export { SummonerMatchesRoute } from './summoner.js';
+export {
+  SummonerProfileRoute,
+  SummonerMatchesRoute,
+} from './summoner.js';

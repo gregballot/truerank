@@ -1,3 +1,4 @@
+import { forwardRef, useImperativeHandle } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import styles from './ProfileMatches.module.css';
@@ -6,13 +7,21 @@ import { fetchMatches } from '../../api/matches';
 import { MatchList } from '../MatchList/MatchList';
 
 type Props = {
+  isProfileLoading: boolean,
   player: {
     name?: string;
     tag?: string;
   }
 }
 
-export function ProfileMatches({ player: { name, tag } }: Props) {
+export type ProfileMatchesHandle = {
+  refetch: () => void;
+};
+
+export const ProfileMatches = forwardRef<
+  ProfileMatchesHandle,
+  Props
+>(({ player: { name, tag } }: Props, ref) => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['matches', name, tag],
     queryFn: () => fetchMatches(name!, tag!),
@@ -20,17 +29,12 @@ export function ProfileMatches({ player: { name, tag } }: Props) {
     retry: false,
   });
 
+  useImperativeHandle(ref, () => ({
+    refetch,
+  }));
+
   return (
     <div className={styles.profileMatches}>
-      <button
-        onClick={() => refetch()}
-        style={{
-          width: 80,
-          marginBottom: 10
-        }} >
-        Refresh
-      </button>
-
       {isLoading && <p>Loading...</p>}
 
       {
@@ -45,4 +49,4 @@ export function ProfileMatches({ player: { name, tag } }: Props) {
       }
     </div>
   );
-}
+});

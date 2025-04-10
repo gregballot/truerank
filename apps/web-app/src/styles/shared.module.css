@@ -1,5 +1,4 @@
 .view {
     width: var(--site-width);
     margin: 0 auto;
-    overflow-x: hidden;
 }

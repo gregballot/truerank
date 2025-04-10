@@ -100,9 +100,10 @@ export async function preloadItemData() {
 }
 
 /* Static getters */
-export function getItemData(itemId: number): ItemData | undefined {
-  return cachedItemData?.[itemId.toString()];
-}
+export const getProfileIcon = (iconId: number) => {
+  const version = cachedVersion ?? DEFAULT_DDRAGON_VERSION;
+  return `${DDRAGON_BASE_URL}/cdn/${version}/img/profileicon/${iconId}.png`;
+};
 
 export const getSummonerSpellData = (spellId: number): SummonerSpellData | undefined => {
   return cachedSummonerSpells?.[spellId];
@@ -129,6 +130,10 @@ export const getChampionIcon = (championName: string) => {
   const version = cachedVersion ?? DEFAULT_DDRAGON_VERSION;
 
   return `${DDRAGON_BASE_URL}/cdn/${version}/img/champion/${imageName}`;
+}
+
+export function getItemData(itemId: number): ItemData | undefined {
+  return cachedItemData?.[itemId.toString()];
 }
 
 export const getItemIcon = (itemId: number) =>{

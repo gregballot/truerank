@@ -17,7 +17,7 @@ export class SummonerMatch {
     return {
       isWinner: this.isWinner,
       match: this.match.details,
-      summoner: this.summoner.details,
+      summoner: this.summoner.lightDetails,
     };
   }
 }
