@@ -76,7 +76,8 @@ export class RiotApiDriver {
   private async get<T>(
     baseUrl: string,
     path: string,
-    params?: Record<string, string | number>
+    params?: Record<string, string | number>,
+    invalidateCache = false,
   ): Promise<T> {
     const urlBuilder = new URL(`${baseUrl}/${path}`);
 
@@ -87,9 +88,12 @@ export class RiotApiDriver {
     }
 
     const url = urlBuilder.toString();
-    const cachedResult = this.cacheAdapter.get<T>(url);
-    if (cachedResult) {
-      return cachedResult;
+
+    if (!invalidateCache) {
+      const cachedResult = this.cacheAdapter.get<T>(url);
+      if (cachedResult) {
+        return cachedResult;
+      }
     }
 
     const res = await fetch(url, {
@@ -112,18 +116,26 @@ export class RiotApiDriver {
 
   public getSummonerByName(
     name: string,
-    tag: string
+    tag: string,
+    invalidateCache?: boolean,
   ): Promise<RiotSummonerAccount> {
     return this.get<RiotSummonerAccount>(
       this.globalBaseUrl,
-      `riot/account/v1/accounts/by-riot-id/${name}/${tag}`
+      `riot/account/v1/accounts/by-riot-id/${name}/${tag}`,
+      {},
+      invalidateCache
     );
   }
 
-  public getSummonerProfile(puuid: string): Promise<RiotSummonerProfile> {
+  public getSummonerProfile(
+    puuid: string,
+    invalidateCache?: boolean,
+  ): Promise<RiotSummonerProfile> {
     return this.get<RiotSummonerProfile>(
       this.regionBaseUrl,
-      `summoner/v4/summoners/by-puuid/${puuid}`
+      `summoner/v4/summoners/by-puuid/${puuid}`,
+      {},
+      invalidateCache
     );
   }
 
@@ -132,6 +144,7 @@ export class RiotApiDriver {
     params?: {
       start?: number;
       pageSize?: number;
+      invalidateCache?: boolean;
     }
   ): Promise<string[]> {
     return this.get<string[]>(
@@ -140,7 +153,8 @@ export class RiotApiDriver {
       {
         start: params?.start ?? 0,
         count: params?.pageSize ?? 5,
-      }
+      },
+      params?.invalidateCache
     );
   }
 

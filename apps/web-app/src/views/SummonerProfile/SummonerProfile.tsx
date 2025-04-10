@@ -1,8 +1,7 @@
 import clsx from 'clsx';
 
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { useRef } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { fetchProfile } from '../../api/profile';
 
@@ -10,24 +9,33 @@ import styles from './SummonerProfile.module.css';
 import sharedStyles from '../../styles/shared.module.css';
 
 import { ProfileHeader } from '../../components/ProfileHeader/ProfileHeader';
-import { ProfileMatches, ProfileMatchesHandle } from '../../components/ProfileMatches/ProfileMatches';
+import { ProfileMatches } from '../../components/ProfileMatches/ProfileMatches';
 import { ProfileSidebar } from '../../components/ProfileSidebar/ProfileSidebar';
+import { fetchMatches } from '../../api/matches';
 
 export function SummonerProfile() {
+  const queryClient = useQueryClient();
+
   const { name, tag } = useParams<{ name: string, tag: string }>();
   const player = { name, tag };
 
-  const matchesRef = useRef<ProfileMatchesHandle>(null);
-  const { data: profile, isLoading, refetch } = useQuery({
+  const { data: profile, isLoading } = useQuery({
     queryKey: ['profile', name, tag],
-    queryFn: () => fetchProfile(name!, tag!),
+    queryFn: () => fetchProfile(name!, tag!, ),
     enabled: !!name && !!tag,
     retry: false,
   });
 
   function handleUpdate() {
-    refetch();
-    matchesRef.current?.refetch();
+    queryClient.fetchQuery({
+      queryKey: ['profile', name, tag],
+      queryFn: () => fetchProfile(name!, tag!, true),
+    });
+
+    queryClient.fetchQuery({
+      queryKey: ['matches', name, tag],
+      queryFn: () => fetchMatches(name!, tag!, true),
+    });
   }
 
   return (
@@ -49,7 +57,6 @@ export function SummonerProfile() {
 
         <div className={styles.profileMatchesWrap}>
           <ProfileMatches
-            ref={matchesRef}
             isProfileLoading={isLoading}
             player={player}
           />

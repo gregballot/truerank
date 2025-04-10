@@ -14,7 +14,10 @@ export class MatchAdapter {
     this.riotApi = new RiotApiDriver(this.riotApiKey, "EUW");
   }
 
-  async getMatches(puuid: string, params?: { start?: number }): Promise<Match[]> {
+  async getMatches(puuid: string, params?: {
+    start?: number,
+    invalidateCache?: boolean
+  }): Promise<Match[]> {
     const matchIds = await this.riotApi.getMatchIdsByPuuid(puuid, params);
     const matches = await this.riotApi.getMatchesByIds(matchIds);
 

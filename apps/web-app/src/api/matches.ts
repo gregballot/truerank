@@ -9,9 +9,14 @@ type ResponseData = z.infer<typeof response>;
 
 export async function fetchMatches(
   summonerName: string,
-  summonerTag: string
+  summonerTag: string,
+  forceRefresh?: boolean,
 ): Promise<ResponseData> {
-  const url = buildApiRequestUrl(path, query, { summonerName, summonerTag });
+  const url = buildApiRequestUrl(path, query, {
+    summonerName,
+    summonerTag,
+    invalidateCache: forceRefresh,
+  });
 
   const res = await fetch(url);
   if (!res.ok) {

@@ -5,6 +5,7 @@ import { SummonerAdapter } from '../summonerAdapter';
 type Params = {
   summonerName: string;
   summonerTag: string;
+  invalidateCache?: boolean;
 };
 
 type Dependencies = {
@@ -12,12 +13,13 @@ type Dependencies = {
 };
 
 export const getSummonerProfile = async (
-  { summonerName, summonerTag }: Params,
+  { summonerName, summonerTag, invalidateCache }: Params,
   { summonerAdapter }: Dependencies
 ): Promise<SharedTypes.SummonerData> => {
   const summoner = await summonerAdapter.getSummonerByName(
     summonerName,
     summonerTag,
+    invalidateCache,
   );
 
   return summoner.details;

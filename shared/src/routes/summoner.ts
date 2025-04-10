@@ -10,6 +10,7 @@ export const SummonerProfileRoute = {
   query: z.object({
     summonerName: z.string(),
     summonerTag: z.string(),
+    invalidateCache: z.boolean().optional(),
   }),
   response: z.custom<SummonerData>(),
 };
@@ -20,6 +21,7 @@ export const SummonerMatchesRoute = {
   query: z.object({
     summonerName: z.string(),
     summonerTag: z.string(),
+    invalidateCache: z.boolean().optional(),
   }),
   response: z.array(z.custom<SummonerMatchData>()),
 };

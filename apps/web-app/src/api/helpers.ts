@@ -9,7 +9,9 @@ export function buildApiRequestUrl<TQuery extends z.ZodTypeAny>(
   const validated = querySchema.parse(params);
 
   Object.entries(validated).forEach(([key, value]) => {
-    url.searchParams.append(key, String(value));
+    if (value) {
+      url.searchParams.append(key, String(value));
+    }
   });
 
   return url.toString();

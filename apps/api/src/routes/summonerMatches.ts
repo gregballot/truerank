@@ -16,7 +16,7 @@ export const summonerMatches: FastifyPluginAsync = async (fastify) => {
   fastify.get(
     SummonerMatchesRoute.path,
     async (request: SummonerMatchesRequest, reply) => {
-      const { summonerName, summonerTag } = request.query;
+      const { summonerName, summonerTag, invalidateCache } = request.query;
 
       if (!summonerName || !summonerTag) {
         return reply
@@ -29,6 +29,7 @@ export const summonerMatches: FastifyPluginAsync = async (fastify) => {
         {
           summonerName,
           summonerTag,
+          invalidateCache,
         },
         {
           matchAdapter: new MatchAdapter(riotApiKey),

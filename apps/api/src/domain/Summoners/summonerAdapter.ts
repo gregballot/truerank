@@ -8,9 +8,13 @@ export class SummonerAdapter {
     this.riotApi = new RiotApiDriver(riotApiKey, 'EUW');
   }
 
-  async getSummonerByName(name: string, tag: string): Promise<Summoner> {
-    const account = await this.riotApi.getSummonerByName(name, tag);
-    const profile = await this.riotApi.getSummonerProfile(account.puuid);
+  async getSummonerByName(
+    name: string,
+    tag: string,
+    invalidateCache?: boolean,
+): Promise<Summoner> {
+    const account = await this.riotApi.getSummonerByName(name, tag, invalidateCache);
+    const profile = await this.riotApi.getSummonerProfile(account.puuid, invalidateCache);
 
     return new Summoner({
       puuid: account.puuid,
