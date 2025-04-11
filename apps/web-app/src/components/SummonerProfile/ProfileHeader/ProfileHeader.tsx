@@ -22,7 +22,7 @@ export function ProfileHeader({ profile, handleUpdate: refreshData }: Props) {
 
   function handleUpdate() {
     if (cooldown > 0) return;
-  
+
     refreshData();
     startCooldown();
   }
@@ -33,45 +33,40 @@ export function ProfileHeader({ profile, handleUpdate: refreshData }: Props) {
   return (
     <div className={styles.profileHeader}>
       {
-        profile?.icon && (
-          <div className={styles.summonerAvatar}>
-            <img
-              src={getProfileIcon(profile.icon)}
-              alt={`Summoner icon ${profile?.icon}`}
-            />
+        <div className={styles.summonerAvatar}>
+          <img
+            src={getProfileIcon(profile?.icon)}
+            alt={`Summoner icon ${profile?.icon}`}
+          />
 
-            <div className={styles.summonerLevel}>
-              <p>{profile?.level}</p>
-            </div>
+          <div className={styles.summonerLevel}>
+            <p>{profile?.level}</p>
           </div>
-        )
+        </div>
       }
       <div className={styles.summonerInfo}>
         <h1>
-          {
-            profile && (
-              <>
-                {profile?.gameName}
-                <span className={styles.tagline}> #{profile?.tagLine}</span>
-              </>
-            )
-          }
+          {profile && (
+            <>
+              {profile?.gameName}
+              <span className={styles.tagline}> #{profile?.tagLine}</span>
+            </>
+          )}
         </h1>
         <div className={styles.updateSection}>
-          <button
-            disabled={isCoolingDown}
-            onClick={() => handleUpdate()}
-          >
+          <button disabled={
+            isCoolingDown || !profile
+          } onClick={() => handleUpdate()}>
             Update
           </button>
           <span className={styles.cooldownHint}>
-            {
-              isCoolingDown ? (
-                <>Update available in <strong>{cooldown}s</strong></>
-              ) : (
-                <>Ready to update</>
-              )
-            }
+            {isCoolingDown ? (
+              <>
+                Update available in <strong>{cooldown}s</strong>
+              </>
+            ) : (
+              <>Ready to update</>
+            )}
           </span>
         </div>
       </div>

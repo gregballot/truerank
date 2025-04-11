@@ -1,10 +1,10 @@
 .matchListCardTeam {
   display: flex;
   flex-direction: column;
-  gap: 1px;
 
   list-style: none;
   padding-inline-start: 0;
+  margin: 0;
 }
 
 .matchListCardTeam li {
@@ -16,8 +16,8 @@
 }
 
 .matchListCardTeam li img {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
 }
 

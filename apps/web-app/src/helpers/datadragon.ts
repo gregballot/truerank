@@ -100,9 +100,10 @@ export async function preloadItemData() {
 }
 
 /* Static getters */
-export const getProfileIcon = (iconId: number) => {
+export const getProfileIcon = (iconId?: number) => {
   const version = cachedVersion ?? DEFAULT_DDRAGON_VERSION;
-  return `${DDRAGON_BASE_URL}/cdn/${version}/img/profileicon/${iconId}.png`;
+  const iconFileName = `${iconId ?? "29"}.png`
+  return `${DDRAGON_BASE_URL}/cdn/${version}/img/profileicon/${iconFileName}`;
 };
 
 export const getSummonerSpellData = (spellId: number): SummonerSpellData | undefined => {
