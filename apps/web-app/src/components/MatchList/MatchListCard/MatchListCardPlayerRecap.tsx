@@ -51,6 +51,7 @@ export function MatchListCardPlayerRecap({
 
                 return (
                   <img
+                    key={spellId}
                     src={getSummonerSpellIcon(spellData.image.full)}
                     alt={spellData.name}
                     title={spellData.name}
@@ -66,11 +67,11 @@ export function MatchListCardPlayerRecap({
                 const runeStyleData = getRuneStyleData(runeId);
 
                 if (!runeStyleData) {
-                  return <div>PH</div>
+                  return <div key={runeId}>PH</div>
                 }
 
                 return (
-                  <div className={styles.loadoutImage}>
+                  <div key={runeId} className={styles.loadoutImage}>
                     <img
                       src={getRuneStyleIcon(runeStyleData.icon)}
                       alt={runeStyleData.name}

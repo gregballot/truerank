@@ -1,7 +1,7 @@
 .matchListCardTeam {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 
   list-style: none;
   padding-inline-start: 0;
@@ -35,4 +35,8 @@
 
 .playerLink:hover {
   color: #888;
+}
+
+.highlight {
+  font-weight: bold;
 }

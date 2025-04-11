@@ -8,9 +8,12 @@ import { fetchProfile } from '../../api/profile';
 import styles from './SummonerProfile.module.css';
 import sharedStyles from '../../styles/shared.module.css';
 
+import { SummonerProfileProvider } from './SummonerProfileContext';
+
 import { ProfileHeader } from '../../components/SummonerProfile/ProfileHeader/ProfileHeader';
 import { ProfileMatches } from '../../components/SummonerProfile/ProfileMatches/ProfileMatches';
 import { ProfileSidebar } from '../../components/SummonerProfile/ProfileSidebar/ProfileSidebar';
+
 import { fetchMatches } from '../../api/matches';
 
 export function SummonerProfile() {
@@ -39,7 +42,7 @@ export function SummonerProfile() {
   }
 
   return (
-    <>
+    <SummonerProfileProvider puuid={profile?.puuid}>
       <div className={styles.profileHeaderWrap}>
         <ProfileHeader
           isProfileLoading={isLoading}
@@ -62,6 +65,6 @@ export function SummonerProfile() {
           />
         </div>
       </div>
-    </>
+    </SummonerProfileProvider>
   );
 }

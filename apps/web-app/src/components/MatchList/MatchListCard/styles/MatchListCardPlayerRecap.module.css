@@ -123,6 +123,9 @@
 }
 
 .gameTag {
-  background: silver;
-  padding: 2px 5px;
+  color: white;
+  background: #999;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 0.9em;
 }

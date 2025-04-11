@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 
 import { SharedTypes } from "@truerank/shared";
 
-import styles from "./styles/MatchListCardTeam.module.css";
 import { getChampionIcon } from "../../../helpers/datadragon";
+import { useSummonerPuuid } from "../../../views/SummonerProfile/SummonerProfileContext";
+
+import styles from "./styles/MatchListCardTeam.module.css";
+import clsx from "clsx";
 
 type Props = {
   team: SharedTypes.MatchParticipant[];
@@ -12,6 +15,8 @@ type Props = {
 export function MatchListCardTeam({
   team
 }: Props) {
+  const puuidToHighlight = useSummonerPuuid();
+
   return (
     <ul className={styles.matchListCardTeam}>
       {
@@ -29,8 +34,11 @@ export function MatchListCardTeam({
               <p>
                 <Link
                   to={playerLink}
-                  className={styles.playerLink}
                   title={summonerName}
+                  className={clsx(
+                    styles.playerLink,
+                    puuidToHighlight === summoner.puuid && styles.highlight
+                  )}
                 >
                   { summoner.gameName }
                 </Link>
