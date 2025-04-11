@@ -4,7 +4,8 @@ export class Match {
   constructor(
     private readonly metadata: SharedTypes.MatchMetadata,
     private readonly redTeam: SharedTypes.MatchParticipant[],
-    private readonly blueTeam: SharedTypes.MatchParticipant[]
+    private readonly blueTeam: SharedTypes.MatchParticipant[],
+    private readonly isNew: boolean,
   ) {}
 
   get details(): SharedTypes.MatchData  {
@@ -13,6 +14,7 @@ export class Match {
       redTeam: this.redTeam,
       blueTeam: this.blueTeam,
       winnerSide: this.winnerSide,
+      isNew: this.isNew,
     };
   }
 

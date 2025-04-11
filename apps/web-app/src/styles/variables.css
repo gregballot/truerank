@@ -3,11 +3,18 @@
     --font-main: 'League Spartan', 'Roboto', sans-serif;
 
     /* Header and Footer */
-    --header-height: 80px;
+    --header-height: 60px;
     --footer-height: 50px;
     --z-header: 100;
     --z-footer: 100;
 
     /* Layout */
-    --site-width: 80%;
+    --site-width: 1200px;
+}
+
+@media (max-width: 1400px) {
+    :root {
+        /* Layout */
+        --site-width: 98vw;
+    }
 }

@@ -11,7 +11,7 @@ export function Home() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    navigate(`/player/${username}/EUW`);
+    navigate(`/summoners/${username}/EUW`);
   };
 
   return (

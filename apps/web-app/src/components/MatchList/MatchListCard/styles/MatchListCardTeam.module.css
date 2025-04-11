@@ -1,7 +1,42 @@
 .matchListCardTeam {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+
   list-style: none;
+  padding-inline-start: 0;
 }
 
 .matchListCardTeam li {
-  font-size: 0.8em;
+  width: 120px;
+  display: flex;
+  gap: 5px;
+
+  font-size: 0.9em;
+}
+
+.matchListCardTeam li img {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.matchListCardTeam li p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.playerLink {
+  text-decoration: none;
+  color: #222;
+}
+
+.playerLink:hover {
+  color: #888;
+}
+
+.highlight {
+  font-weight: bold;
 }

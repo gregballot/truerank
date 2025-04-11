@@ -2,10 +2,10 @@ import { SharedTypes } from '@truerank/shared';
 
 import { Match } from './entities/Match';
 
-import { queueNameMapping } from './helpers/queueNameMapping';
 import { RiotApiDriver } from '../../helpers/riotApiDriver';
 
 import { type RiotParticipant } from '../../helpers/riotApiDriver/types';
+import { queueNameMapping, roleMapping } from '../../helpers/riotApiDriver/mappedTypes';
 
 export class MatchAdapter {
   private riotApi: RiotApiDriver;
@@ -14,11 +14,15 @@ export class MatchAdapter {
     this.riotApi = new RiotApiDriver(this.riotApiKey, "EUW");
   }
 
-  async getMatches(puuid: string, params?: { start?: number }): Promise<Match[]> {
+  async getMatches(puuid: string, params?: {
+    start?: number,
+    invalidateCache?: boolean
+  }): Promise<Match[]> {
     const matchIds = await this.riotApi.getMatchIdsByPuuid(puuid, params);
-    const matches = await this.riotApi.getMatchesByIds(matchIds);
+    const matchesResult = await this.riotApi.getMatchesByIds(matchIds);
 
-    return matches.map((match) => {
+    return matchesResult.map((matchResult) => {
+      const { data: match, fromCache } = matchResult;
       const redTeamParticipants = match.info.participants.slice(0, 5);
       const blueTeamParticipants = match.info.participants.slice(5, 10);
 
@@ -29,11 +33,18 @@ export class MatchAdapter {
           tagLine: p.riotIdTagline,
         },
 
-        won: p.win,
+        role: roleMapping[p.teamPosition],
         championId: p.championId,
         championName: p.championName,
         championLevel: p.champLevel,
 
+        summonerSpells: [
+          p.summoner1Id,
+          p.summoner2Id,
+        ],
+        runeStyles: p.perks.styles.map(perk => perk.style),
+
+        won: p.win,
         kills: p.kills,
         deaths: p.deaths,
         assists: p.assists,
@@ -56,12 +67,13 @@ export class MatchAdapter {
           gameMode: match.info.gameMode,
           gameDuration: match.info.gameDuration,
           gameCreation: new Date(match.info.gameCreation),
-          queue: queueNameMapping[
+          queueName: queueNameMapping[
             match.info.queueId as keyof typeof queueNameMapping
           ],
         },
         redTeamParticipants.map(mapParticipantData),
-        blueTeamParticipants.map(mapParticipantData)
+        blueTeamParticipants.map(mapParticipantData),
+        !fromCache && !params?.invalidateCache, // isNew
       );
     });
   }

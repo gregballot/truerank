@@ -1,26 +1,49 @@
+import { RiotRole } from "./mappedTypes";
+
 export type RiotSummonerAccount = {
   puuid: string;
   gameName: string;
   tagLine: string;
 };
 
+export type RiotSummonerProfile = {
+  summonerLevel: number;
+  profileIconId: number;
+};
+
 export type RiotParticipant = {
+  // player info
   puuid: string;
   riotIdGameName: string;
   riotIdTagline: string;
 
-  win: boolean;
-  role: string;
+  // role and champion
+  teamPosition: RiotRole;
   championId: number;
   championName: string;
   champLevel: number;
 
+  // summoner spells and runes
+  summoner1Id: number;
+  summoner2Id: number;
+  perks: {
+    styles: {
+      style: number;
+      selections: {
+        perk: number;
+      }[];
+    }[];
+  };
+
+  // result and stats
+  win: boolean;
   kills: number;
   deaths: number;
   assists: number;
   totalMinionsKilled: number;
   neutralMinionsKilled: number;
 
+  // items
   item0: number;
   item1: number;
   item2: number;

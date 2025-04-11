@@ -21,7 +21,7 @@ export function MatchListCardMetadata({
 
   return (
     <div className={styles.matchListCardMetadata}>
-      <p className={styles.queueName}>{metadata.queue}</p>
+      <p className={styles.queueName}>{metadata.queueName}</p>
       <p className={styles.gameDate}>{formattedGameDate}</p>
       <div className={styles.separator} />
       <p className={styles.gameDuration}>{formattedGameDuration}</p>

@@ -3,11 +3,11 @@ import { buildApiRequestUrl } from './helpers';
 
 import { z } from 'zod';
 
-const { path, query, response } = Routes.SummonerMatchesRoute;
+const { path, query, response } = Routes.SummonerProfileRoute;
 
 type ResponseData = z.infer<typeof response>;
 
-export async function fetchMatches(
+export async function fetchProfile(
   summonerName: string,
   summonerTag: string,
   forceRefresh?: boolean,
@@ -20,7 +20,7 @@ export async function fetchMatches(
 
   const res = await fetch(url);
   if (!res.ok) {
-    throw new Error('Failed to fetch match history');
+    throw new Error('Failed to fetch profile');
   }
 
   const json = await res.json();

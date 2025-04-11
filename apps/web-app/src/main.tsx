@@ -7,13 +7,22 @@ import App from './App';
 import {
   preloadLatestDDragonVersion,
   preloadItemData,
+  preloadChampionData,
+  preloadSummonerSpellData,
+  preloadRuneData,
 } from './helpers/datadragon';
 
 const queryClient = new QueryClient();
 
 async function start() {
   await preloadLatestDDragonVersion();
-  await preloadItemData();
+
+  await Promise.all([
+    preloadItemData(),
+    preloadChampionData(),
+    preloadSummonerSpellData(),
+    preloadRuneData(),
+  ]);
 
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>

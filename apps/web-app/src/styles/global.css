@@ -1,3 +1,14 @@
 body {
     font-family: var(--font-main);
 }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Uncomment for debugging */
+/* * {
+    outline: 1px solid red;
+} */

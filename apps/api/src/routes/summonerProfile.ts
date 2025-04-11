@@ -2,20 +2,19 @@ import { z } from 'zod';
 
 import { FastifyPluginAsync, FastifyRequest } from 'fastify';
 
-import { SummonerMatchesRoute } from '@truerank/shared/routes';
+import { SummonerProfileRoute } from '@truerank/shared/routes';
 
 import { Summoners } from '../domain/Summoners';
-import { MatchAdapter } from '../domain/Matches/matchAdapter';
 import { SummonerAdapter } from '../domain/Summoners/summonerAdapter';
 
-type SummonerMatchesRequest = FastifyRequest<{
-  Querystring: z.infer<NonNullable<typeof SummonerMatchesRoute.query>>;
+type SummonerProfileRequest = FastifyRequest<{
+  Querystring: z.infer<NonNullable<typeof SummonerProfileRoute.query>>;
 }>;
 
-export const summonerMatches: FastifyPluginAsync = async (fastify) => {
+export const summonerProfile: FastifyPluginAsync = async (fastify) => {
   fastify.get(
-    SummonerMatchesRoute.path,
-    async (request: SummonerMatchesRequest, reply) => {
+    SummonerProfileRoute.path,
+    async (request: SummonerProfileRequest, reply) => {
       const { summonerName, summonerTag, invalidateCache } = request.query;
 
       if (!summonerName || !summonerTag) {
@@ -25,19 +24,18 @@ export const summonerMatches: FastifyPluginAsync = async (fastify) => {
       }
 
       const riotApiKey = fastify.config.RIOT_API_KEY;
-      const matches = await Summoners.Features.getSummonerMatches(
+      const profile = await Summoners.Features.getSummonerProfile(
         {
           summonerName,
           summonerTag,
           invalidateCache,
         },
         {
-          matchAdapter: new MatchAdapter(riotApiKey),
           summonerAdapter: new SummonerAdapter(riotApiKey),
         }
       );
 
-      return matches;
+      return profile;
     }
   );
 };

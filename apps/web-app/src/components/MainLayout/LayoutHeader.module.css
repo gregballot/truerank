@@ -4,7 +4,8 @@
     width: 100%;
     height: var(--header-height);
     z-index: var(--z-header);
-    background: silver;
+    background: #678fe8;
+    color: white;
 }
 
 .header {
@@ -18,4 +19,5 @@
 
 .header h2 {
     justify-self: start;
+    text-shadow: rgba(0, 0, 0, 0.2) 1px 0 5px;
 }
