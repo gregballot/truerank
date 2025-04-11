@@ -1,10 +1,12 @@
 .profileHeader {
   width: var(--site-width);
-  margin: auto;
+  height: 180px;
+  margin: 0 auto;
   display: flex;
+  align-items: start;
   gap: 20px;
 
-  padding: 15px 15px 50px;
+  padding: 30px 15px 0;
 }
 
 .summonerAvatar {
@@ -43,10 +45,27 @@
 .summonerInfo {
   display: flex;
   flex-direction: column;
+  gap: 5px;
+}
+
+.summonerInfo h1 {
+  color: #444;
+  font-size: 1.8em;
+}
+
+.tagline {
+  color: #888;
+  font-size: 0.75em;
+}
+
+.updateSection {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
   gap: 10px;
 }
 
-.summonerInfo button {
+.updateSection button {
   width: 100px;
   font-size: 1.2em;
   padding: 7px 0 5px;
@@ -57,7 +76,23 @@
   opacity: 0.9;
 }
 
-.summonerInfo button:hover {
+.updateSection button:hover {
   opacity: 1;
   cursor: pointer;
+}
+
+.updateSection button:disabled {
+  background: #888;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.updateSection button:disabled:hover {
+  opacity: 0.6;
+}
+
+.cooldownHint {
+  color: #333;
+  font-size: 0.9em;
+  font-style: italic;
 }

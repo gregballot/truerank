@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 
 import styles from './ProfileMatches.module.css';
 
-import { fetchMatches } from '../../api/matches';
-import { MatchList } from '../MatchList/MatchList';
+import { fetchMatches } from '../../../api/matches';
+import { MatchList } from '../../MatchList/MatchList';
 
 type Props = {
   isProfileLoading: boolean,

@@ -1,9 +1,22 @@
 .matchListCard {
   width: 100%;
+  box-sizing: border-box;
+
   display: grid;
   grid-template-columns: 120px 1fr 250px;
   gap: 20px;
   align-items: center;
+
   padding: 0 10px;
-  background: #dfdfdf;
+  border-radius: 10px;
+}
+
+.winner {
+  background-color: #e1f4ff;
+  border-left: 6px solid #5383e8;
+}
+
+.loser {
+  background-color: #fff0f0;
+  border-left: 6px solid #e85151;
 }

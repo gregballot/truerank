@@ -18,9 +18,6 @@ export function ProfileSidebar() {
         }}
         src="https://support-leagueoflegends.riotgames.com/hc/article_attachments/4415894930323"
       />
-      <p>
-        Some text
-      </p>
     </div>
   );
 }

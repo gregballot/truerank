@@ -19,9 +19,10 @@ export class MatchAdapter {
     invalidateCache?: boolean
   }): Promise<Match[]> {
     const matchIds = await this.riotApi.getMatchIdsByPuuid(puuid, params);
-    const matches = await this.riotApi.getMatchesByIds(matchIds);
+    const matchesResult = await this.riotApi.getMatchesByIds(matchIds);
 
-    return matches.map((match) => {
+    return matchesResult.map((matchResult) => {
+      const { data: match, fromCache } = matchResult;
       const redTeamParticipants = match.info.participants.slice(0, 5);
       const blueTeamParticipants = match.info.participants.slice(5, 10);
 
@@ -71,7 +72,8 @@ export class MatchAdapter {
           ],
         },
         redTeamParticipants.map(mapParticipantData),
-        blueTeamParticipants.map(mapParticipantData)
+        blueTeamParticipants.map(mapParticipantData),
+        !fromCache && !params?.invalidateCache, // isNew
       );
     });
   }

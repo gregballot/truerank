@@ -75,6 +75,7 @@ export type MatchData = {
     redTeam: MatchParticipant[];
     blueTeam: MatchParticipant[];
     winnerSide: 'red' | 'blue';
+    isNew: boolean;
 };
 
 // SummonerMatch

@@ -8,9 +8,9 @@ import { fetchProfile } from '../../api/profile';
 import styles from './SummonerProfile.module.css';
 import sharedStyles from '../../styles/shared.module.css';
 
-import { ProfileHeader } from '../../components/ProfileHeader/ProfileHeader';
-import { ProfileMatches } from '../../components/ProfileMatches/ProfileMatches';
-import { ProfileSidebar } from '../../components/ProfileSidebar/ProfileSidebar';
+import { ProfileHeader } from '../../components/SummonerProfile/ProfileHeader/ProfileHeader';
+import { ProfileMatches } from '../../components/SummonerProfile/ProfileMatches/ProfileMatches';
+import { ProfileSidebar } from '../../components/SummonerProfile/ProfileSidebar/ProfileSidebar';
 import { fetchMatches } from '../../api/matches';
 
 export function SummonerProfile() {

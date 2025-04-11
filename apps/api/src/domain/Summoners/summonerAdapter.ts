@@ -13,7 +13,7 @@ export class SummonerAdapter {
     tag: string,
     invalidateCache?: boolean,
 ): Promise<Summoner> {
-    const account = await this.riotApi.getSummonerByName(name, tag, invalidateCache);
+    const account = await this.riotApi.getSummonerByName(name, tag);
     const profile = await this.riotApi.getSummonerProfile(account.puuid, invalidateCache);
 
     return new Summoner({

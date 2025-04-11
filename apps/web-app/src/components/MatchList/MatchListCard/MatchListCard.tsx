@@ -5,6 +5,7 @@ import { MatchListCardPlayerRecap } from "./MatchListCardPlayerRecap";
 import { MatchListCardTeamOverview } from "./MatchListCardTeamOverview";
 
 import styles from "./styles/MatchListCard.module.css";
+import clsx from "clsx";
 
 type Props = {
   summonerMatch: SharedTypes.SummonerMatchData;
@@ -22,7 +23,10 @@ export function MatchListCard({ summonerMatch }: Props) {
   }
 
   return (
-    <div className={styles.matchListCard}>
+    <div className={clsx(
+      styles.matchListCard,
+      isWinner ? styles.winner : styles.loser
+    )}>
       <MatchListCardMetadata
         metadata={metadata}
         isWinner={isWinner} />

@@ -78,7 +78,7 @@ export class RiotApiDriver {
     path: string,
     params?: Record<string, string | number>,
     invalidateCache = false,
-  ): Promise<T> {
+  ): Promise<{ data: T, fromCache: boolean }> {
     const urlBuilder = new URL(`${baseUrl}/${path}`);
 
     if (params) {
@@ -92,8 +92,11 @@ export class RiotApiDriver {
     if (!invalidateCache) {
       const cachedResult = this.cacheAdapter.get<T>(url);
       if (cachedResult) {
-        return cachedResult;
+        console.log(`Cache hit on ${url}`)
+        return { data: cachedResult, fromCache: true };
       }
+    } else {
+      console.log(`Cache invalidated on ${url}`)
     }
 
     const res = await fetch(url, {
@@ -111,35 +114,34 @@ export class RiotApiDriver {
 
     const data = await res.json();
     this.cacheAdapter.set(url, data);
-    return data;
+    return { data, fromCache: false };
   }
 
-  public getSummonerByName(
+  public async getSummonerByName(
     name: string,
     tag: string,
-    invalidateCache?: boolean,
   ): Promise<RiotSummonerAccount> {
-    return this.get<RiotSummonerAccount>(
+    const result = await this.get<RiotSummonerAccount>(
       this.globalBaseUrl,
       `riot/account/v1/accounts/by-riot-id/${name}/${tag}`,
-      {},
-      invalidateCache
     );
+    return result.data;
   }
 
-  public getSummonerProfile(
+  public async getSummonerProfile(
     puuid: string,
     invalidateCache?: boolean,
   ): Promise<RiotSummonerProfile> {
-    return this.get<RiotSummonerProfile>(
+    const result = await this.get<RiotSummonerProfile>(
       this.regionBaseUrl,
       `summoner/v4/summoners/by-puuid/${puuid}`,
       {},
       invalidateCache
     );
+    return result.data;
   }
 
-  public getMatchIdsByPuuid(
+  public async getMatchIdsByPuuid(
     puuid: string,
     params?: {
       start?: number;
@@ -147,7 +149,7 @@ export class RiotApiDriver {
       invalidateCache?: boolean;
     }
   ): Promise<string[]> {
-    return this.get<string[]>(
+    const result = await this.get<string[]>(
       `${this.globalBaseUrl}/lol`,
       `match/v5/matches/by-puuid/${puuid}/ids`,
       {
@@ -156,16 +158,17 @@ export class RiotApiDriver {
       },
       params?.invalidateCache
     );
+    return result.data;
   }
 
-  public getMatchById(matchId: string): Promise<RiotMatch> {
+  public getMatchById(matchId: string): Promise<{ data: RiotMatch, fromCache: boolean }> {
     return this.get<RiotMatch>(
       `${this.globalBaseUrl}/lol`,
       `match/v5/matches/${matchId}`
     );
   }
 
-  public getMatchesByIds(matchIds: string[]): Promise<RiotMatch[]> {
+  public getMatchesByIds(matchIds: string[]): Promise<{ data: RiotMatch, fromCache: boolean }[]> {
     return Promise.all(matchIds.map((matchId) => this.getMatchById(matchId)));
   }
 }
