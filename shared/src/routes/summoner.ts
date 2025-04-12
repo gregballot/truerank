@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import {
-  type SummonerData,
+  type SummonerDetails,
   type SummonerMatchData,
 } from '../types/domain';
 
@@ -12,7 +12,7 @@ export const SummonerProfileRoute = {
     summonerTag: z.string(),
     invalidateCache: z.boolean().optional(),
   }),
-  response: z.custom<SummonerData>(),
+  response: z.custom<SummonerDetails>(),
 };
 
 export const SummonerMatchesRoute = {

@@ -1,13 +1,12 @@
-import { useCooldown } from "../../../hooks/useCooldown";
+import { useEffect } from "react";
 
+import { useCooldown } from "../../../hooks/useCooldown";
 import { getProfileIcon } from "../../../helpers/datadragon";
 
 import styles from "./ProfileHeader.module.css";
-import { useEffect } from "react";
 
 type Props = {
-  isProfileLoading: boolean;
-  profile?: {
+  summonerProfile?: {
     puuid: string;
     gameName: string;
     tagLine: string;
@@ -17,7 +16,7 @@ type Props = {
   handleUpdate: () => void;
 };
 
-export function ProfileHeader({ profile, handleUpdate: refreshData }: Props) {
+export function ProfileHeader({ summonerProfile: profile, handleUpdate: refreshData }: Props) {
   const { cooldown, isCoolingDown, startCooldown } = useCooldown();
 
   function handleUpdate() {

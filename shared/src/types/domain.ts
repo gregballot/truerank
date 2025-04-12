@@ -7,6 +7,43 @@ export type SummonerData = {
     icon?: number;
 };
 
+export type SummonerDetails = SummonerData & {
+    soloRank?: SummonerLeague;
+    flexRank?: SummonerLeague;
+}
+
+export const QueueTypeRankedSolo = 'RANKED_SOLO_5x5';
+export const QueueTypeRankedFlex = 'RANKED_FLEX_SR';
+export type QueueType = typeof QueueTypeRankedSolo | typeof QueueTypeRankedFlex
+
+export const Ranks = [
+    'IRON',
+    'BRONZE',
+    'SILVER',
+    'GOLD',
+    'PLATINUM',
+    'EMERALD',
+    'DIAMOND',
+    'MASTER',
+    'GRANDMASTER',
+    'CHALLENGER',
+] as const;
+
+export type Rank = typeof Ranks[number];
+
+export type SummonerLeague = {
+    leagueId: string;
+    queueType: QueueType;
+    rank: Rank;
+    division: {
+        raw: 1 | 2 | 3 | 4;
+        formatted: 'I' | 'II' | 'III' | 'IV';
+    };
+    lpAmount: number;
+    wins: number;
+    losses: number;
+}
+
 export type SummonerLightDetails = Omit<SummonerData, "level" | "icon">
 
 // Match

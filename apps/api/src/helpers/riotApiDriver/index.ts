@@ -3,32 +3,37 @@ import { SharedTypes } from '@truerank/shared';
 import { CacheAdapter } from '../cache/cacheAdapter';
 import { lruCacheAdapterSingleton } from '../cache/lruCacheAdapter';
 
-import { RiotMatch, RiotSummonerAccount, RiotSummonerProfile } from './types';
+import {
+  RiotMatch,
+  RiotSummonerAccount,
+  RiotSummonerLeagueEntry,
+  RiotSummonerProfile,
+} from './types';
 
 const RiotTokenHeaderName = 'X-Riot-Token';
 const riotRegionBaseUrlMap: Record<SharedTypes.Region, string> = {
-  BR: 'https://br.api.riotgames.com/lol',
-  EUNE: 'https://eune.api.riotgames.com/lol',
-  EUW: 'https://euw1.api.riotgames.com/lol',
-  HK: 'https://hk.api.riotgames.com/lol',
-  ID: 'https://id.api.riotgames.com/lol',
-  JP: 'https://jp.api.riotgames.com/lol',
-  KR: 'https://kr.api.riotgames.com/lol',
-  LAN: 'https://lan.api.riotgames.com/lol',
-  LAS: 'https://las.api.riotgames.com/lol',
-  MO: 'https://mo.api.riotgames.com/lol',
-  MY: 'https://my.api.riotgames.com/lol',
-  NA: 'https://na.api.riotgames.com/lol',
-  OCE: 'https://oce.api.riotgames.com/lol',
-  PBE: 'https://pbe.api.riotgames.com/lol',
-  PH: 'https://ph.api.riotgames.com/lol',
-  RU: 'https://ru.api.riotgames.com/lol',
-  SEA: 'https://sea.api.riotgames.com/lol',
-  SG: 'https://sg.api.riotgames.com/lol',
-  TH: 'https://th.api.riotgames.com/lol',
-  TR: 'https://tr.api.riotgames.com/lol',
-  TW: 'https://tw.api.riotgames.com/lol',
-  VN: 'https://vn.api.riotgames.com/lol',
+  BR: 'https://br.api.riotgames.com',
+  EUNE: 'https://eune.api.riotgames.com',
+  EUW: 'https://euw1.api.riotgames.com',
+  HK: 'https://hk.api.riotgames.com',
+  ID: 'https://id.api.riotgames.com',
+  JP: 'https://jp.api.riotgames.com',
+  KR: 'https://kr.api.riotgames.com',
+  LAN: 'https://lan.api.riotgames.com',
+  LAS: 'https://las.api.riotgames.com',
+  MO: 'https://mo.api.riotgames.com',
+  MY: 'https://my.api.riotgames.com',
+  NA: 'https://na.api.riotgames.com',
+  OCE: 'https://oce.api.riotgames.com',
+  PBE: 'https://pbe.api.riotgames.com',
+  PH: 'https://ph.api.riotgames.com',
+  RU: 'https://ru.api.riotgames.com',
+  SEA: 'https://sea.api.riotgames.com',
+  SG: 'https://sg.api.riotgames.com',
+  TH: 'https://th.api.riotgames.com',
+  TR: 'https://tr.api.riotgames.com',
+  TW: 'https://tw.api.riotgames.com',
+  VN: 'https://vn.api.riotgames.com',
 } as const;
 
 const riotGlobalBaseUrlMap: Record<SharedTypes.Region, string> = {
@@ -74,12 +79,11 @@ export class RiotApiDriver {
   }
 
   private async get<T>(
-    baseUrl: string,
-    path: string,
+    url: string,
     params?: Record<string, string | number>,
     invalidateCache = false,
   ): Promise<{ data: T, fromCache: boolean }> {
-    const urlBuilder = new URL(`${baseUrl}/${path}`);
+    const urlBuilder = new URL(url);
 
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
@@ -87,19 +91,19 @@ export class RiotApiDriver {
       });
     }
 
-    const url = urlBuilder.toString();
+    const fullUrl = urlBuilder.toString();
 
     if (!invalidateCache) {
-      const cachedResult = this.cacheAdapter.get<T>(url);
+      const cachedResult = this.cacheAdapter.get<T>(fullUrl);
       if (cachedResult) {
-        console.log(`Cache hit on ${url}`)
+        console.log(`Cache hit on ${fullUrl}`)
         return { data: cachedResult, fromCache: true };
       }
     } else {
-      console.log(`Cache invalidated on ${url}`)
+      console.log(`Cache invalidated on ${fullUrl}`)
     }
 
-    const res = await fetch(url, {
+    const res = await fetch(fullUrl, {
       headers: {
         [RiotTokenHeaderName]: this.apiKey,
       },
@@ -113,7 +117,7 @@ export class RiotApiDriver {
     }
 
     const data = await res.json();
-    this.cacheAdapter.set(url, data);
+    this.cacheAdapter.set(fullUrl, data);
     return { data, fromCache: false };
   }
 
@@ -122,8 +126,7 @@ export class RiotApiDriver {
     tag: string,
   ): Promise<RiotSummonerAccount> {
     const result = await this.get<RiotSummonerAccount>(
-      this.globalBaseUrl,
-      `riot/account/v1/accounts/by-riot-id/${name}/${tag}`,
+      `${this.globalBaseUrl}/riot/account/v1/accounts/by-riot-id/${name}/${tag}`,
     );
     return result.data;
   }
@@ -133,10 +136,21 @@ export class RiotApiDriver {
     invalidateCache?: boolean,
   ): Promise<RiotSummonerProfile> {
     const result = await this.get<RiotSummonerProfile>(
-      this.regionBaseUrl,
-      `summoner/v4/summoners/by-puuid/${puuid}`,
+      `${this.regionBaseUrl}/lol/summoner/v4/summoners/by-puuid/${puuid}`,
       {},
       invalidateCache
+    );
+    return result.data;
+  }
+
+  public async getSummonerRankInfo(
+    puuid: string,
+    invalidateCache?: boolean,
+  ): Promise<RiotSummonerLeagueEntry[]> {
+    const result = await this.get<RiotSummonerLeagueEntry[]>(
+      `${this.regionBaseUrl}/lol/league/v4/entries/by-puuid/${puuid}`,
+      {},
+      invalidateCache,
     );
     return result.data;
   }
@@ -150,8 +164,7 @@ export class RiotApiDriver {
     }
   ): Promise<string[]> {
     const result = await this.get<string[]>(
-      `${this.globalBaseUrl}/lol`,
-      `match/v5/matches/by-puuid/${puuid}/ids`,
+      `${this.globalBaseUrl}/lol/match/v5/matches/by-puuid/${puuid}/ids`,
       {
         start: params?.start ?? 0,
         count: params?.pageSize ?? 5,
@@ -163,8 +176,7 @@ export class RiotApiDriver {
 
   public getMatchById(matchId: string): Promise<{ data: RiotMatch, fromCache: boolean }> {
     return this.get<RiotMatch>(
-      `${this.globalBaseUrl}/lol`,
-      `match/v5/matches/${matchId}`
+      `${this.globalBaseUrl}/lol/match/v5/matches/${matchId}`
     );
   }
 

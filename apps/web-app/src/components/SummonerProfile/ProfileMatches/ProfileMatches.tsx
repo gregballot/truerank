@@ -7,14 +7,14 @@ import { MatchList } from '../../MatchList/MatchList';
 
 type Props = {
   isProfileLoading: boolean,
-  player: {
+  summonerFullName: {
     name?: string;
     tag?: string;
   },
 }
 
 export function ProfileMatches({
-  player: {
+  summonerFullName: {
     name,
     tag
   }

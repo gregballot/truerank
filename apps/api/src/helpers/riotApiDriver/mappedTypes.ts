@@ -1,4 +1,5 @@
 import * as SharedTypes from '@truerank/shared/types';
+import { RiotSummonerLeagueEntry } from './types';
 
 const RiotRoles = [
   "TOP",
@@ -36,4 +37,29 @@ export const queueNameMapping: Record<number, SharedTypes.QueueName> = {
   2000: SharedTypes.QueueNames.TUTORIAL_1,
   2010: SharedTypes.QueueNames.TUTORIAL_2,
   2020: SharedTypes.QueueNames.TUTORIAL_3,
+};
+
+export const rankDivisionsMapping: Record<
+  RiotSummonerLeagueEntry["rank"],
+  {
+    raw: 1 | 2 | 3 | 4;
+    formatted: RiotSummonerLeagueEntry["rank"];
+  }
+> = {
+  'I': {
+    raw: 1,
+    formatted: 'I',
+  },
+  'II': {
+    raw: 2,
+    formatted: 'II',
+  },
+  'III': {
+    raw: 3,
+    formatted: 'III',
+  },
+  'IV': {
+    raw: 4,
+    formatted: 'IV',
+  },
 };

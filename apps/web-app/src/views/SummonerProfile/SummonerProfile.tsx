@@ -20,9 +20,9 @@ export function SummonerProfile() {
   const queryClient = useQueryClient();
 
   const { name, tag } = useParams<{ name: string, tag: string }>();
-  const player = { name, tag };
+  const summonerFullName = { name, tag };
 
-  const { data: profile, isLoading } = useQuery({
+  const { data: summonerProfile, isLoading } = useQuery({
     queryKey: ['profile', name, tag],
     queryFn: () => fetchProfile(name!, tag!, ),
     enabled: !!name && !!tag,
@@ -42,26 +42,26 @@ export function SummonerProfile() {
   }
 
   return (
-    <SummonerProfileProvider puuid={profile?.puuid}>
+    <SummonerProfileProvider puuid={summonerProfile?.puuid}>
       <div className={styles.profileHeaderWrap}>
         <ProfileHeader
-          isProfileLoading={isLoading}
-          profile={profile}
+          summonerProfile={summonerProfile}
           handleUpdate={handleUpdate}
         />
       </div>
       <div className={clsx(styles.summonerProfile, sharedStyles.view)}>
         <div className={styles.profileSidebarWrap}>
           <ProfileSidebar
-            // isProfileLoading={isLoading}
-            // player={player}
+            isProfileLoading={isLoading}
+            soloRank={summonerProfile?.soloRank}
+            flexRank={summonerProfile?.flexRank}
           />
         </div>
 
         <div className={styles.profileMatchesWrap}>
           <ProfileMatches
             isProfileLoading={isLoading}
-            player={player}
+            summonerFullName={summonerFullName}
           />
         </div>
       </div>

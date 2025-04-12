@@ -1,5 +1,5 @@
 .profileSidebar {
-  padding: 15px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
