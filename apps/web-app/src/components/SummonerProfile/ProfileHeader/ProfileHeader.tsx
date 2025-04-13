@@ -31,7 +31,7 @@ export function ProfileHeader({ summonerProfile: profile, handleUpdate: refreshD
 
   return (
     <div className={styles.profileHeader}>
-      {
+      <div className={styles.summonerData}>
         <div className={styles.summonerAvatar}>
           <img
             src={getProfileIcon(profile?.icon)}
@@ -42,33 +42,40 @@ export function ProfileHeader({ summonerProfile: profile, handleUpdate: refreshD
             <p>{profile?.level}</p>
           </div>
         </div>
-      }
-      <div className={styles.summonerInfo}>
-        <h1>
-          {profile && (
-            <>
-              {profile?.gameName}
-              <span className={styles.tagline}> #{profile?.tagLine}</span>
-            </>
-          )}
-        </h1>
-        <div className={styles.updateSection}>
-          <button disabled={
-            isCoolingDown || !profile
-          } onClick={() => handleUpdate()}>
-            Update
-          </button>
-          <span className={styles.cooldownHint}>
-            {isCoolingDown ? (
+        <div className={styles.summonerInfo}>
+          <h1>
+            {profile && (
               <>
-                Update available in <strong>{cooldown}s</strong>
+                {profile?.gameName}
+                <span className={styles.tagline}> #{profile?.tagLine}</span>
               </>
-            ) : (
-              <>Ready to update</>
             )}
-          </span>
+          </h1>
+          <div className={styles.updateSection}>
+            <button disabled={
+              isCoolingDown || !profile
+            } onClick={() => handleUpdate()}>
+              Update
+            </button>
+            <span className={styles.cooldownHint}>
+              {isCoolingDown ? (
+                <>
+                  Update available in <strong>{cooldown}s</strong>
+                </>
+              ) : (
+                <>Ready to update</>
+              )}
+            </span>
+          </div>
         </div>
       </div>
+
+      <div
+        className={styles.summonerSplash}
+        style={{
+          backgroundImage: `url("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Shyvana_0.jpg")`
+        }}
+      />
     </div>
   );
 }

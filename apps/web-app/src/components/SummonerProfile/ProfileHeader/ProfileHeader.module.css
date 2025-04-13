@@ -1,11 +1,16 @@
 .profileHeader {
   width: var(--site-width);
-  height: 180px;
+  height: 200px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 450px 1fr;
+}
+
+.summonerData {
   display: flex;
+  flex-direction: row;
   align-items: start;
   gap: 20px;
-
   padding: 30px 15px 0;
 }
 
@@ -95,4 +100,45 @@
   color: #333;
   font-size: 0.9em;
   font-style: italic;
+}
+
+.summonerSplash {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center -30px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.summonerSplash::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.85) 10%,
+    rgba(255, 255, 255, 0.6) 25%,
+    rgba(255, 255, 255, 0.2) 40%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.2) 75%,
+    rgba(255, 255, 255, 0.7) 90%,
+    rgba(255, 255, 255, 0.95) 97%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.summonerSplash::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: 2;
 }
