@@ -1,6 +1,79 @@
 .sidebarRanking {
-  padding: 15px;
-  background-color: #f5f5f5;
+  background-color: white;
   border-radius: 10px;
-  
+  box-shadow: rgba(149, 157, 165, 0.3) 0px 0px 12px;
+  padding-bottom: 5px;
+}
+
+.queueName {
+  padding: 5px 10px 2px;
+  font-weight: 600;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.rankSection {
+  display: flex;
+  flex-direction: column;
+
+  padding: 5px 10px;
+  border-top: solid 1px #aaa;
+}
+
+.rankSection .emblem {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.rankingInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.rankingInfo .rankName {
+  font-size: 1.2em;
+}
+
+.rankingInfo .lp {
+  color: #555;
+}
+
+.rankStats {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.rankBar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.rankBarWin {
+  background-color: #69aaef;
+  transition: flex-basis 0.3s ease;
+}
+
+.rankBarLose {
+  background-color: #f68282;
+  transition: flex-basis 0.3s ease;
+}
+
+.rankBarLabel {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.rankBarWinrate {
+  font-weight: bold;
 }
