@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  viewBox="0 0 24 24" 
+  width="100" 
+  height="100" 
+  fill="none" 
+  stroke="white" 
+  stroke-width="3" 
+  stroke-linecap="round" 
+  stroke-linejoin="round"
+>
+  <polyline points="3 6 12 15 21 6" />
+</svg>

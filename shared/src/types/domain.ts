@@ -7,11 +7,6 @@ export type SummonerData = {
     icon?: number;
 };
 
-export type SummonerDetails = SummonerData & {
-    soloRank?: SummonerLeague;
-    flexRank?: SummonerLeague;
-}
-
 export const QueueTypeRankedSolo = 'RANKED_SOLO_5x5';
 export const QueueTypeRankedFlex = 'RANKED_FLEX_SR';
 export type QueueType = typeof QueueTypeRankedSolo | typeof QueueTypeRankedFlex
@@ -44,7 +39,21 @@ export type SummonerLeague = {
     losses: number;
 }
 
+export type ChampionMastery = {
+    championId: number;
+    masteryLevel: number;
+    masteryPoints: number;
+    lastPlayTime: Date;
+};
+
+export type SummonerDetails = SummonerData & {
+    soloRank?: SummonerLeague;
+    flexRank?: SummonerLeague;
+    championMasteries: ChampionMastery[];
+}
+
 export type SummonerLightDetails = Omit<SummonerData, "level" | "icon">
+
 
 // Match
 export const QueueNames = {

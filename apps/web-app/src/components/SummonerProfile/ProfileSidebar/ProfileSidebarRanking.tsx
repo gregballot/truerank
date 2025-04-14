@@ -3,7 +3,7 @@ import { SummonerLeague } from "@truerank/shared/types";
 import { calcWinRate } from "../../../helpers/utils";
 
 import styles from "./ProfileSidebarRanking.module.css";
-import { getCustomEmblemUrl } from "../../../helpers/staticAssets";
+import { getEmblemUrl } from "../../../helpers/staticAssets";
 
 type Props = {
   name: string;
@@ -24,7 +24,7 @@ export function ProfileSidebarRanking(
             <div className={styles.rankSection}>
               <img
                 className={styles.emblem}
-                src={getCustomEmblemUrl(ranking.rank)}
+                src={getEmblemUrl(ranking.rank)}
                 alt={ranking.rank}
               />
               <div className={styles.rankingInfo}>

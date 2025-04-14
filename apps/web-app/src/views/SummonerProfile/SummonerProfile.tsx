@@ -55,6 +55,7 @@ export function SummonerProfile() {
             isProfileLoading={isLoading}
             soloRank={summonerProfile?.soloRank}
             flexRank={summonerProfile?.flexRank}
+            championMasteries={summonerProfile?.championMasteries}
           />
         </div>
 

@@ -18,7 +18,11 @@ export class MatchAdapter {
     start?: number,
     invalidateCache?: boolean
   }): Promise<Match[]> {
-    const matchIds = await this.riotApi.getMatchIdsByPuuid(puuid, params);
+    const matchIds = await this.riotApi.getMatchIdsByPuuid(puuid, {
+      pageSize: 10,
+      start: params?.start,
+      invalidateCache: params?.invalidateCache,
+    });
     const matchesResult = await this.riotApi.getMatchesByIds(matchIds);
 
     return matchesResult.map((matchResult) => {

@@ -28,6 +28,19 @@ export type RiotSummonerLeagueEntry = {
   inactive: boolean;
 };
 
+export type RiotChampionMastery = {
+  puuid: string;
+  championId: number;
+  championLevel: number;
+  championPoints: number;
+  lastPlayTime: number;
+  championPointsSinceLastLevel: number;
+  championPointsUntilNextLevel: number;
+  chestGranted: boolean;
+  tokensEarned: number;
+  summonerId: string;
+}
+
 export type RiotParticipant = {
   // player info
   puuid: string;

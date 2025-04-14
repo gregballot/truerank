@@ -9,6 +9,7 @@ import {
   getRuneStyleIcon,
   getItemData,
   getItemIcon,
+  getChampionDataById,
 } from "../../../helpers/datadragon";
 
 import styles from "./styles/MatchListCardPlayerRecap.module.css";
@@ -25,13 +26,14 @@ export function MatchListCardPlayerRecap({
   const kda = (player.kills + player.assists) / player.deaths;
   const csPerMinute = player.totalMinionsKilled / (gameDuration / 60);
   const items = formatItemsForDisplay(player.items, player.trinket);
+  const championData = getChampionDataById(player.championId);
 
   return (
     <div className={styles.matchListCardPlayerRecap}>
       <div className={styles.playerSection}>
         <div className={styles.championAvatar}>
           <img
-            src={ getChampionIcon(player.championName) }
+            src={ getChampionIcon(championData!.id) }
             title={ player.championName }
           />
           <div className={styles.championLevel}>
@@ -86,7 +88,7 @@ export function MatchListCardPlayerRecap({
 
         <div className={styles.gameStats}>
           <p className={styles.kdaDetailed}>
-            { player.kills } / { player.deaths } / { player.assists }
+            { player.kills }/{ player.deaths }/{ player.assists }
           </p>
           <p className={styles.kdaCalculated}>
             { player.deaths > 0 ? kda.toFixed(2) : "Perfect" } KDA

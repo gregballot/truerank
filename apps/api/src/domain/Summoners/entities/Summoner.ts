@@ -5,6 +5,7 @@ export class Summoner {
     private readonly data: SharedTypes.SummonerData,
     private readonly soloRank?: SharedTypes.SummonerLeague,
     private readonly flexRank?: SharedTypes.SummonerLeague,
+    private readonly championMasteries?: SharedTypes.ChampionMastery[],
   ) {}
 
   get puuid(): string {
@@ -16,6 +17,7 @@ export class Summoner {
       ...this.data,
       soloRank: this.soloRank,
       flexRank: this.flexRank,
+      championMasteries: this.championMasteries ?? [],
     }
   }
 

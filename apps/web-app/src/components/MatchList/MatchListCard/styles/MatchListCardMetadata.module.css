@@ -1,5 +1,6 @@
 .matchListCardMetadata {
   font-size: 0.9em;
+  padding: 10px;
 }
 
 .queueName {
@@ -8,6 +9,7 @@
 
 .gameDate {
   font-style: italic;
+  font-size: 0.9em;
 }
 
 .separator {
@@ -17,7 +19,7 @@
 }
 
 .gameDuration {
-  font-size: 1.1em;
+  font-size: 0.9em;
 }
 
 .gameResult {

@@ -1,22 +1,21 @@
 import { useEffect } from "react";
 
+import { SummonerDetails } from "@truerank/shared/types";
+
 import { useCooldown } from "../../../hooks/useCooldown";
-import { getProfileIcon } from "../../../helpers/datadragon";
+import { getChampionDataById, getChampionSplash, getProfileIcon } from "../../../helpers/datadragon";
 
 import styles from "./ProfileHeader.module.css";
 
 type Props = {
-  summonerProfile?: {
-    puuid: string;
-    gameName: string;
-    tagLine: string;
-    level?: number;
-    icon?: number;
-  };
+  summonerProfile?: SummonerDetails;
   handleUpdate: () => void;
 };
 
-export function ProfileHeader({ summonerProfile: profile, handleUpdate: refreshData }: Props) {
+export function ProfileHeader({
+  summonerProfile: profile,
+  handleUpdate: refreshData
+}: Props) {
   const { cooldown, isCoolingDown, startCooldown } = useCooldown();
 
   function handleUpdate() {
@@ -70,12 +69,22 @@ export function ProfileHeader({ summonerProfile: profile, handleUpdate: refreshD
         </div>
       </div>
 
-      <div
-        className={styles.summonerSplash}
-        style={{
-          backgroundImage: `url("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Shyvana_0.jpg")`
-        }}
-      />
+      {
+        profile?.championMasteries.length && (
+          <div
+            className={styles.summonerSplash}
+            style={{
+              backgroundImage: `url("${
+                getChampionSplash(
+                  getChampionDataById(
+                    profile.championMasteries[0]?.championId
+                  )?.id
+                )
+              }")`
+            }}
+          />
+        )
+      }
     </div>
   );
 }

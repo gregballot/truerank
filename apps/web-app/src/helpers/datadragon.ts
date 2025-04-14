@@ -13,6 +13,7 @@ let cachedItemData: Record<string, ItemData> | null = null;
 let cachedSummonerSpells: Record<number, SummonerSpellData> | null = null;
 let cachedRuneData: Record<number, RuneStyle> | null = null;
 let cachedChampionData: Record<string, ChampionData> | null = null;
+let cachedChampionIdToNameMap: Record<number, string> | null = null;
 
 /* Riot data preloading */
 export async function preloadLatestDDragonVersion() {
@@ -42,9 +43,13 @@ export async function preloadChampionData() {
   const { data } = await response.json();
 
   cachedChampionData = {};
-  for (const key in data) {
-    const lowerCaseKey = key.toLowerCase();
-    cachedChampionData[lowerCaseKey] = data[key];
+  cachedChampionIdToNameMap = {};
+  for (const id in data) {
+    const championMapKey = id.toLowerCase();
+    const championData = data[id] as ChampionData;
+
+    cachedChampionData[championMapKey] = championData;
+    cachedChampionIdToNameMap[Number(championData.key)] = championData.id;
   }
 }
 
@@ -124,6 +129,15 @@ export const getRuneStyleIcon = (runeStyleIcon: string): string | undefined => {
   return `${DDRAGON_BASE_URL}/cdn/img/${runeStyleIcon}`;
 }
 
+export const getChampionDataById = (id: number) => {
+  const key = cachedChampionIdToNameMap?.[id]?.toLowerCase();
+  if (!key) {
+    return undefined;
+  }
+
+  return cachedChampionData?.[key];
+}
+
 export const getChampionIcon = (championName: string) => {
   const lowerCaseChampion = championName.toLowerCase();
   const championData = cachedChampionData?.[lowerCaseChampion];
@@ -132,6 +146,22 @@ export const getChampionIcon = (championName: string) => {
 
   return `${DDRAGON_BASE_URL}/cdn/${version}/img/champion/${imageName}`;
 }
+
+export const getChampionSplash = (champion?: string) => {
+  console.log(champion);
+  const championKey = champion?.toString().toLowerCase();
+  if (!championKey) {
+    return;
+  }
+
+  const championData = cachedChampionData?.[championKey];
+  const championId = championData?.id;
+  if (!championId) {
+    return;
+  }
+
+  return `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championId}_0.jpg`;
+};
 
 export function getItemData(itemId: number): ItemData | undefined {
   return cachedItemData?.[itemId.toString()];

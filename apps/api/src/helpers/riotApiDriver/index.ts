@@ -4,6 +4,7 @@ import { CacheAdapter } from '../cache/cacheAdapter';
 import { lruCacheAdapterSingleton } from '../cache/lruCacheAdapter';
 
 import {
+  RiotChampionMastery,
   RiotMatch,
   RiotSummonerAccount,
   RiotSummonerLeagueEntry,
@@ -149,6 +150,18 @@ export class RiotApiDriver {
   ): Promise<RiotSummonerLeagueEntry[]> {
     const result = await this.get<RiotSummonerLeagueEntry[]>(
       `${this.regionBaseUrl}/lol/league/v4/entries/by-puuid/${puuid}`,
+      {},
+      invalidateCache,
+    );
+    return result.data;
+  }
+
+  public async getChampionMasteries(
+    puuid: string,
+    invalidateCache?: boolean,
+  ): Promise<RiotChampionMastery[]> {
+    const result = await this.get<RiotChampionMastery[]>(
+      `${this.regionBaseUrl}/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}`,
       {},
       invalidateCache,
     );

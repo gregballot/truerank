@@ -38,6 +38,10 @@ export function MatchListCard({ summonerMatch }: Props) {
       <MatchListCardTeamOverview
         redTeam={redTeam}
         blueTeam={blueTeam} />
+
+      <div className={styles.dropDownButton}>
+        <img src="/icons/down-arrow.svg" />
+      </div>
     </div>
   );
 }
