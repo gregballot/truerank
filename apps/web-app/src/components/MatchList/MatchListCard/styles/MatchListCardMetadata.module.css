@@ -1,10 +1,12 @@
 .matchListCardMetadata {
   font-size: 0.9em;
+  font-family: var(--font-main);
   padding: 10px;
 }
 
 .queueName {
-  font-weight: bold;
+  font-size: 1.1em;
+  font-weight: 600;
 }
 
 .gameDate {
@@ -23,7 +25,8 @@
 }
 
 .gameResult {
+  color: #333;
   font-weight: bold;
   text-transform: uppercase;
-  font-size: 1.4em;
+  font-size: 1.2em;
 }

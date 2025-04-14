@@ -6,12 +6,12 @@ export function getEmblemUrl(rank: Rank): string {
 
 export function getMasteryBadgeUrl(masteryLevel: number): string {
   const ranges: [number, number][] = [
-    [1, 4],
-    [5, 9],
-    [10, 14],
-    [15, 19],
+    [1, 6],
+    [7, 12],
+    [13, 19],
     [20, 29],
-    [30, Infinity],
+    [30, 39],
+    [40, Infinity],
   ];
 
   const masteryRangeIndex = ranges.findIndex(([min, max]) => {

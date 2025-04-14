@@ -1,9 +1,11 @@
 .matchListCard {
   width: 100%;
   box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  color: #444;
 
   display: grid;
-  grid-template-columns: 130px 1fr 260px 30px;
+  grid-template-columns: 140px 1fr 260px 30px;
   gap: 10px;
   align-items: center;
 
