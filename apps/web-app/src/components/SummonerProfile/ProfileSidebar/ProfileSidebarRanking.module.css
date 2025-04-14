@@ -40,7 +40,7 @@
 .rankSection .emblem {
   width: 90%;
   margin: 5px auto 0;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.8s ease-out;
 }
 
 .rankSection .emblem:hover {
