@@ -9,9 +9,11 @@ import clsx from "clsx";
 
 type Props = {
   summonerMatch: SharedTypes.SummonerMatchData;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
-export function MatchListCard({ summonerMatch }: Props) {
+export function MatchListCard({ summonerMatch, className, style }: Props) {
 
   const { match, summoner, isWinner } = summonerMatch;
   const { metadata, redTeam, blueTeam } = match;
@@ -23,10 +25,14 @@ export function MatchListCard({ summonerMatch }: Props) {
   }
 
   return (
-    <div className={clsx(
-      styles.matchListCard,
-      isWinner ? styles.winner : styles.loser
-    )}>
+    <div
+      className={clsx(
+        styles.matchListCard,
+        isWinner ? styles.winner : styles.loser,
+        className,
+      )}
+      style={style}
+    >
       <MatchListCardMetadata
         metadata={metadata}
         isWinner={isWinner} />

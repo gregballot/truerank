@@ -1,9 +1,9 @@
 import { SummonerLeague } from "@truerank/shared/types";
 
-import { calcWinRate } from "../../../helpers/utils";
+import { calcWinRate } from "../../helpers/utils";
 
 import styles from "./ProfileSidebarRanking.module.css";
-import { getEmblemUrl } from "../../../helpers/staticAssets";
+import { getEmblemUrl } from "../../helpers/staticAssets";
 
 type Props = {
   name: string;

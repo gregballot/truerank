@@ -10,9 +10,9 @@ import sharedStyles from '../../styles/shared.module.css';
 
 import { SummonerProfileProvider } from './SummonerProfileContext';
 
-import { ProfileHeader } from '../../components/SummonerProfile/ProfileHeader/ProfileHeader';
-import { ProfileMatches } from '../../components/SummonerProfile/ProfileMatches/ProfileMatches';
-import { ProfileSidebar } from '../../components/SummonerProfile/ProfileSidebar/ProfileSidebar';
+import { ProfileHeader } from '../../components/ProfileHeader/ProfileHeader';
+import { ProfileMatches } from '../../components/ProfileMatches/ProfileMatches';
+import { ProfileSidebar } from '../../components/ProfileSidebar/ProfileSidebar';
 
 import { fetchMatches } from '../../api/matches';
 
@@ -37,7 +37,7 @@ export function SummonerProfile() {
 
     queryClient.fetchQuery({
       queryKey: ['matches', name, tag],
-      queryFn: () => fetchMatches(name!, tag!, true),
+      queryFn: () => fetchMatches(name!, tag!, 0, true),
     });
   }
 

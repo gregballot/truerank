@@ -1,9 +1,9 @@
 import { ChampionMastery } from "@truerank/shared/types";
 
 import styles from "./ProfileSidebarMasteries.module.css";
-import { getChampionDataById, getChampionIcon, getChampionSplash } from "../../../helpers/datadragon";
-import { getMasteryBadgeUrl } from "../../../helpers/staticAssets";
-import { dateToTimeAgoFormatted } from "../../../helpers/dates";
+import { getChampionDataById, getChampionIcon, getChampionSplash } from "../../helpers/datadragon";
+import { getMasteryBadgeUrl } from "../../helpers/staticAssets";
+import { dateToTimeAgoFormatted } from "../../helpers/dates";
 
 type Props = {
   championMasteries?: ChampionMastery[];

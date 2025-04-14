@@ -7,6 +7,7 @@ import { SummonerMatch } from '../entities/SummonerMatch';
 type Params = {
   summonerName: string;
   summonerTag: string;
+  start?: number;
   invalidateCache?: boolean;
 };
 
@@ -16,7 +17,7 @@ type Dependencies = {
 };
 
 export const getSummonerMatches = async (
-  { summonerName, summonerTag, invalidateCache }: Params,
+  { summonerName, summonerTag, start, invalidateCache }: Params,
   { matchAdapter, summonerAdapter }: Dependencies
 ): Promise<SharedTypes.SummonerMatchData[]> => {
   const summoner = await summonerAdapter.getLightSummonerByName(
@@ -24,7 +25,14 @@ export const getSummonerMatches = async (
     summonerTag,
   );
 
-  const matches = await matchAdapter.getMatches(summoner.puuid, { invalidateCache });
+  const matches = await matchAdapter.getMatches(
+    summoner.puuid,
+    {
+      start,
+      invalidateCache
+    }
+  );
+
   const summonerMatches = matches.map(
     (match) => new SummonerMatch(match, summoner)
   );
