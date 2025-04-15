@@ -70,6 +70,7 @@
 }
 
 .gameStats {
+  width: 170px;
   margin-left: 10px;
   display: grid;
   grid-template: 1fr 1fr / 1fr 1fr;

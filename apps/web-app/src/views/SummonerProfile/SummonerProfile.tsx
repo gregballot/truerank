@@ -24,7 +24,7 @@ export function SummonerProfile() {
 
   const { data: summonerProfile, isLoading } = useQuery({
     queryKey: ['profile', name, tag],
-    queryFn: () => fetchProfile(name!, tag!, ),
+    queryFn: () => fetchProfile(name!, tag!, false),
     enabled: !!name && !!tag,
     retry: false,
   });

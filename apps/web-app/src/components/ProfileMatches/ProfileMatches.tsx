@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useQuery } from '@tanstack/react-query';
 
 import styles from './ProfileMatches.module.css';
@@ -30,9 +31,8 @@ export function ProfileMatches({
     data: newMatches,
     isLoading: isFirstFetching,
     error,
-    refetch
   } = useQuery({
-    queryKey: ['matches', name, tag],
+    queryKey: ['matches', name, tag, matchOffset],
     queryFn: () => fetchMatches(name!, tag!, matchOffset, false),
     enabled: Boolean(name && tag),
     retry: false,
@@ -46,9 +46,7 @@ export function ProfileMatches({
 
     if (newMatches && newMatches.length > 0) {
       setMatches((prev: SummonerMatchData[]) => [...prev, ...newMatches]);
-      setMatchOffset(prev => prev + newMatches.length);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newMatches]);
 
   // reset Matches on summoner change
@@ -60,22 +58,22 @@ export function ProfileMatches({
 
   const loadMore = () => {
     setIsLoading(true);
-    refetch();
+    setMatchOffset(prev => prev + 10); // query key changes -> refetch
   };
 
   return (
     <div className={styles.profileMatches}>
-      {
-        error && (
-          <p>Error: {JSON.stringify(error)}</p>
-        )
-      }
       {
         <MatchList
           isLoading={isLoading}
           summonerMatches={matches}
           loadMore={loadMore}
         />
+      }
+      {
+        error && (
+          <p>Error: {JSON.stringify(error)}</p>
+        )
       }
     </div>
   );

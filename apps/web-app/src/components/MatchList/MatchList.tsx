@@ -19,7 +19,10 @@ export function MatchList({
       {
         summonerMatches.map((summonerMatch, index) => (
           <MatchListCard
-            key={index}
+            key={`${
+              summonerMatch.match.metadata.gameId}\
+              ${summonerMatch.summoner.puuid
+            }`}
             summonerMatch={summonerMatch}
             className={styles.card}
             style={{ '--i': index } as React.CSSProperties}

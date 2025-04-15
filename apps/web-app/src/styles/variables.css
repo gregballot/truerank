@@ -11,10 +11,3 @@
     /* Layout */
     --site-width: 1200px;
 }
-
-@media (max-width: 1400px) {
-    :root {
-        /* Layout */
-        --site-width: 98vw;
-    }
-}

@@ -4,7 +4,8 @@
   grid-template-areas: "sidebar matches";
   gap: 10px;
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1250px) {
+    width: 950px;
     grid-template-columns: 1fr;
     grid-template-areas:
       "sidebar"

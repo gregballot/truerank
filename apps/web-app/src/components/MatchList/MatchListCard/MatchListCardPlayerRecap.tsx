@@ -67,9 +67,8 @@ export function MatchListCardPlayerRecap({
             {
               player.runeStyles.map(runeId => {
                 const runeStyleData = getRuneStyleData(runeId);
-
                 if (!runeStyleData) {
-                  return <div key={runeId}>PH</div>
+                  return;
                 }
 
                 return (

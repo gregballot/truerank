@@ -7,6 +7,7 @@
 .queueName {
   font-size: 1.1em;
   font-weight: 600;
+  line-height: 1.2em;
 }
 
 .gameDate {
@@ -15,9 +16,9 @@
 }
 
 .separator {
-  width: 50%;
-  border-bottom: solid grey 1px;
-  margin: 5px 0;
+  width: 60%;
+  border-bottom: solid #bcbcbc 1px;
+  margin: 3px 0 6px;
 }
 
 .gameDuration {
@@ -25,8 +26,15 @@
 }
 
 .gameResult {
-  color: #333;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 1.2em;
 }
+
+/* .winner .gameResult {
+  color: #5383e8
+}
+
+.loser .gameResult {
+  color: #e85151
+} */
