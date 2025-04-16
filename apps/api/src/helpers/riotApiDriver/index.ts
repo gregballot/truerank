@@ -170,19 +170,20 @@ export class RiotApiDriver {
 
   public async getMatchIdsByPuuid(
     puuid: string,
-    params?: {
-      start?: number;
-      pageSize?: number;
+    params: {
+      page: number;
+      pageSize: number;
       invalidateCache?: boolean;
     }
   ): Promise<string[]> {
+    const start = (params.page - 1) * params.pageSize;
     const result = await this.get<string[]>(
       `${this.globalBaseUrl}/lol/match/v5/matches/by-puuid/${puuid}/ids`,
       {
-        start: params?.start ?? 0,
-        count: params?.pageSize ?? 5,
+        start,
+        count: params.pageSize,
       },
-      params?.invalidateCache
+      params.invalidateCache
     );
     return result.data;
   }

@@ -16,7 +16,7 @@ export function ProfileHeader({
   summonerProfile: profile,
   handleUpdate: refreshData
 }: Props) {
-  const { cooldown, isCoolingDown, startCooldown } = useCooldown();
+  const { cooldown, isCoolingDown, startCooldown } = useCooldown(1);
 
   function handleUpdate() {
     if (cooldown > 0) return;

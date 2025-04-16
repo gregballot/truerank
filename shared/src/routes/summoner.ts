@@ -21,7 +21,7 @@ export const SummonerMatchesRoute = {
   query: z.object({
     summonerName: z.string(),
     summonerTag: z.string(),
-    start: z.number().optional(),
+    page: z.number().optional(),
     invalidateCache: z.boolean().optional(),
   }),
   response: z.array(z.custom<SummonerMatchData>()),

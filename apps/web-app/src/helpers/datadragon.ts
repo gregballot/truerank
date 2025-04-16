@@ -148,7 +148,6 @@ export const getChampionIcon = (championName: string) => {
 }
 
 export const getChampionSplash = (champion?: string) => {
-  console.log(champion);
   const championKey = champion?.toString().toLowerCase();
   if (!championKey) {
     return;

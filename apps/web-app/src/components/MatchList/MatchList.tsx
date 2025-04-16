@@ -4,19 +4,24 @@ import { MatchListCard } from './MatchListCard/MatchListCard';
 import styles from './MatchList.module.css';
 
 type Props = {
-  isLoading: boolean,
+  isProfileLoading: boolean;
+  isMatchesLoading: boolean;
   summonerMatches: SharedTypes.SummonerMatchData[];
   loadMore: () => void;
+  hasNextPage: boolean;
 };
 
 export function MatchList({
-  isLoading,
+  isProfileLoading,
+  isMatchesLoading,
   summonerMatches,
   loadMore,
+  hasNextPage,
 }: Props) {
   return (
     <div className={styles.matchList}>
       {
+        !isProfileLoading &&
         summonerMatches.map((summonerMatch, index) => (
           <MatchListCard
             key={`${
@@ -30,19 +35,23 @@ export function MatchList({
         ))
       }
 
-      <button
-        disabled={isLoading}
-        onClick={loadMore}
-        className={styles.showMore}
-      >
-        {
-          isLoading ? (
-            <span className={styles.spinner} />
-          ) : (
-            <span>Show more</span>
-          )
-        }
-      </button>
+      {
+        hasNextPage && (
+          <button
+            disabled={isMatchesLoading}
+            onClick={loadMore}
+            className={styles.showMore}
+          >
+            {
+              isMatchesLoading ? (
+                <span className={styles.spinner} />
+              ) : (
+                <span>Show more</span>
+              )
+            }
+          </button>
+        )
+      }
     </div>
   );
 }

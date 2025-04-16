@@ -15,12 +15,12 @@ export class MatchAdapter {
   }
 
   async getMatches(puuid: string, params?: {
-    start?: number,
+    page?: number,
     invalidateCache?: boolean
   }): Promise<Match[]> {
     const matchIds = await this.riotApi.getMatchIdsByPuuid(puuid, {
       pageSize: 10,
-      start: params?.start,
+      page: params?.page ?? 1,
       invalidateCache: params?.invalidateCache,
     });
     const matchesResult = await this.riotApi.getMatchesByIds(matchIds);

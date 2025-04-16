@@ -10,8 +10,6 @@ type Props = {
 };
 
 export function ProfileSidebarMasteries({ championMasteries }: Props) {
-  console.log("champion masteries: ", championMasteries);
-
   if (!championMasteries || championMasteries.length === 0) {
     return;
   }
