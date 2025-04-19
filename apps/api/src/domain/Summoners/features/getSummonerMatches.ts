@@ -1,8 +1,9 @@
-import { SharedTypes } from '@truerank/shared';
+import { SummonerMatches } from '@truerank/shared/types';
 
 import { MatchAdapter } from '../../Matches/matchAdapter';
 import { SummonerAdapter } from '../summonerAdapter';
 import { SummonerMatch } from '../entities/SummonerMatch';
+import { SummonerMatchesRecapBuilder } from '../services/SummonerMatchesRecapBuilder';
 
 type Params = {
   summonerName: string;
@@ -17,9 +18,9 @@ type Dependencies = {
 };
 
 export const getSummonerMatches = async (
-  { summonerName, summonerTag, page, invalidateCache }: Params,
+  { summonerName, summonerTag, page = 1, invalidateCache }: Params,
   { matchAdapter, summonerAdapter }: Dependencies
-): Promise<SharedTypes.SummonerMatchData[]> => {
+): Promise<SummonerMatches> => {
   const summoner = await summonerAdapter.getLightSummonerByName(
     summonerName,
     summonerTag,
@@ -37,5 +38,10 @@ export const getSummonerMatches = async (
     (match) => new SummonerMatch(match, summoner)
   );
 
-  return summonerMatches.map((summonerMatch) => summonerMatch.details);
+  return {
+    page: Number(page),
+    count: summonerMatches.length,
+    matchesData: summonerMatches.map((summonerMatch) => summonerMatch.details),
+    recap: SummonerMatchesRecapBuilder.fromMatches(summonerMatches),
+  };
 };

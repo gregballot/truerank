@@ -1,13 +1,16 @@
-import { SummonerMatchData } from '@truerank/shared/types';
+import { SummonerMatchDetails, SummonerMatchesRecap } from '@truerank/shared/types';
+
 import { MatchList } from '../MatchList/MatchList';
 import styles from './ProfileMatches.module.css';
+import { MatchesRecap } from '../MatchesRecap/MatchesRecap';
 
 type Props = {
-  isProfileLoading: boolean,
-  isMatchesLoading: boolean,
-  isFetchingNextPage: boolean,
-  hasNextPage: boolean,
-  matches: SummonerMatchData[];
+  isProfileLoading: boolean;
+  isMatchesLoading: boolean;
+  isFetchingNextPage: boolean;
+  hasNextPage: boolean;
+  matchesData: SummonerMatchDetails[];
+  recap: SummonerMatchesRecap;
   fetchNextPage: () => void;
 }
 
@@ -16,15 +19,20 @@ export function ProfileMatches({
   isMatchesLoading,
   isFetchingNextPage,
   hasNextPage,
-  matches,
+  matchesData,
+  recap,
   fetchNextPage,
 }: Props) {
   return (
     <div className={styles.profileMatches}>
+      <MatchesRecap
+        isLoading={isProfileLoading || isMatchesLoading || isFetchingNextPage}
+        recap={recap}
+      />
       <MatchList
         isProfileLoading={isProfileLoading}
         isMatchesLoading={isMatchesLoading || isFetchingNextPage}
-        summonerMatches={matches}
+        summonerMatches={matchesData}
         loadMore={fetchNextPage}
         hasNextPage={hasNextPage}
       />

@@ -28,13 +28,13 @@ export function SummonerProfile() {
   } = useSummonerProfile(name, tag);
 
   const {
-    data: matchPages,
+    allMatches,
+    recap,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     isLoading: isMatchesLoading,
   } = useSummonerMatches(summonerProfile, isRefreshing);
-  const allMatches = matchPages?.pages.flat() ?? [];
 
   const queryClient = useQueryClient();
   async function handleUpdate() {
@@ -83,8 +83,8 @@ export function SummonerProfile() {
             isFetchingNextPage={isFetchingNextPage}
             hasNextPage={hasNextPage}
             fetchNextPage={fetchNextPage}
-
-            matches={allMatches}
+            matchesData={allMatches}
+            recap={recap}
           />
         </div>
       </div>

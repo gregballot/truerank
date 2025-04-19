@@ -14,7 +14,7 @@ export class MatchAdapter {
     this.riotApi = new RiotApiDriver(this.riotApiKey, "EUW");
   }
 
-  async getMatches(puuid: string, params?: {
+  public async getMatches(puuid: string, params?: {
     page?: number,
     invalidateCache?: boolean
   }): Promise<Match[]> {

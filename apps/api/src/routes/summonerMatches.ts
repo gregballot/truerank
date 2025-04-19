@@ -25,7 +25,7 @@ export const summonerMatches: FastifyPluginAsync = async (fastify) => {
       }
 
       const riotApiKey = fastify.config.RIOT_API_KEY;
-      const matches = await Summoners.Features.getSummonerMatches(
+      const response = await Summoners.Features.getSummonerMatches(
         {
           summonerName,
           summonerTag,
@@ -38,7 +38,7 @@ export const summonerMatches: FastifyPluginAsync = async (fastify) => {
         }
       );
 
-      return matches;
+      return response;
     }
   );
 };

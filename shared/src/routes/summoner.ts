@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import {
+  SummonerMatchesRecap,
   type SummonerDetails,
-  type SummonerMatchData,
+  type SummonerMatchDetails,
 } from '../types/domain';
 
 export const SummonerProfileRoute = {
@@ -21,8 +22,13 @@ export const SummonerMatchesRoute = {
   query: z.object({
     summonerName: z.string(),
     summonerTag: z.string(),
-    page: z.number().optional(),
+    page: z.number().positive().optional(),
     invalidateCache: z.boolean().optional(),
   }),
-  response: z.array(z.custom<SummonerMatchData>()),
+  response: z.object({
+    page: z.number().positive(),
+    count: z.number().positive(),
+    matchesData: z.array(z.custom<SummonerMatchDetails>()),
+    recap: z.custom<SummonerMatchesRecap>(),
+  }),
 };
