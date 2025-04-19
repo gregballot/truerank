@@ -22,7 +22,7 @@ export class SummonerMatch {
     return this.match.getParticipantSide(this.summoner.puuid);
   }
 
-  get summonerSideKey(): TeamKey {
+  get summonerTeamKey(): TeamKey {
     return this.match.getParticipantTeamKey(this.summoner.puuid);
   }
 
@@ -40,7 +40,7 @@ export class SummonerMatch {
       match: this.match.details,
       summoner: this.summoner.lightDetails,
       summonerSide: this.summonerSide,
-      summonerSideKey: this.summonerSideKey,
+      summonerTeamKey: this.summonerTeamKey,
       summonerIndex: this.summonerIndex,
     };
   }

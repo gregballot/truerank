@@ -170,7 +170,7 @@ export type SummonerMatchDetails = {
   match: MatchData;
   summoner: SummonerLightDetails;
   summonerSide: TeamSide;
-  summonerSideKey: TeamKey;
+  summonerTeamKey: TeamKey;
   summonerIndex: number;
 };
 

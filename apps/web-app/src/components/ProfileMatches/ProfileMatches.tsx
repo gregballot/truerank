@@ -26,11 +26,11 @@ export function ProfileMatches({
   return (
     <div className={styles.profileMatches}>
       <MatchesRecap
-        isLoading={isProfileLoading || isMatchesLoading || isFetchingNextPage}
+        isLoading={isProfileLoading}
         recap={recap}
       />
       <MatchList
-        isProfileLoading={isProfileLoading}
+        isProfileLoading={isProfileLoading || isMatchesLoading}
         isMatchesLoading={isMatchesLoading || isFetchingNextPage}
         summonerMatches={matchesData}
         loadMore={fetchNextPage}
