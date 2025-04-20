@@ -169,9 +169,9 @@ export type SummonerMatchDetails = {
   isWinner: boolean;
   match: MatchData;
   summoner: SummonerLightDetails;
-  summonerSide: TeamSide;
-  summonerTeamKey: TeamKey;
-  summonerIndex: number;
+  summonerSide: TeamSide | null;
+  summonerTeamKey: TeamKey | null;
+  summonerIndex: number | null;
 };
 
 export type SummonerMatches = {

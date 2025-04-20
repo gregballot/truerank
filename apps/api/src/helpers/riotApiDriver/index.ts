@@ -81,14 +81,20 @@ export class RiotApiDriver {
 
   private async get<T>(
     url: string,
-    params?: Record<string, string | number>,
+    params?: Record<string, string | number | number[]>,
     invalidateCache = false,
   ): Promise<{ data: T, fromCache: boolean }> {
     const urlBuilder = new URL(url);
 
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
-        urlBuilder.searchParams.append(key, String(value));
+        if (Array.isArray(value)) {
+          value.forEach(v => {
+            urlBuilder.searchParams.append(key, String(v));
+          });
+        } else {
+          urlBuilder.searchParams.append(key, String(value));
+        }
       });
     }
 
@@ -173,13 +179,16 @@ export class RiotApiDriver {
     params: {
       page: number;
       pageSize: number;
+      queueIds?: number[];
       invalidateCache?: boolean;
     }
   ): Promise<string[]> {
     const start = (params.page - 1) * params.pageSize;
+    const queue = params.queueIds ?? [420, 430, 440]; // TODO: type these
     const result = await this.get<string[]>(
       `${this.globalBaseUrl}/lol/match/v5/matches/by-puuid/${puuid}/ids`,
       {
+        queue,
         start,
         count: params.pageSize,
       },

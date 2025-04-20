@@ -1,4 +1,4 @@
-import { SharedTypes } from "@truerank/shared";
+import { SummonerMatchDetails } from "@truerank/shared/types";
 
 import { MatchListCardMetadata } from "./MatchListCardMetadata";
 import { MatchListCardPlayerRecap } from "./MatchListCardPlayerRecap";
@@ -8,7 +8,7 @@ import styles from "./styles/MatchListCard.module.css";
 import clsx from "clsx";
 
 type Props = {
-  summonerMatch: SharedTypes.SummonerMatchData;
+  summonerMatch: SummonerMatchDetails;
   className?: string;
   style?: React.CSSProperties;
 };

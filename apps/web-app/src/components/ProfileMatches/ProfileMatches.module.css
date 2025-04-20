@@ -1,3 +1,6 @@
 .profileMatches {
-  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 50px;
 }

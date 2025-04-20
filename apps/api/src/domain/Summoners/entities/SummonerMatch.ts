@@ -18,11 +18,11 @@ export class SummonerMatch {
     return this.match.isParticipantWinner(this.summoner.puuid);
   }
 
-  get summonerSide(): TeamSide {
+  get summonerSide(): TeamSide | null {
     return this.match.getParticipantSide(this.summoner.puuid);
   }
 
-  get summonerTeamKey(): TeamKey {
+  get summonerTeamKey(): TeamKey | null {
     return this.match.getParticipantTeamKey(this.summoner.puuid);
   }
 
@@ -30,7 +30,7 @@ export class SummonerMatch {
     return this.match.getParticipantIndex(this.summoner.puuid);
   }
 
-  get summonerData(): MatchParticipant {
+  get summonerData(): MatchParticipant | null {
     return this.match.getParticipantData(this.summoner.puuid);
   }
 

@@ -14,6 +14,7 @@ export class SummonerMatchesRecapBuilder {
   private _totals: RecapMetrics;
   private _championsTotalsMap: Map<number, RecapMetrics>;
   private _rolesTotalsMap: Map<MatchRole, RecapMetrics>;
+  private _skipped = 0;
 
   constructor(private readonly matches: SummonerMatch[]) {
     this._totals = this.initTotals();
@@ -76,7 +77,11 @@ export class SummonerMatchesRecapBuilder {
   private calcTotals(): void {
     for (const match of this.matches) {
       const summonerData = match.summonerData;
-      
+      if (!summonerData) {
+        this._skipped++;
+        continue;
+      }
+
       if (!this._championsTotalsMap.has(summonerData.championId)) {
         this._championsTotalsMap.set(summonerData.championId, this.initTotals());
       }
@@ -97,15 +102,16 @@ export class SummonerMatchesRecapBuilder {
   }
 
   private calcAverageMetrics(metrics: RecapMetrics): RecapAverageMetrics {
+    const trueTotal = metrics.matchesCount - this._skipped;
     return {
-      matchesCount: metrics.matchesCount,
+      matchesCount: trueTotal,
       wins: metrics.wins,
       losses: metrics.losses,
-      winrate: (metrics.wins / metrics.matchesCount) * 100,
+      winrate: (metrics.wins / trueTotal) * 100,
 
-      averageKills: metrics.kills / metrics.matchesCount,
-      averageDeaths: metrics.deaths / metrics.matchesCount,
-      averageAssists: metrics.assists / metrics.matchesCount,
+      averageKills: metrics.kills / trueTotal,
+      averageDeaths: metrics.deaths / trueTotal,
+      averageAssists: metrics.assists / trueTotal,
 
       averageKda: (metrics.kills + metrics.assists) / metrics.deaths,
     };

@@ -26,7 +26,7 @@ export function ProfileMatches({
   return (
     <div className={styles.profileMatches}>
       <MatchesRecap
-        isLoading={isProfileLoading}
+        isLoading={isProfileLoading || isMatchesLoading}
         recap={recap}
       />
       <MatchList

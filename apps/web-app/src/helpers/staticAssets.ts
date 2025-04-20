@@ -1,4 +1,4 @@
-import { Rank } from "@truerank/shared/types";
+import { MatchRole, Rank } from "@truerank/shared/types";
 
 export function getEmblemUrl(rank: Rank): string {
   return `/ranks/${rank.toLowerCase()}.png`;
@@ -19,4 +19,8 @@ export function getMasteryBadgeUrl(masteryLevel: number): string {
   });
 
   return `/masteries/mastery${masteryRangeIndex + 1}.png`;
+}
+
+export function getRoleIcon(roleId: MatchRole) {
+  return `/roles/role-${roleId}.svg`;
 }

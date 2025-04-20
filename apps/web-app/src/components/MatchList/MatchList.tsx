@@ -1,4 +1,5 @@
-import { SharedTypes } from '@truerank/shared';
+import { SummonerMatchDetails } from '@truerank/shared/types';
+
 import { MatchListCard } from './MatchListCard/MatchListCard';
 
 import styles from './MatchList.module.css';
@@ -6,7 +7,7 @@ import styles from './MatchList.module.css';
 type Props = {
   isProfileLoading: boolean;
   isMatchesLoading: boolean;
-  summonerMatches: SharedTypes.SummonerMatchData[];
+  summonerMatches: SummonerMatchDetails[];
   loadMore: () => void;
   hasNextPage: boolean;
 };
