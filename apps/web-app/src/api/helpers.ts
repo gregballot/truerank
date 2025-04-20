@@ -30,13 +30,15 @@ export function buildProfileQueryKey(
   ];
 }
 
-export type MatchesQueryKey = [string, string, string];
+export type MatchesQueryKey = [string, string, string, string];
 export function buildMatchesQueryKey(
   summoner?: SummonerLightDetails,
+  filter?: string | null,
 ): MatchesQueryKey {
   return [
     'matches',
     summoner?.gameName ?? "",
     summoner?.tagLine ?? "",
+    filter ?? "",
   ];
 }

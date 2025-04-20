@@ -22,6 +22,7 @@ export const SummonerMatchesRoute = {
   query: z.object({
     summonerName: z.string(),
     summonerTag: z.string(),
+    filter: z.string(),
     page: z.number().positive().optional(),
     invalidateCache: z.boolean().optional(),
   }),

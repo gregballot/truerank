@@ -11,6 +11,7 @@ import { buildMatchesQueryKey, MatchesQueryKey } from "../../../api/helpers";
  * Hook to fetch paginated match history for a summoner.
  */
 export function useSummonerMatches(
+  filter: string | null,
   summoner?: SummonerLightDetails,
   isRefreshing = false,
 ) {
@@ -21,12 +22,13 @@ export function useSummonerMatches(
     MatchesQueryKey, // TQueryKey
     number // TPageParam
   >({
-    queryKey: buildMatchesQueryKey(summoner),
+    queryKey: buildMatchesQueryKey(summoner, filter),
 
     queryFn: ({ pageParam = 1 }) => {
       return fetchMatches(
         summoner!.gameName,
         summoner!.tagLine,
+        filter!,
         pageParam,
         isRefreshing,
       );
@@ -35,7 +37,7 @@ export function useSummonerMatches(
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.page + 1,
 
-    enabled: Boolean(summoner),
+    enabled: Boolean(summoner && filter?.length),
     retry: false,
     refetchOnWindowFocus: false,
   });
@@ -44,12 +46,6 @@ export function useSummonerMatches(
   const recap = useMemo(() => {
     return mergeRecaps(pages);
   }, [pages]);
-
-  console.log({
-    ...query,
-    allMatches: pages.flatMap(page => page.matchesData),
-    recap,
-  });
 
   return {
     ...query,

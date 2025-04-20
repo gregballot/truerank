@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { useSummonerMatches } from './queries/useSummonerMatches';
@@ -20,6 +20,8 @@ import sharedStyles from '../../styles/shared.module.css';
 
 export function SummonerProfile() {
   const { name, tag } = useParams<{ name: string, tag: string }>();
+  const [searchParams] = useSearchParams();
+
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const {
@@ -34,7 +36,7 @@ export function SummonerProfile() {
     hasNextPage,
     isFetchingNextPage,
     isLoading: isMatchesLoading,
-  } = useSummonerMatches(summonerProfile, isRefreshing);
+  } = useSummonerMatches(searchParams.get("filter"), summonerProfile, isRefreshing);
 
   const queryClient = useQueryClient();
   async function handleUpdate() {
@@ -66,6 +68,7 @@ export function SummonerProfile() {
           handleUpdate={handleUpdate}
         />
       </div>
+
       <div className={clsx(styles.summonerProfile, sharedStyles.view)}>
         <div className={styles.profileSidebarWrap}>
           <ProfileSidebar

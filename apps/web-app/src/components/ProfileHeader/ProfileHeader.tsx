@@ -25,7 +25,6 @@ export function ProfileHeader({
     startCooldown();
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => startCooldown(), []);
 
   return (

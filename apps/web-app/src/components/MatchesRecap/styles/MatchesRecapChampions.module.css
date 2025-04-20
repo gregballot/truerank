@@ -1,6 +1,5 @@
 .recapChampions {
   max-width: 300px;
-  min-height: 170px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
