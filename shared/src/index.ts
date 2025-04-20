@@ -1,2 +1,2 @@
-export * as Routes from './routes';
-export * as SharedTypes from './types';
+export * as Routes from './routes/index.js';
+export * as SharedTypes from './types/index.js';

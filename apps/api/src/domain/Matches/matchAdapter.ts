@@ -14,11 +14,15 @@ export class MatchAdapter {
     this.riotApi = new RiotApiDriver(this.riotApiKey, "EUW");
   }
 
-  async getMatches(puuid: string, params?: {
-    start?: number,
+  public async getMatches(puuid: string, params?: {
+    page?: number,
     invalidateCache?: boolean
   }): Promise<Match[]> {
-    const matchIds = await this.riotApi.getMatchIdsByPuuid(puuid, params);
+    const matchIds = await this.riotApi.getMatchIdsByPuuid(puuid, {
+      pageSize: 10,
+      page: params?.page ?? 1,
+      invalidateCache: params?.invalidateCache,
+    });
     const matchesResult = await this.riotApi.getMatchesByIds(matchIds);
 
     return matchesResult.map((matchResult) => {

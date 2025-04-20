@@ -1,0 +1,55 @@
+.recapRoles {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.recapRolesCaption .roleNames {
+  max-width: 100%;
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-style: italic;
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  list-style: none;
+  padding-inline-start: 0;
+  margin: 0;
+}
+
+.roleListItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9em;
+}
+
+.roleListItem img {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-2px);
+  opacity: 0.65;
+}
+
+.roleListItem p {
+  font-size: 1.1em;
+}
+
+.roleListItem p em {
+  padding-left: 5px;
+  font-size: 0.9em;
+}
+
+.more {
+  text-align: center;
+  font-style: italic;
+}

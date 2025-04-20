@@ -2,15 +2,23 @@ import { SharedTypes } from "@truerank/shared";
 
 export class Summoner {
   constructor(
-    private readonly data: SharedTypes.SummonerData
+    private readonly data: SharedTypes.SummonerData,
+    private readonly soloRank?: SharedTypes.SummonerLeague,
+    private readonly flexRank?: SharedTypes.SummonerLeague,
+    private readonly championMasteries?: SharedTypes.ChampionMastery[],
   ) {}
 
   get puuid(): string {
     return this.data.puuid;
   }
 
-  get details(): SharedTypes.SummonerData {
-    return this.data;
+  get details(): SharedTypes.SummonerDetails {
+    return {
+      ...this.data,
+      soloRank: this.soloRank,
+      flexRank: this.flexRank,
+      championMasteries: this.championMasteries ?? [],
+    }
   }
 
   get lightDetails(): SharedTypes.SummonerLightDetails {

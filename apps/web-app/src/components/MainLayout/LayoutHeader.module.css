@@ -4,7 +4,7 @@
     width: 100%;
     height: var(--header-height);
     z-index: var(--z-header);
-    background: #678fe8;
+    background: #4f82f2;
     color: white;
 }
 

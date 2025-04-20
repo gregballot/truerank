@@ -1,3 +1,4 @@
+import { SummonerLightDetails } from '@truerank/shared/types';
 import { z } from 'zod';
 
 export function buildApiRequestUrl<TQuery extends z.ZodTypeAny>(
@@ -9,10 +10,33 @@ export function buildApiRequestUrl<TQuery extends z.ZodTypeAny>(
   const validated = querySchema.parse(params);
 
   Object.entries(validated).forEach(([key, value]) => {
-    if (value) {
+    if (value !== undefined) {
       url.searchParams.append(key, String(value));
     }
   });
 
   return url.toString();
+}
+
+export type ProfileQueryKey = [string, string, string];
+export function buildProfileQueryKey(
+  name?: string,
+  tag?: string,
+): ProfileQueryKey {
+  return [
+    'profile',
+    name ?? "",
+    tag ?? "",
+  ];
+}
+
+export type MatchesQueryKey = [string, string, string];
+export function buildMatchesQueryKey(
+  summoner?: SummonerLightDetails,
+): MatchesQueryKey {
+  return [
+    'matches',
+    summoner?.gameName ?? "",
+    summoner?.tagLine ?? "",
+  ];
 }

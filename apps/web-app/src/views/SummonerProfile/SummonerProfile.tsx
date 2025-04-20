@@ -1,67 +1,90 @@
 import clsx from 'clsx';
 
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
+import { useSummonerMatches } from './queries/useSummonerMatches';
+import { useSummonerProfile } from './queries/useSummonerProfile';
+
+import { buildMatchesQueryKey, buildProfileQueryKey } from '../../api/helpers';
 import { fetchProfile } from '../../api/profile';
+
+import { SummonerProfileProvider } from './SummonerProfileContext';
+import { ProfileHeader } from '../../components/ProfileHeader/ProfileHeader';
+import { ProfileMatches } from '../../components/ProfileMatches/ProfileMatches';
+import { ProfileSidebar } from '../../components/ProfileSidebar/ProfileSidebar';
 
 import styles from './SummonerProfile.module.css';
 import sharedStyles from '../../styles/shared.module.css';
 
-import { SummonerProfileProvider } from './SummonerProfileContext';
-
-import { ProfileHeader } from '../../components/SummonerProfile/ProfileHeader/ProfileHeader';
-import { ProfileMatches } from '../../components/SummonerProfile/ProfileMatches/ProfileMatches';
-import { ProfileSidebar } from '../../components/SummonerProfile/ProfileSidebar/ProfileSidebar';
-
-import { fetchMatches } from '../../api/matches';
-
 export function SummonerProfile() {
-  const queryClient = useQueryClient();
-
   const { name, tag } = useParams<{ name: string, tag: string }>();
-  const player = { name, tag };
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const { data: profile, isLoading } = useQuery({
-    queryKey: ['profile', name, tag],
-    queryFn: () => fetchProfile(name!, tag!, ),
-    enabled: !!name && !!tag,
-    retry: false,
-  });
+  const {
+    data: summonerProfile,
+    isLoading,
+  } = useSummonerProfile(name, tag);
 
-  function handleUpdate() {
-    queryClient.fetchQuery({
-      queryKey: ['profile', name, tag],
-      queryFn: () => fetchProfile(name!, tag!, true),
-    });
+  const {
+    allMatches,
+    recap,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading: isMatchesLoading,
+  } = useSummonerMatches(summonerProfile, isRefreshing);
 
-    queryClient.fetchQuery({
-      queryKey: ['matches', name, tag],
-      queryFn: () => fetchMatches(name!, tag!, true),
-    });
+  const queryClient = useQueryClient();
+  async function handleUpdate() {
+    const profileQueryKey = buildProfileQueryKey(name, tag);
+    const matchesQueryKey = buildMatchesQueryKey(summonerProfile);
+
+    setIsRefreshing(true);
+    try {
+      await queryClient.fetchQuery({
+        queryKey: profileQueryKey,
+        queryFn: () => fetchProfile(name!, tag!, true),
+      });
+
+      // Trigger matches refetch differently because of infiniteQuery.
+      // It works because isRefreshing state is passed to it. Which we
+      // can do because infiniteQuery does fresh queries on invalidate.
+      await queryClient.invalidateQueries({ queryKey: matchesQueryKey });
+
+    } finally {
+      setIsRefreshing(false);
+    }
   }
 
   return (
-    <SummonerProfileProvider puuid={profile?.puuid}>
+    <SummonerProfileProvider puuid={summonerProfile?.puuid}>
       <div className={styles.profileHeaderWrap}>
         <ProfileHeader
-          isProfileLoading={isLoading}
-          profile={profile}
+          summonerProfile={summonerProfile}
           handleUpdate={handleUpdate}
         />
       </div>
       <div className={clsx(styles.summonerProfile, sharedStyles.view)}>
         <div className={styles.profileSidebarWrap}>
           <ProfileSidebar
-            // isProfileLoading={isLoading}
-            // player={player}
+            isProfileLoading={isLoading}
+            soloRank={summonerProfile?.soloRank}
+            flexRank={summonerProfile?.flexRank}
+            championMasteries={summonerProfile?.championMasteries}
           />
         </div>
 
         <div className={styles.profileMatchesWrap}>
           <ProfileMatches
-            isProfileLoading={isLoading}
-            player={player}
+            isProfileLoading={isLoading || isRefreshing}
+            isMatchesLoading={isMatchesLoading || isRefreshing}
+            isFetchingNextPage={isFetchingNextPage}
+            hasNextPage={hasNextPage}
+            fetchNextPage={fetchNextPage}
+            matchesData={allMatches}
+            recap={recap}
           />
         </div>
       </div>

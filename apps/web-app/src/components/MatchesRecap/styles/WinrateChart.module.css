@@ -1,0 +1,16 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart {
+  transform: rotate(0deg);
+}
+
+.label {
+  position: absolute;
+  font-size: 1.2rem;
+  font-weight: 600;
+}

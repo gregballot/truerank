@@ -1,0 +1,138 @@
+.sidebarMasteries {
+  background-color: white;
+  border-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: rgba(149, 157, 165, 0.3) 0px 0px 12px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarMasteries h3 {
+  padding: 5px 10px 5px;
+  font-weight: 600;
+  font-size: 1.1em;
+  color: #555;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 60%,
+    rgba(0, 0, 0, 0.05) 75%,
+    rgba(0, 0, 0, 0.1) 85%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+}
+
+.championMastery {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+  z-index: 0;
+}
+
+.championMastery:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.championMastery:last-child .championInfo {
+  border-bottom-left-radius: 10px;
+}
+
+.championMastery > * {
+  position: relative;
+  z-index: 1; /* ⬅ Forces it above ::before */
+}
+
+.championMastery::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0.3) 40%,
+    rgba(255, 255, 255, 0.25) 45%,
+    rgba(255, 255, 255, 0.2) 65%,
+    rgba(255, 255, 255, 0.2) 75%,
+    rgba(255, 255, 255, 0.25) 95%,
+    rgba(255, 255, 255, 0.10) 100%
+  );
+  backdrop-filter: blur(1px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.championInfo {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85em;
+  line-height: 1.3;
+  flex-grow: 1;
+
+  background: linear-gradient(
+    to right,
+    rgba(255,255,255,0.9),
+    rgba(255,255,255,0)
+  );
+  padding: 10px;
+}
+
+.championInfo p {
+  color: #333;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.8);
+}
+
+.championInfo .championNameWrap {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.championInfo .championNameWrap img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  transform: translate(0px, -2px);
+}
+
+.championInfo .championName {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.championInfo .championMasteryLevel {
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 1px;
+}
+
+.championInfo .championMasteryPoints {
+  color: #333;
+}
+
+.championInfo .championLastPlayed {
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.badge {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  margin-right: 10px;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.95));
+  transition: transform 0.3s ease-in-out;
+}
+
+.badge:hover {
+  transform: scale(1.1);
+}

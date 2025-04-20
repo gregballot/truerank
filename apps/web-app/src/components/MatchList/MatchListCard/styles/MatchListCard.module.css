@@ -1,14 +1,16 @@
 .matchListCard {
   width: 100%;
   box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  color: #444;
 
   display: grid;
-  grid-template-columns: 120px 1fr 250px;
-  gap: 20px;
+  grid-template-columns: 140px 1fr 260px 30px;
+  gap: 10px;
   align-items: center;
 
-  padding: 0 10px;
-  border-radius: 10px;
+  border-radius: 6px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .winner {
@@ -19,4 +21,45 @@
 .loser {
   background-color: #fff0f0;
   border-left: 6px solid #e85151;
+}
+
+.dropDownButton {
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding-bottom: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+
+  transition: background-color 0.2s;
+}
+
+.dropDownButton:hover {
+  cursor: pointer;
+}
+
+.winner .dropDownButton {
+  background-color: #5382e87c;
+}
+
+.winner .dropDownButton:hover {
+  background-color: #5382e8af;
+}
+
+.loser .dropDownButton {
+  background-color: #e851517a;
+}
+
+.loser .dropDownButton:hover {
+  background-color: #e85151af;
+}
+
+.dropDownButton img {
+  display: block;
+  text-align: center;
+  width: 15px;
 }

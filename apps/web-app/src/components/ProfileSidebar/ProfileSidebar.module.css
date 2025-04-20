@@ -1,0 +1,11 @@
+.profileSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  @media (max-width: 1250px) {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

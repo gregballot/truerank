@@ -1,4 +1,4 @@
-import { SharedTypes } from "@truerank/shared";
+import { SummonerMatchDetails } from "@truerank/shared/types";
 
 import { MatchListCardMetadata } from "./MatchListCardMetadata";
 import { MatchListCardPlayerRecap } from "./MatchListCardPlayerRecap";
@@ -8,10 +8,12 @@ import styles from "./styles/MatchListCard.module.css";
 import clsx from "clsx";
 
 type Props = {
-  summonerMatch: SharedTypes.SummonerMatchData;
+  summonerMatch: SummonerMatchDetails;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
-export function MatchListCard({ summonerMatch }: Props) {
+export function MatchListCard({ summonerMatch, className, style }: Props) {
 
   const { match, summoner, isWinner } = summonerMatch;
   const { metadata, redTeam, blueTeam } = match;
@@ -23,10 +25,14 @@ export function MatchListCard({ summonerMatch }: Props) {
   }
 
   return (
-    <div className={clsx(
-      styles.matchListCard,
-      isWinner ? styles.winner : styles.loser
-    )}>
+    <div
+      className={clsx(
+        styles.matchListCard,
+        isWinner ? styles.winner : styles.loser,
+        className,
+      )}
+      style={style}
+    >
       <MatchListCardMetadata
         metadata={metadata}
         isWinner={isWinner} />
@@ -38,6 +44,10 @@ export function MatchListCard({ summonerMatch }: Props) {
       <MatchListCardTeamOverview
         redTeam={redTeam}
         blueTeam={blueTeam} />
+
+      <div className={styles.dropDownButton}>
+        <img src="/icons/down-arrow.svg" />
+      </div>
     </div>
   );
 }
