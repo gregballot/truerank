@@ -27,7 +27,10 @@ export function SummonerProfile() {
   const {
     data: summonerProfile,
     isLoading,
-  } = useSummonerProfile(name, tag);
+  } = useSummonerProfile(
+    name,
+    tag,
+  );
 
   const {
     allMatches,
@@ -36,7 +39,11 @@ export function SummonerProfile() {
     hasNextPage,
     isFetchingNextPage,
     isLoading: isMatchesLoading,
-  } = useSummonerMatches(searchParams.get("filter"), summonerProfile, isRefreshing);
+  } = useSummonerMatches(
+    searchParams.get("filter"),
+    summonerProfile,
+    isRefreshing,
+  );
 
   const queryClient = useQueryClient();
   async function handleUpdate() {

@@ -1,4 +1,4 @@
-import { SharedTypes } from "@truerank/shared";
+import { MatchParticipant } from "@truerank/shared/types";
 
 import { formatItemsForDisplay } from "../../../helpers/utils";
 import {
@@ -15,7 +15,7 @@ import {
 import styles from "./styles/MatchListCardPlayerRecap.module.css";
 
 type Props = {
-  player: SharedTypes.MatchParticipant;
+  player: MatchParticipant;
   gameDuration: number;
 };
 

@@ -1,4 +1,5 @@
 import { SummonerMatches } from '@truerank/shared/types';
+import { QueueFilter } from '@truerank/shared/dist/routes/summoner';
 
 import { MatchAdapter } from '../../Matches/matchAdapter';
 import { SummonerAdapter } from '../summonerAdapter';
@@ -8,6 +9,7 @@ import { SummonerMatchesRecapBuilder } from '../services/SummonerMatchesRecapBui
 type Params = {
   summonerName: string;
   summonerTag: string;
+  filter: QueueFilter;
   page?: number;
   invalidateCache?: boolean;
 };
@@ -18,8 +20,17 @@ type Dependencies = {
 };
 
 export const getSummonerMatches = async (
-  { summonerName, summonerTag, page = 1, invalidateCache }: Params,
-  { matchAdapter, summonerAdapter }: Dependencies
+  {
+    summonerName,
+    summonerTag,
+    filter,
+    page = 1,
+    invalidateCache,
+  }: Params,
+  {
+    matchAdapter,
+    summonerAdapter
+  }: Dependencies
 ): Promise<SummonerMatches> => {
   const summoner = await summonerAdapter.getLightSummonerByName(
     summonerName,
@@ -29,6 +40,7 @@ export const getSummonerMatches = async (
   const matches = await matchAdapter.getMatches(
     summoner.puuid,
     {
+      filter,
       page,
       invalidateCache
     }

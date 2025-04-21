@@ -16,13 +16,24 @@ export const SummonerProfileRoute = {
   response: z.custom<SummonerDetails>(),
 };
 
+export const QueueFilters = [
+  'all',
+  'ranked-solo',
+  'ranked-flex',
+  'normal-draft',
+  'normal-blind',
+  'swiftplay',
+] as const;
+
+export type QueueFilter = typeof QueueFilters[number];
+
 export const SummonerMatchesRoute = {
   method: 'GET',
   path: '/matches',
   query: z.object({
     summonerName: z.string(),
     summonerTag: z.string(),
-    filter: z.string(),
+    filter: z.enum(QueueFilters),
     page: z.number().positive().optional(),
     invalidateCache: z.boolean().optional(),
   }),

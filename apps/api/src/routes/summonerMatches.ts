@@ -16,7 +16,13 @@ export const summonerMatches: FastifyPluginAsync = async (fastify) => {
   fastify.get(
     SummonerMatchesRoute.path,
     async (request: SummonerMatchesRequest, reply) => {
-      const { summonerName, summonerTag, page, invalidateCache } = request.query;
+      const {
+        summonerName,
+        summonerTag,
+        filter,
+        page,
+        invalidateCache
+      } = request.query;
 
       if (!summonerName || !summonerTag) {
         return reply
@@ -29,6 +35,7 @@ export const summonerMatches: FastifyPluginAsync = async (fastify) => {
         {
           summonerName,
           summonerTag,
+          filter,
           page,
           invalidateCache,
         },

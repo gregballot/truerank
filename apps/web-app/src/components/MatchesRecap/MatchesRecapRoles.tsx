@@ -23,6 +23,9 @@ export function MatchesRecapRoles({ roles }: Props) {
           {
             roles.map(({ roleId }) => {
               const roleData = getRoleData(roleId)
+              if (!roleData) {
+                return;
+              }
               return roleData.name;
             }).join(', ')
           }

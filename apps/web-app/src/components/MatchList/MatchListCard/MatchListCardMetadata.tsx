@@ -1,4 +1,4 @@
-import { SharedTypes } from "@truerank/shared";
+import { MatchMetadata } from "@truerank/shared/types";
 
 import {
   dateToTimeAgoFormatted,
@@ -8,7 +8,7 @@ import {
 import styles from "./styles/MatchListCardMetadata.module.css";
 
 type Props = {
-  metadata: SharedTypes.MatchMetadata;
+  metadata: MatchMetadata;
   isWinner: boolean;
 };
 

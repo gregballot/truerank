@@ -1,15 +1,18 @@
 import clsx from "clsx";
 import styles from "./MatchesFiltersBar.module.css";
 
+import { QueueFilter } from '@truerank/shared/routes';
+
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 
-const options: { name: string; filter: string }[] = [
+const options: { name: string; filter: QueueFilter }[] = [
   { name: "All", filter: "all" },
   { name: "Ranked Solo/Duo", filter: "ranked-solo" },
   { name: "Ranked Flex", filter: "ranked-flex" },
-  { name: "ARAM", filter: "aram" },
-  { name: "Normal", filter: "normal" },
+  { name: "Normal Draft", filter: "normal-draft" },
+  { name: "Normal Blind", filter: "normal-blind" },
+  { name: "Swiftplay", filter: "swiftplay" },
 ];
 
 export function MatchesFiltersBar() {
@@ -20,7 +23,7 @@ export function MatchesFiltersBar() {
     if (!searchParams.has("filter")) {
       setSearchParams(defaultParams);
     }
-  }, []);
+  }, [searchParams]);
 
   function handleOption(filter: string) {
     if (searchParams.get("filter") !== filter) {

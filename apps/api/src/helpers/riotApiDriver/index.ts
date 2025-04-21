@@ -1,4 +1,5 @@
-import { SharedTypes } from '@truerank/shared';
+import { QueueNames, Region } from '@truerank/shared/types';
+import { QueueFilter } from '@truerank/shared/dist/routes/summoner';
 
 import { CacheAdapter } from '../cache/cacheAdapter';
 import { lruCacheAdapterSingleton } from '../cache/lruCacheAdapter';
@@ -10,9 +11,10 @@ import {
   RiotSummonerLeagueEntry,
   RiotSummonerProfile,
 } from './types';
+import { RiotQueues } from './mappedTypes';
 
 const RiotTokenHeaderName = 'X-Riot-Token';
-const riotRegionBaseUrlMap: Record<SharedTypes.Region, string> = {
+const riotRegionBaseUrlMap: Record<Region, string> = {
   BR: 'https://br.api.riotgames.com',
   EUNE: 'https://eune.api.riotgames.com',
   EUW: 'https://euw1.api.riotgames.com',
@@ -37,7 +39,7 @@ const riotRegionBaseUrlMap: Record<SharedTypes.Region, string> = {
   VN: 'https://vn.api.riotgames.com',
 } as const;
 
-const riotGlobalBaseUrlMap: Record<SharedTypes.Region, string> = {
+const riotGlobalBaseUrlMap: Record<Region, string> = {
   BR: 'https://americas.api.riotgames.com',
   EUNE: 'https://europe.api.riotgames.com',
   EUW: 'https://europe.api.riotgames.com',
@@ -62,8 +64,8 @@ const riotGlobalBaseUrlMap: Record<SharedTypes.Region, string> = {
   VN: 'https://asia.api.riotgames.com',
 } as const;
 
-type RegionBaseURL = (typeof riotRegionBaseUrlMap)[SharedTypes.Region];
-type GlobalBaseURL = (typeof riotGlobalBaseUrlMap)[SharedTypes.Region];
+type RegionBaseURL = (typeof riotRegionBaseUrlMap)[Region];
+type GlobalBaseURL = (typeof riotGlobalBaseUrlMap)[Region];
 
 export class RiotApiDriver {
   private globalBaseUrl: GlobalBaseURL;
@@ -72,7 +74,7 @@ export class RiotApiDriver {
 
   constructor(
     private readonly apiKey: string,
-    private readonly region: SharedTypes.Region
+    private readonly region: Region
   ) {
     this.globalBaseUrl = riotGlobalBaseUrlMap[this.region]
     this.regionBaseUrl = riotRegionBaseUrlMap[this.region];
@@ -177,14 +179,23 @@ export class RiotApiDriver {
   public async getMatchIdsByPuuid(
     puuid: string,
     params: {
+      filter: QueueFilter,
       page: number;
       pageSize: number;
-      queueIds?: number[];
       invalidateCache?: boolean;
     }
   ): Promise<string[]> {
+    const filterToQueueIds: Record<QueueFilter, number[]> = {
+      "all": [],
+      "ranked-solo": [RiotQueues[QueueNames.RANKED_SOLODUO]],
+      "ranked-flex": [RiotQueues[QueueNames.RANKED_FLEX]],
+      "normal-draft": [RiotQueues[QueueNames.NORMAL_DRAFT]],
+      "normal-blind": [RiotQueues[QueueNames.NORMAL_BLIND]],
+      "swiftplay": [RiotQueues[QueueNames.SWIFTPLAY]],
+    };
+
     const start = (params.page - 1) * params.pageSize;
-    const queue = params.queueIds ?? [420, 430, 440]; // TODO: type these
+    const queue = filterToQueueIds[params.filter];
     const result = await this.get<string[]>(
       `${this.globalBaseUrl}/lol/match/v5/matches/by-puuid/${puuid}/ids`,
       {

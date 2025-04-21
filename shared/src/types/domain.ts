@@ -61,6 +61,7 @@ export const QueueNames = {
   NORMAL_BLIND: 'Normal Blind',
   RANKED_FLEX: 'Ranked Flex',
   ARAM: 'ARAM',
+  SWIFTPLAY: "Swiftplay",
   CLASH: 'Clash',
   COOP_VS_AI_INTRO: 'Co-op vs AI Intro',
   COOP_VS_AI_BEGINNER: 'Co-op vs AI Beginner',
