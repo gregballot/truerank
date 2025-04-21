@@ -31,6 +31,7 @@ export function ProfileMatches({
       <MatchesRecap
         isLoading={isProfileLoading || isMatchesLoading}
         recap={recap}
+        totalMatches={matchesData.length}
       />
       <MatchList
         isProfileLoading={isProfileLoading || isMatchesLoading}

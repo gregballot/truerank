@@ -8,17 +8,22 @@ import { MatchesRecapRoles } from "./MatchesRecapRoles";
 type Props = {
   isLoading: boolean;
   recap: SummonerMatchesRecap;
+  totalMatches: number;
 }
 
-export function MatchesRecap({ isLoading, recap }: Props) {
-  if (isLoading) {
+export function MatchesRecap({ isLoading, recap, totalMatches }: Props) {
+  if (isLoading || recap.overall.matchesCount === 0) {
     return;
   }
 
   return (
     <div className={styles.matchesRecap}>
       <div className={styles.matchesRecapHeader}>
-        <h3>Showing {recap.overall.matchesCount} recently played games</h3>
+        {/*
+          TODO: Add tooltip next to totalMatches
+          to explain why recap might have less
+        */}
+        <h3>Showing {totalMatches} recently played games</h3>
       </div>
       <div className={styles.matchesRecapData}>
         <MatchesRecapOverall overall={recap.overall} />

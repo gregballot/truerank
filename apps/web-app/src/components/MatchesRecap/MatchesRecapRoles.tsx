@@ -35,6 +35,7 @@ export function MatchesRecapRoles({ roles }: Props) {
       <ul className={styles.roles}>
         {
           roles.slice(0, displayedRoles).map(role => {
+            const rolePlural = role.matchesCount > 1;
             const roleData = getRoleData(role.roleId);
             if (!roleData) {
               return ;
@@ -52,7 +53,7 @@ export function MatchesRecapRoles({ roles }: Props) {
                     title={ roleData.name } />
                 </div>
                 <p>
-                  {role.matchesCount} games: {role.wins}W {role.losses}L
+                  {role.matchesCount} game{rolePlural && 's'}: {role.wins}W {role.losses}L
                   {' - '}
                   {role.averageKills.toFixed(1)}/
                   {role.averageDeaths.toFixed(1)}/

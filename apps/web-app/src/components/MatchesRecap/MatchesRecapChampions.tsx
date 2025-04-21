@@ -32,6 +32,7 @@ export function MatchesRecapChampions({ champions }: Props) {
         {
           champions.slice(0, displayedChampions).map(champion => {
             const championData = getChampionDataById(champion.championId);
+            const championPlural = champion.matchesCount > 1;
             if (!championData) {
               return ;
             }
@@ -46,7 +47,7 @@ export function MatchesRecapChampions({ champions }: Props) {
                   alt={ championData.name }
                   title={ championData.name } />
                 <p>
-                  {champion.matchesCount} games: {champion.wins}W {champion.losses}L
+                  {champion.matchesCount} game{championPlural && 's'}: {champion.wins}W {champion.losses}L
                   {' - '}
                   {champion.averageKills.toFixed(1)}/
                   {champion.averageDeaths.toFixed(1)}/
