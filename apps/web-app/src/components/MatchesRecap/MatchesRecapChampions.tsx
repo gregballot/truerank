@@ -31,8 +31,8 @@ export function MatchesRecapChampions({ champions }: Props) {
       <ul className={styles.champions}>
         {
           champions.slice(0, displayedChampions).map(champion => {
-            const championData = getChampionDataById(champion.championId);
             const championPlural = champion.matchesCount > 1;
+            const championData = getChampionDataById(champion.championId);
             if (!championData) {
               return ;
             }
