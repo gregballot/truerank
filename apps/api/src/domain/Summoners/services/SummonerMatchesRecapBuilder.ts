@@ -89,7 +89,7 @@ export class SummonerMatchesRecapBuilder {
       const queueName = match.details.match.metadata.queueName;
       const isMatchSupported = supportedModes.includes(queueName);
       if (!summonerData || !isMatchSupported) {
-        console.log("Skipping for recap:", !!summonerData, isMatchSupported);
+        console.log(`Recap Skip: summSet: ${!!summonerData}, queue: ${queueName}: ${isMatchSupported}`);
         continue;
       }
       

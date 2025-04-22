@@ -10,11 +10,13 @@ import styles from "./ProfileHeader.module.css";
 type Props = {
   summonerProfile?: SummonerDetails;
   handleUpdate: () => void;
+  mainChampion: number;
 };
 
 export function ProfileHeader({
   summonerProfile: profile,
-  handleUpdate: refreshData
+  handleUpdate: refreshData,
+  mainChampion,
 }: Props) {
   const { cooldown, isCoolingDown, startCooldown } = useCooldown(1);
 
@@ -76,7 +78,7 @@ export function ProfileHeader({
               backgroundImage: `url("${
                 getChampionSplash(
                   getChampionDataById(
-                    profile.championMasteries[0]?.championId
+                    mainChampion
                   )?.id
                 )
               }")`

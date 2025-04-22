@@ -6,6 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import { useSummonerMatches } from './queries/useSummonerMatches';
 import { useSummonerProfile } from './queries/useSummonerProfile';
+import { useMainChampion } from '../../hooks/useMainChampion';
 
 import { buildMatchesQueryKey, buildProfileQueryKey } from '../../api/helpers';
 import { fetchProfile } from '../../api/profile';
@@ -45,6 +46,11 @@ export function SummonerProfile() {
     isRefreshing,
   );
 
+  const mainChampion = useMainChampion({
+    championMasteries: summonerProfile?.championMasteries ?? [],
+    recapChampions: recap.champions,
+  });
+
   const queryClient = useQueryClient();
   async function handleUpdate() {
     const profileQueryKey = buildProfileQueryKey(name, tag);
@@ -73,6 +79,7 @@ export function SummonerProfile() {
         <ProfileHeader
           summonerProfile={summonerProfile}
           handleUpdate={handleUpdate}
+          mainChampion={mainChampion}
         />
       </div>
 
