@@ -69,9 +69,9 @@ export function computeMainChampion(
     }
 
     const totalScore =
-      0.4 * masteryScore +
-      0.4 * matchesScore +
-      0.2 * recencyScore;
+      0.5 * masteryScore +
+      0.35 * matchesScore +
+      0.15 * recencyScore;
 
     if (totalScore > bestTotalScore) {
       bestChampionId = championId;
