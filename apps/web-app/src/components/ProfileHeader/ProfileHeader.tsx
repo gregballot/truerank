@@ -1,11 +1,13 @@
-import { useEffect } from "react";
-
 import { SummonerDetails } from "@truerank/shared/types";
 
-import { useCooldown } from "../../hooks/useCooldown";
-import { getChampionDataById, getChampionSplash, getProfileIcon } from "../../helpers/datadragon";
+import {
+  getChampionDataById,
+  getChampionSplash,
+  getProfileIcon,
+} from "../../helpers/datadragon";
 
 import styles from "./ProfileHeader.module.css";
+import { UpdateProfileButton } from "./UpdateProfileButton";
 
 type Props = {
   summonerProfile?: SummonerDetails;
@@ -15,20 +17,9 @@ type Props = {
 
 export function ProfileHeader({
   summonerProfile: profile,
-  handleUpdate: refreshData,
+  handleUpdate,
   mainChampion,
 }: Props) {
-  const { cooldown, isCoolingDown, startCooldown } = useCooldown(1);
-
-  function handleUpdate() {
-    if (cooldown > 0) return;
-
-    refreshData();
-    startCooldown();
-  }
-
-  useEffect(() => startCooldown(), []);
-
   return (
     <div className={styles.profileHeader}>
       <div className={styles.summonerData}>
@@ -51,22 +42,10 @@ export function ProfileHeader({
               </>
             )}
           </h1>
-          <div className={styles.updateSection}>
-            <button disabled={
-              isCoolingDown || !profile
-            } onClick={() => handleUpdate()}>
-              Update
-            </button>
-            <span className={styles.cooldownHint}>
-              {isCoolingDown ? (
-                <>
-                  Update available in <strong>{cooldown}s</strong>
-                </>
-              ) : (
-                <>Ready to update</>
-              )}
-            </span>
-          </div>
+          <UpdateProfileButton
+            profileLoading={!profile}
+            handleUpdate={handleUpdate}
+          />
         </div>
       </div>
 

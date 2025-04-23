@@ -54,23 +54,22 @@ export function SummonerProfile() {
   const queryClient = useQueryClient();
   async function handleUpdate() {
     const profileQueryKey = buildProfileQueryKey(name, tag);
-    const matchesQueryKey = buildMatchesQueryKey(summonerProfile);
+    const matchesQueryKey = buildMatchesQueryKey(
+      summonerProfile,
+      searchParams.get("filter"),
+    );
 
     setIsRefreshing(true);
-    try {
-      await queryClient.fetchQuery({
-        queryKey: profileQueryKey,
-        queryFn: () => fetchProfile(name!, tag!, true),
-      });
+    await queryClient.fetchQuery({
+      queryKey: profileQueryKey,
+      queryFn: () => fetchProfile(name!, tag!, true),
+    });
 
-      // Trigger matches refetch differently because of infiniteQuery.
-      // It works because isRefreshing state is passed to it. Which we
-      // can do because infiniteQuery does fresh queries on invalidate.
-      await queryClient.invalidateQueries({ queryKey: matchesQueryKey });
-
-    } finally {
-      setIsRefreshing(false);
-    }
+    // Trigger matches refetch differently because of infiniteQuery.
+    // It works because isRefreshing state is passed to it. Which we
+    // can do because infiniteQuery does fresh queries on invalidate.
+    await queryClient.invalidateQueries({ queryKey: matchesQueryKey });
+    setIsRefreshing(false);
   }
 
   return (
