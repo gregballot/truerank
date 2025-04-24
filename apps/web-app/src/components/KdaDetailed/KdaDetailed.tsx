@@ -33,8 +33,9 @@ export function KdaDetailed({
             styles.kda,
             (kda < 1) && styles.lowKda,
             (kda >= 1 && kda < 2) && styles.goodKda,
-            (kda >= 2 && kda < 5) && styles.greatKda,
-            (kda >= 5) && styles.perfectKda,
+            (kda >= 2 && kda < 4) && styles.greatKda,
+            (kda >= 4 && kda < 6) && styles.epicKda,
+            (kda >= 6) && styles.perfectKda,
           )}>
             {kda.toFixed(2)}
           </span>

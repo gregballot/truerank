@@ -11,13 +11,14 @@ type Props = {
 export function MatchesRecapChampions({ champions }: Props) {
   const displayedChampions = 3;
   const nChampions = champions.length;
-  const plural = nChampions > 1;
+  const pluralAll = nChampions > 1;
+  const pluralRemaining = nChampions - displayedChampions > 1;
 
   return (
     <div className={styles.recapChampions}>
       <div className={styles.recapChampionsCaption}>
         <h4 className={styles.title}>
-          PLAYED {nChampions} CHAMPION{plural && 'S'}
+          PLAYED {nChampions} CHAMPION{pluralAll && 'S'}
         </h4>
         <p className={styles.championNames}>
           {
@@ -66,8 +67,8 @@ export function MatchesRecapChampions({ champions }: Props) {
       <p className={styles.more}>
         {
           nChampions > displayedChampions
-          ? (<>{ nChampions - displayedChampions } more champion{plural && 's'}</>)
-          : (<>{plural && 'All '}{nChampions} champion{plural && 's'} shown</>)
+          ? (<>{ nChampions - displayedChampions } more champion{pluralRemaining && 's'}</>)
+          : (<>{pluralAll && 'All '}{nChampions} champion{pluralAll && 's'} shown</>)
         }
       </p>
     </div>

@@ -11,8 +11,8 @@ const options: { name: string; filter: QueueFilter }[] = [
   { name: "Ranked Solo/Duo", filter: "ranked-solo" },
   { name: "Ranked Flex", filter: "ranked-flex" },
   { name: "Normal Draft", filter: "normal-draft" },
-  { name: "Normal Blind", filter: "normal-blind" },
   { name: "Swiftplay", filter: "swiftplay" },
+  { name: "Normal Blind", filter: "normal-blind" },
 ];
 
 export function MatchesFiltersBar() {

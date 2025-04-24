@@ -1,13 +1,13 @@
 .kills {
-  color: rgb(5, 121, 205);
+  color: rgb(12, 99, 187);
 }
 
 .deaths {
-  color: #ab2c2c;
+  color: #9a5353;
 }
 
 .assists {
-  color: #40546a;
+  color: #416080;
 }
 
 .separator {
@@ -30,6 +30,10 @@
 }
 
 .greatKda {
+  color: #248aff;
+}
+
+.epicKda {
   color: #7829c2;
 }
 

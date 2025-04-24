@@ -12,13 +12,14 @@ type Props = {
 export function MatchesRecapRoles({ roles }: Props) {
   const displayedRoles = 3;
   const nRoles = roles.length;
-  const plural = nRoles > 1;
+  const pluralTotal = nRoles > 1;
+  const pluralRemaining = nRoles - displayedRoles > 1;
 
   return (
     <div className={styles.recapRoles}>
       <div className={styles.recapRolesCaption}>
         <h4 className={styles.title}>
-          PLAYED {nRoles} ROLE{plural && 'S'}
+          PLAYED {nRoles} ROLE{pluralTotal && 'S'}
         </h4>
         <p className={styles.roleNames}>
           {
@@ -72,8 +73,8 @@ export function MatchesRecapRoles({ roles }: Props) {
       <p className={styles.more}>
         {
           nRoles > displayedRoles
-          ? (<>{ nRoles - displayedRoles } more role{plural && 's'}</>)
-          : (<>{plural && 'All '}{nRoles} role{plural && 's'} shown</>)
+          ? (<>{ nRoles - displayedRoles } more role{pluralRemaining && 's'}</>)
+          : (<>{pluralTotal && 'All '}{nRoles} role{pluralTotal && 's'} shown</>)
         }
       </p>
     </div>

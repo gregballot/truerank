@@ -15,7 +15,8 @@
 }
 
 .matchesRecapData {
-  padding: 10px 30px;
-  display: flex;
-  justify-content: space-between;
+  padding: 10px 10px;
+  display: grid;
+  grid-template-columns: 4fr 6fr 6fr;
+  gap: 30px;
 }

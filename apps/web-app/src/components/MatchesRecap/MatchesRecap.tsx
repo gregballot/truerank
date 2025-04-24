@@ -9,7 +9,7 @@ type Props = {
   isLoading: boolean;
   recap: SummonerMatchesRecap;
   totalMatches: number;
-}
+};
 
 export function MatchesRecap({ isLoading, recap, totalMatches }: Props) {
   if (isLoading || recap.overall.matchesCount === 0) {
@@ -31,5 +31,5 @@ export function MatchesRecap({ isLoading, recap, totalMatches }: Props) {
         <MatchesRecapRoles roles={recap.roles} />
       </div>
     </div>
-  )
+  );
 }
