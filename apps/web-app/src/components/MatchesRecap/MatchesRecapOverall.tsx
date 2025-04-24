@@ -2,6 +2,7 @@ import { RecapAverageMetrics } from "@truerank/shared/types";
 
 import styles from "./styles/MatchesRecapOverall.module.css";
 import { WinrateChart } from "./WinrateChart";
+import { KdaDetailed } from "../KdaDetailed/KdaDetailed";
 
 type Props = {
   overall: RecapAverageMetrics;
@@ -14,12 +15,12 @@ export function MatchesRecapOverall({ overall }: Props) {
         <h4 className={styles.overallCaption}>
           {overall.wins} WON - {overall.losses} LOST
         </h4>
-        <p className={styles.overallKda}>
-          {overall.averageKills.toFixed(1)}
-          /{overall.averageDeaths.toFixed(1)}
-          /{overall.averageAssists.toFixed(1)}
-          {' '}({overall.averageKda.toFixed(2)})
-        </p>
+        <KdaDetailed
+          kills={overall.averageKills}
+          deaths={overall.averageDeaths}
+          assists={overall.averageAssists}
+          kda={overall.averageKda}
+        />
       </div>
 
       <WinrateChart

@@ -3,6 +3,7 @@ import { RecapRoleAverageMetrics } from "@truerank/shared/types";
 import styles from "./styles/MatchesRecapRoles.module.css";
 import { getRoleIcon } from "../../helpers/staticAssets";
 import { getRoleData } from "../../helpers/roles";
+import { KdaDetailed } from "../KdaDetailed/KdaDetailed";
 
 type Props = {
   roles: RecapRoleAverageMetrics[];
@@ -55,11 +56,12 @@ export function MatchesRecapRoles({ roles }: Props) {
                 <p>
                   {role.matchesCount} game{rolePlural && 's'}: {role.wins}W {role.losses}L
                   {' - '}
-                  {role.averageKills.toFixed(1)}/
-                  {role.averageDeaths.toFixed(1)}/
-                  {role.averageAssists.toFixed(1)}
-                  {' '}
-                  <em>{role.averageKda.toFixed(2)}</em>
+                  <KdaDetailed
+                    kills={role.averageKills}
+                    deaths={role.averageDeaths}
+                    assists={role.averageAssists}
+                    kda={role.averageKda}
+                  />
                 </p>
               </li>
             );

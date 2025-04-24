@@ -2,6 +2,7 @@ import { RecapChampionAverageMetrics } from "@truerank/shared/types";
 
 import styles from "./styles/MatchesRecapChampions.module.css";
 import { getChampionDataById, getChampionIcon } from "../../helpers/datadragon";
+import { KdaDetailed } from "../KdaDetailed/KdaDetailed";
 
 type Props = {
   champions: RecapChampionAverageMetrics[];
@@ -49,11 +50,12 @@ export function MatchesRecapChampions({ champions }: Props) {
                 <p>
                   {champion.matchesCount} game{championPlural && 's'}: {champion.wins}W {champion.losses}L
                   {' - '}
-                  {champion.averageKills.toFixed(1)}/
-                  {champion.averageDeaths.toFixed(1)}/
-                  {champion.averageAssists.toFixed(1)}
-                  {' '}
-                  <em>{champion.averageKda.toFixed(2)}</em>
+                  <KdaDetailed
+                    kills={champion.averageKills}
+                    deaths={champion.averageDeaths}
+                    assists={champion.averageAssists}
+                    kda={champion.averageKda}
+                  />
                 </p>
               </li>
             );

@@ -13,6 +13,7 @@ import {
 } from "../../../helpers/datadragon";
 
 import styles from "./styles/MatchListCardPlayerRecap.module.css";
+import { KdaDetailed } from "../../KdaDetailed/KdaDetailed";
 
 type Props = {
   player: MatchParticipant;
@@ -87,7 +88,12 @@ export function MatchListCardPlayerRecap({
 
         <div className={styles.gameStats}>
           <p className={styles.kdaDetailed}>
-            { player.kills }/{ player.deaths }/{ player.assists }
+            <KdaDetailed
+              kills={player.kills}
+              deaths={player.deaths}
+              assists={player.assists}
+              floatingPoint={0}
+            />
           </p>
           <p className={styles.kdaCalculated}>
             { player.deaths > 0 ? kda.toFixed(2) : "Perfect" } KDA

@@ -13,7 +13,7 @@ export function UpdateProfileButton({
   profileLoading,
   handleUpdate: refreshData,
 }: Props) {
-  const { cooldown, isCoolingDown, startCooldown } = useCooldown(1);
+  const { cooldown, isCoolingDown, startCooldown } = useCooldown(5);
 
   function handleUpdate() {
     if (cooldown > 0) return;
