@@ -20,8 +20,9 @@ export function MatchesFiltersBar() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    if (!searchParams.has("filter")) {
-      setSearchParams(defaultParams);
+    const currentFilter = searchParams.get("filter");
+    if (!currentFilter || !options.some(o => currentFilter === o.filter)) {
+      setSearchParams(defaultParams, { replace: true });
     }
   }, [searchParams]);
 
