@@ -1,5 +1,5 @@
 import { QueueNames, Region } from '@truerank/shared/types';
-import { QueueFilter } from '@truerank/shared/dist/routes/summoner';
+import { QueueFilter } from '@truerank/shared/dist/routes/summonerMatches';
 
 import { CacheAdapter } from '../cache/cacheAdapter';
 import { lruCacheAdapterSingleton } from '../cache/lruCacheAdapter';
@@ -190,8 +190,9 @@ export class RiotApiDriver {
       "ranked-solo": [RiotQueues[QueueNames.RANKED_SOLODUO]],
       "ranked-flex": [RiotQueues[QueueNames.RANKED_FLEX]],
       "normal-draft": [RiotQueues[QueueNames.NORMAL_DRAFT]],
-      "normal-blind": [RiotQueues[QueueNames.NORMAL_BLIND]],
       "swiftplay": [RiotQueues[QueueNames.SWIFTPLAY]],
+      "aram": [RiotQueues[QueueNames.ARAM]],
+      "normal-blind": [RiotQueues[QueueNames.NORMAL_BLIND]],
     };
 
     const start = (params.page - 1) * params.pageSize;

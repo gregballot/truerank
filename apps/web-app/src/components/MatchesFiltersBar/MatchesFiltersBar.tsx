@@ -12,6 +12,7 @@ const options: { name: string; filter: QueueFilter }[] = [
   { name: "Ranked Flex", filter: "ranked-flex" },
   { name: "Normal Draft", filter: "normal-draft" },
   { name: "Swiftplay", filter: "swiftplay" },
+  { name: "ARAM", filter: "aram" },
   { name: "Normal Blind", filter: "normal-blind" },
 ];
 

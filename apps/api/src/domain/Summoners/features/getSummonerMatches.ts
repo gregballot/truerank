@@ -1,5 +1,5 @@
 import { SummonerMatches } from '@truerank/shared/types';
-import { QueueFilter } from '@truerank/shared/dist/routes/summoner';
+import { QueueFilter } from '@truerank/shared/dist/routes/summonerMatches';
 
 import { MatchAdapter } from '../../Matches/matchAdapter';
 import { SummonerAdapter } from '../summonerAdapter';
@@ -29,7 +29,7 @@ export const getSummonerMatches = async (
   }: Params,
   {
     matchAdapter,
-    summonerAdapter
+    summonerAdapter,
   }: Dependencies
 ): Promise<SummonerMatches> => {
   const summoner = await summonerAdapter.getLightSummonerByName(
@@ -42,7 +42,7 @@ export const getSummonerMatches = async (
     {
       filter,
       page,
-      invalidateCache
+      invalidateCache,
     }
   );
 

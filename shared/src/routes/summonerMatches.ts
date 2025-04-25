@@ -1,28 +1,16 @@
 import { z } from 'zod';
-import {
-  SummonerMatchesRecap,
-  type SummonerDetails,
-  type SummonerMatchDetails,
-} from '../types/domain';
+import { zStringBoolean } from './helpers.js';
 
-export const SummonerProfileRoute = {
-  method: 'GET',
-  path: '/summoner',
-  query: z.object({
-    summonerName: z.string(),
-    summonerTag: z.string(),
-    invalidateCache: z.boolean().optional(),
-  }),
-  response: z.custom<SummonerDetails>(),
-};
+import type { SummonerMatchesRecap, SummonerMatchDetails } from '../types/domain';
 
 export const QueueFilters = [
   'all',
   'ranked-solo',
   'ranked-flex',
+  'aram',
   'normal-draft',
-  'normal-blind',
   'swiftplay',
+  'normal-blind',
 ] as const;
 
 export type QueueFilter = typeof QueueFilters[number];
@@ -34,8 +22,8 @@ export const SummonerMatchesRoute = {
     summonerName: z.string(),
     summonerTag: z.string(),
     filter: z.enum(QueueFilters),
-    page: z.number().positive().optional(),
-    invalidateCache: z.boolean().optional(),
+    page: z.coerce.number().positive().optional(),
+    invalidateCache: zStringBoolean().optional(),
   }),
   response: z.object({
     page: z.number().positive(),
