@@ -31,10 +31,10 @@
   font-size: 1.2em;
 }
 
-/* .winner .gameResult {
-  color: #5383e8
+.winner {
+  color: #5d76ab
 }
 
-.loser .gameResult {
-  color: #e85151
-} */
+.loser {
+  color: #a86060
+}

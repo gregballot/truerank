@@ -6,6 +6,7 @@ import {
 } from "../../../helpers/dates";
 
 import styles from "./styles/MatchListCardMetadata.module.css";
+import clsx from "clsx";
 
 type Props = {
   metadata: MatchMetadata;
@@ -21,11 +22,21 @@ export function MatchListCardMetadata({
 
   return (
     <div className={styles.matchListCardMetadata}>
-      <p className={styles.queueName}>{metadata.queueName}</p>
-      <p className={styles.gameDate}>{formattedGameDate}</p>
+      <p className={clsx(styles.queueName, isWinner ? styles.winner : styles.loser)}>
+        {metadata.queueName}
+      </p>
+      <p className={styles.gameDate}>
+        {formattedGameDate}
+      </p>
+
       <div className={styles.separator} />
-      <p className={styles.gameDuration}>{formattedGameDuration}</p>
-      <p className={styles.gameResult}>{isWinner ? 'Victory' : 'Defeat' }</p>
+
+      <p className={styles.gameDuration}>
+        {formattedGameDuration}
+      </p>
+      <p className={clsx(styles.gameResult, isWinner ? styles.winner : styles.loser)}>
+        {isWinner ? 'Victory' : 'Defeat' }
+      </p>
     </div>
   );
 }
