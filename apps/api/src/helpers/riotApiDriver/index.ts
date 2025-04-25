@@ -1,5 +1,5 @@
 import { QueueNames, Region } from '@truerank/shared/types';
-import { QueueFilter } from '@truerank/shared/dist/routes/summonerMatches';
+import { QueueFilter } from '@truerank/shared/routes';
 
 import { CacheAdapter } from '../cache/cacheAdapter';
 import { lruCacheAdapterSingleton } from '../cache/lruCacheAdapter';

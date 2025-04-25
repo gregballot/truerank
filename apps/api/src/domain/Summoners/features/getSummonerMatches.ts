@@ -1,5 +1,5 @@
 import { SummonerMatches } from '@truerank/shared/types';
-import { QueueFilter } from '@truerank/shared/dist/routes/summonerMatches';
+import { QueueFilter } from '@truerank/shared/routes';
 
 import { MatchAdapter } from '../../Matches/matchAdapter';
 import { SummonerAdapter } from '../summonerAdapter';
