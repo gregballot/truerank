@@ -4,6 +4,7 @@ import { QueueFilter } from '@truerank/shared/routes';
 import { MatchAdapter } from '../../Matches/matchAdapter';
 import { SummonerAdapter } from '../summonerAdapter';
 import { SummonerMatch } from '../entities/SummonerMatch';
+import { TagsEngine } from '../../Tags/entities/TagsEngine';
 import { SummonerMatchesRecapBuilder } from '../services/SummonerMatchesRecapBuilder';
 
 type Params = {
@@ -46,9 +47,13 @@ export const getSummonerMatches = async (
     }
   );
 
-  const summonerMatches = matches.map(
-    (match) => new SummonerMatch(match, summoner)
-  );
+  const summonerMatches = matches.map(match => {
+    return new SummonerMatch(
+      match,
+      summoner.lightDetails,
+      TagsEngine.forMatchParticipant(summoner.puuid, match).tagsDetails,
+    );
+  });
 
   return {
     page: Number(page),

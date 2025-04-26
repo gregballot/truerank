@@ -61,7 +61,7 @@ export const QueueNames = {
   NORMAL_BLIND: 'Normal Blind',
   RANKED_FLEX: 'Ranked Flex',
   ARAM: 'ARAM',
-  SWIFTPLAY: "Swiftplay",
+  SWIFTPLAY: 'Swiftplay',
   CLASH: 'Clash',
   COOP_VS_AI_INTRO: 'Co-op vs AI Intro',
   COOP_VS_AI_BEGINNER: 'Co-op vs AI Beginner',
@@ -173,6 +173,7 @@ export type SummonerMatchDetails = {
   summonerSide: TeamSide | null;
   summonerTeamKey: TeamKey | null;
   summonerIndex: number | null;
+  tags: MatchTagDetails[];
 };
 
 export type SummonerMatches = {
@@ -180,4 +181,23 @@ export type SummonerMatches = {
   count: number;
   matchesData: SummonerMatchDetails[];
   recap: SummonerMatchesRecap;
+};
+
+// Tags
+export const TagTones = [
+  "glorifying",
+  "roast",
+  "delusional",
+  "philosophical",
+  "visionary",
+] as const;
+
+export type TagTone = typeof TagTones[number];
+export type TagRarity = 1 | 2 | 3;
+
+export type MatchTagDetails = {
+  id: string;
+  label: string;
+  tone: TagTone;
+  rarity: TagRarity;
 };

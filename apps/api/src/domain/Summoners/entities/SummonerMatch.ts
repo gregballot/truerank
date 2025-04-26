@@ -1,17 +1,19 @@
 import {
   MatchParticipant,
+  SummonerLightDetails,
   SummonerMatchDetails,
   TeamKey,
   TeamSide,
+  MatchTagDetails,
 } from '@truerank/shared/types';
 
 import { Match } from '../../Matches/entities/Match';
-import { Summoner } from './Summoner';
 
 export class SummonerMatch {
   constructor(
     private readonly match: Match,
-    private readonly summoner: Summoner
+    private readonly summoner: SummonerLightDetails,
+    private readonly tags: MatchTagDetails[] = [],
   ) {}
 
   get isWinner(): boolean {
@@ -38,10 +40,11 @@ export class SummonerMatch {
     return {
       isWinner: this.isWinner,
       match: this.match.details,
-      summoner: this.summoner.lightDetails,
+      summoner: this.summoner,
       summonerSide: this.summonerSide,
       summonerTeamKey: this.summonerTeamKey,
       summonerIndex: this.summonerIndex,
+      tags: this.tags,
     };
   }
 }
