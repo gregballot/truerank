@@ -127,13 +127,18 @@
 
 .gameTags {
   display: flex;
-  gap: 10px;
+  flex-flow: row nowrap;
+  gap: 5px;
+  overflow: hidden;
+  max-width: 500px;
 }
 
 .gameTag {
+  white-space: nowrap;
+  flex-shrink: 0;
   color: white;
   background: #999;
-  padding: 2px 10px;
+  padding: 2px 8px;
   border-radius: 10px;
-  font-size: 0.9em;
+  font-size: 0.8em;
 }

@@ -52,6 +52,7 @@ export class MatchAdapter {
           tagLine: p.riotIdTagline,
         },
 
+        won: p.win,
         role: roleMapping[p.teamPosition],
         championId: p.championId,
         championName: p.championName,
@@ -62,13 +63,6 @@ export class MatchAdapter {
           p.summoner2Id,
         ],
         runeStyles: p.perks.styles.map(perk => perk.style),
-
-        won: p.win,
-        kills: p.kills,
-        deaths: p.deaths,
-        assists: p.assists,
-        totalMinionsKilled: p.totalMinionsKilled + p.neutralMinionsKilled,
-
         items: [
           p.item0,
           p.item1,
@@ -78,6 +72,30 @@ export class MatchAdapter {
           p.item5,
         ],
         trinket: p.item6,
+
+        kills: p.kills,
+        deaths: p.deaths,
+        assists: p.assists,
+        firstBloodKill: p.firstBloodKill,
+        firstBloodAssist: p.firstBloodAssist,
+        soloKills: p.soloKills,
+
+        laneMinionsKilled: p.totalMinionsKilled,
+        neutralMinionsKilled: p.neutralMinionsKilled,
+        totalMinionsKilled: p.totalMinionsKilled + p.neutralMinionsKilled,
+        csMin: (p.totalMinionsKilled + p.neutralMinionsKilled) / (match.info.gameDuration / 60),
+        dragonKills: p.dragonKills,
+        baronKills: p.dragonKills,
+        turretKills: p.turretKills,
+        turretTakedowns: p.turretTakedowns,
+
+        damageDealtToChampions: p.totalDamageDealtToChampions,
+        damageDealtToObjectives: p.totalDamageDealtToObjectives,
+        damageTaken: p.totalDamageTaken,
+        totalHeal: p.totalHeal,
+        goldEarned: p.goldEarned,
+        visionScore: p.visionScore,
+        distanceTraveled: p.totalDistanceTraveled,
       });
 
       // For sniping missing queueIds

@@ -4,7 +4,7 @@ import { QueueFilter } from '@truerank/shared/routes';
 import { MatchAdapter } from '../../Matches/matchAdapter';
 import { SummonerAdapter } from '../summonerAdapter';
 import { SummonerMatch } from '../entities/SummonerMatch';
-import { TagsEngine } from '../../Tags/entities/TagsEngine';
+import { TagsEngine } from '../../Tags/services/TagsEngine';
 import { SummonerMatchesRecapBuilder } from '../services/SummonerMatchesRecapBuilder';
 
 type Params = {

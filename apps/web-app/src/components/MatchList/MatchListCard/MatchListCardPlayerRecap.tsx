@@ -1,4 +1,4 @@
-import { MatchParticipant } from "@truerank/shared/types";
+import { MatchParticipant, MatchTagDetails } from "@truerank/shared/types";
 
 import { formatItemsForDisplay } from "../../../helpers/utils";
 import {
@@ -12,17 +12,20 @@ import {
   getChampionDataById,
 } from "../../../helpers/datadragon";
 
-import styles from "./styles/MatchListCardPlayerRecap.module.css";
 import { KdaDetailed } from "../../KdaDetailed/KdaDetailed";
 
+import styles from "./styles/MatchListCardPlayerRecap.module.css";
+
 type Props = {
-  player: MatchParticipant;
   gameDuration: number;
+  player: MatchParticipant;
+  tags: MatchTagDetails[];
 };
 
 export function MatchListCardPlayerRecap({
+  gameDuration,
   player,
-  gameDuration
+  tags,
 }: Props) {
   const kda = (player.kills + player.assists) / player.deaths;
   const csPerMinute = player.totalMinionsKilled / (gameDuration / 60);
@@ -131,10 +134,15 @@ export function MatchListCardPlayerRecap({
       </div>
 
       <div className={styles.gameTags}>
-        <div className={styles.gameTag}>Team diff</div>
-        <div className={styles.gameTag}>AFK bot</div>
-        <div className={styles.gameTag}>Not winnable</div>
-        <div className={styles.gameTag}>Talon E out the window</div>
+        {
+          tags.map(tag => {
+            return (
+              <div className={styles.gameTag}>
+                {tag.label}
+              </div>
+            )
+          })
+        }
       </div>
     </div>
   );

@@ -3,8 +3,8 @@ import {
 } from '@truerank/shared/types';
 
 import { Match } from "../../Matches/entities/Match";
-import { MatchTag } from "./MatchTag";
-import { TagRules } from '../services/TagRules';
+import { MatchTag } from "../entities/MatchTag";
+import { TagRules } from './TagRules';
 
 export class TagsEngine {
   private _tags: MatchTag[] = [];
@@ -30,8 +30,6 @@ export class TagsEngine {
   }
 
   public get tagsDetails(): MatchTagDetails[] {
-    return this._tags.sort(
-      (a, b) => a.rarity - b.rarity
-    ).map(tag => tag.details);
+    return this._tags.map(tag => tag.details);
   } 
 }

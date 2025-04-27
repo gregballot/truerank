@@ -47,7 +47,8 @@ export type RiotParticipant = {
   riotIdGameName: string;
   riotIdTagline: string;
 
-  // role and champion
+  // result, role and champion
+  win: boolean;
   teamPosition: RiotRole;
   championId: number;
   championName: string;
@@ -65,14 +66,6 @@ export type RiotParticipant = {
     }[];
   };
 
-  // result and stats
-  win: boolean;
-  kills: number;
-  deaths: number;
-  assists: number;
-  totalMinionsKilled: number;
-  neutralMinionsKilled: number;
-
   // items
   item0: number;
   item1: number;
@@ -81,6 +74,29 @@ export type RiotParticipant = {
   item4: number;
   item5: number;
   item6: number;
+
+  // stats
+  kills: number;
+  deaths: number;
+  assists: number;
+  firstBloodKill: number;
+  firstBloodAssist: number;
+  soloKills: number;
+
+  totalMinionsKilled: number;
+  neutralMinionsKilled: number;
+  dragonKills: number;
+  baronKills: number;
+  turretKills: number;
+  turretTakedowns: number;
+
+  totalDamageDealtToChampions: number;
+  totalDamageDealtToObjectives: number;
+  totalDamageTaken: number;
+  totalHeal: number;
+  goldEarned: number;
+  visionScore: number;
+  totalDistanceTraveled: number;
 };
 
 export type RiotMatch = {
