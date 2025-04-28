@@ -1,12 +1,12 @@
-import { SharedTypes } from "@truerank/shared";
+import { MatchParticipant } from "@truerank/shared/types";
 
 import { MatchListCardTeam } from "./MatchListCardTeam";
 
 import styles from "./styles/MatchListCardTeamOverview.module.css";
 
 type Props = {
-  redTeam: SharedTypes.MatchParticipant[];
-  blueTeam: SharedTypes.MatchParticipant[];
+  redTeam: MatchParticipant[];
+  blueTeam: MatchParticipant[];
 };
 
 export function MatchListCardTeamOverview({

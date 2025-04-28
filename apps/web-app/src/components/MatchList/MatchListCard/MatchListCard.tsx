@@ -38,8 +38,9 @@ export function MatchListCard({ summonerMatch, className, style }: Props) {
         isWinner={isWinner} />
 
       <MatchListCardPlayerRecap
+        gameDuration={metadata.gameDuration}
         player={summonerMatchData}
-        gameDuration={metadata.gameDuration} />
+        tags={summonerMatch.tags} />
 
       <MatchListCardTeamOverview
         redTeam={redTeam}

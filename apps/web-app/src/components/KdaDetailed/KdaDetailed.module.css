@@ -1,0 +1,42 @@
+.kills {
+  color: rgb(12, 99, 187);
+}
+
+.deaths {
+  color: #9a5353;
+}
+
+.assists {
+  color: #416080;
+}
+
+.separator {
+  color: #7e7e7e;
+  margin: 0 2px;
+}
+
+.kda {
+  margin-left: 10px;
+  font-size: 0.85em;
+  font-style: italic;
+}
+
+.lowKda {
+  color: #7e7e7e;
+}
+
+.goodKda {
+  color: #23b234;
+}
+
+.greatKda {
+  color: #248aff;
+}
+
+.epicKda {
+  color: #7829c2;
+}
+
+.perfectKda {
+  color: #eb8500;
+}

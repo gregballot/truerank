@@ -1,4 +1,4 @@
-import { SharedTypes } from "@truerank/shared";
+import { MatchParticipant, MatchTagDetails } from "@truerank/shared/types";
 
 import { formatItemsForDisplay } from "../../../helpers/utils";
 import {
@@ -12,16 +12,20 @@ import {
   getChampionDataById,
 } from "../../../helpers/datadragon";
 
+import { KdaDetailed } from "../../KdaDetailed/KdaDetailed";
+
 import styles from "./styles/MatchListCardPlayerRecap.module.css";
 
 type Props = {
-  player: SharedTypes.MatchParticipant;
   gameDuration: number;
+  player: MatchParticipant;
+  tags: MatchTagDetails[];
 };
 
 export function MatchListCardPlayerRecap({
+  gameDuration,
   player,
-  gameDuration
+  tags,
 }: Props) {
   const kda = (player.kills + player.assists) / player.deaths;
   const csPerMinute = player.totalMinionsKilled / (gameDuration / 60);
@@ -87,7 +91,12 @@ export function MatchListCardPlayerRecap({
 
         <div className={styles.gameStats}>
           <p className={styles.kdaDetailed}>
-            { player.kills }/{ player.deaths }/{ player.assists }
+            <KdaDetailed
+              kills={player.kills}
+              deaths={player.deaths}
+              assists={player.assists}
+              floatingPoint={0}
+            />
           </p>
           <p className={styles.kdaCalculated}>
             { player.deaths > 0 ? kda.toFixed(2) : "Perfect" } KDA
@@ -125,10 +134,15 @@ export function MatchListCardPlayerRecap({
       </div>
 
       <div className={styles.gameTags}>
-        <div className={styles.gameTag}>Team diff</div>
-        <div className={styles.gameTag}>AFK bot</div>
-        <div className={styles.gameTag}>Not winnable</div>
-        <div className={styles.gameTag}>Talon E out the window</div>
+        {
+          tags.map(tag => {
+            return (
+              <div className={styles.gameTag}>
+                {tag.label}
+              </div>
+            )
+          })
+        }
       </div>
     </div>
   );

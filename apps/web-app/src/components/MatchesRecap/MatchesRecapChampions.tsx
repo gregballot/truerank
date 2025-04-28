@@ -2,6 +2,7 @@ import { RecapChampionAverageMetrics } from "@truerank/shared/types";
 
 import styles from "./styles/MatchesRecapChampions.module.css";
 import { getChampionDataById, getChampionIcon } from "../../helpers/datadragon";
+import { KdaDetailed } from "../KdaDetailed/KdaDetailed";
 
 type Props = {
   champions: RecapChampionAverageMetrics[];
@@ -9,12 +10,15 @@ type Props = {
 
 export function MatchesRecapChampions({ champions }: Props) {
   const displayedChampions = 3;
+  const nChampions = champions.length;
+  const pluralAll = nChampions > 1;
+  const pluralRemaining = nChampions - displayedChampions > 1;
 
   return (
     <div className={styles.recapChampions}>
       <div className={styles.recapChampionsCaption}>
         <h4 className={styles.title}>
-          PLAYED {champions.length} CHAMPIONS
+          PLAYED {nChampions} CHAMPION{pluralAll && 'S'}
         </h4>
         <p className={styles.championNames}>
           {
@@ -29,6 +33,7 @@ export function MatchesRecapChampions({ champions }: Props) {
       <ul className={styles.champions}>
         {
           champions.slice(0, displayedChampions).map(champion => {
+            const championPlural = champion.matchesCount > 1;
             const championData = getChampionDataById(champion.championId);
             if (!championData) {
               return ;
@@ -44,13 +49,14 @@ export function MatchesRecapChampions({ champions }: Props) {
                   alt={ championData.name }
                   title={ championData.name } />
                 <p>
-                  {champion.matchesCount} games: {champion.wins}W {champion.losses}L
+                  {champion.matchesCount} game{championPlural && 's'}: {champion.wins}W {champion.losses}L
                   {' - '}
-                  {champion.averageKills.toFixed(1)}/
-                  {champion.averageDeaths.toFixed(1)}/
-                  {champion.averageAssists.toFixed(1)}
-                  {' '}
-                  <em>{champion.averageKda.toFixed(2)}</em>
+                  <KdaDetailed
+                    kills={champion.averageKills}
+                    deaths={champion.averageDeaths}
+                    assists={champion.averageAssists}
+                    kda={champion.averageKda}
+                  />
                 </p>
               </li>
             );
@@ -60,9 +66,9 @@ export function MatchesRecapChampions({ champions }: Props) {
 
       <p className={styles.more}>
         {
-          champions.length > displayedChampions
-          ? (<>{ champions.length - displayedChampions } more champions</>)
-          : (<>All {champions.length} champions shown</>)
+          nChampions > displayedChampions
+          ? (<>{ nChampions - displayedChampions } more champion{pluralRemaining && 's'}</>)
+          : (<>{pluralAll && 'All '}{nChampions} champion{pluralAll && 's'} shown</>)
         }
       </p>
     </div>

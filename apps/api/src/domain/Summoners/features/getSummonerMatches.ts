@@ -1,13 +1,16 @@
 import { SummonerMatches } from '@truerank/shared/types';
+import { QueueFilter } from '@truerank/shared/routes';
 
 import { MatchAdapter } from '../../Matches/matchAdapter';
 import { SummonerAdapter } from '../summonerAdapter';
 import { SummonerMatch } from '../entities/SummonerMatch';
+import { TagsEngine } from '../../Tags/services/TagsEngine';
 import { SummonerMatchesRecapBuilder } from '../services/SummonerMatchesRecapBuilder';
 
 type Params = {
   summonerName: string;
   summonerTag: string;
+  filter: QueueFilter;
   page?: number;
   invalidateCache?: boolean;
 };
@@ -18,8 +21,17 @@ type Dependencies = {
 };
 
 export const getSummonerMatches = async (
-  { summonerName, summonerTag, page = 1, invalidateCache }: Params,
-  { matchAdapter, summonerAdapter }: Dependencies
+  {
+    summonerName,
+    summonerTag,
+    filter,
+    page = 1,
+    invalidateCache,
+  }: Params,
+  {
+    matchAdapter,
+    summonerAdapter,
+  }: Dependencies
 ): Promise<SummonerMatches> => {
   const summoner = await summonerAdapter.getLightSummonerByName(
     summonerName,
@@ -29,14 +41,19 @@ export const getSummonerMatches = async (
   const matches = await matchAdapter.getMatches(
     summoner.puuid,
     {
+      filter,
       page,
-      invalidateCache
+      invalidateCache,
     }
   );
 
-  const summonerMatches = matches.map(
-    (match) => new SummonerMatch(match, summoner)
-  );
+  const summonerMatches = matches.map(match => {
+    return new SummonerMatch(
+      match,
+      summoner.lightDetails,
+      TagsEngine.forMatchParticipant(summoner.puuid, match).tagsDetails,
+    );
+  });
 
   return {
     page: Number(page),

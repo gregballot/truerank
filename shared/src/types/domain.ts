@@ -61,6 +61,7 @@ export const QueueNames = {
   NORMAL_BLIND: 'Normal Blind',
   RANKED_FLEX: 'Ranked Flex',
   ARAM: 'ARAM',
+  SWIFTPLAY: 'Swiftplay',
   CLASH: 'Clash',
   COOP_VS_AI_INTRO: 'Co-op vs AI Intro',
   COOP_VS_AI_BEGINNER: 'Co-op vs AI Beginner',
@@ -99,22 +100,39 @@ export type MatchRole = (typeof MatchRoles)[keyof typeof MatchRoles];
 export type MatchParticipant = {
   summoner: SummonerData;
 
+  won: boolean;
   role: MatchRole;
   championId: number;
   championName: string;
   championLevel: number;
-
   summonerSpells: number[];
   runeStyles: number[];
+  items: number[];
+  trinket: number;
 
-  won: boolean;
   kills: number;
   deaths: number;
   assists: number;
-  totalMinionsKilled: number;
+  firstBloodKill: number;
+  firstBloodAssist: number;
+  soloKills: number;
 
-  items: number[];
-  trinket: number;
+  laneMinionsKilled: number;
+  neutralMinionsKilled: number;
+  totalMinionsKilled: number;
+  csMin: number;
+  dragonKills: number;
+  baronKills: number;
+  turretKills: number;
+  turretTakedowns: number;
+
+  damageDealtToChampions: number;
+  damageDealtToObjectives: number;
+  damageTaken: number;
+  totalHeal: number;
+  goldEarned: number;
+  visionScore: number;
+  distanceTraveled: number;
 };
 
 export type TeamKey = 'redTeam' | 'blueTeam';
@@ -127,7 +145,7 @@ export type MatchData = {
   isNew: boolean;
 };
 
-// MatchesCollection
+// Recap
 export type RecapMetrics = {
   matchesCount: number;
   wins: number;
@@ -172,6 +190,7 @@ export type SummonerMatchDetails = {
   summonerSide: TeamSide | null;
   summonerTeamKey: TeamKey | null;
   summonerIndex: number | null;
+  tags: MatchTagDetails[];
 };
 
 export type SummonerMatches = {
@@ -179,4 +198,10 @@ export type SummonerMatches = {
   count: number;
   matchesData: SummonerMatchDetails[];
   recap: SummonerMatchesRecap;
+};
+
+// Tags
+export type MatchTagDetails = {
+  id: string;
+  label: string;
 };

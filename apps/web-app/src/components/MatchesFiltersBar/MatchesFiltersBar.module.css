@@ -1,0 +1,46 @@
+.matchesFiltersBar {
+  width: 100%;
+  background-color: white;
+  box-shadow: #63636333 0px 2px 8px 0px;
+  border-radius: 10px;
+  padding: 0 10px;
+
+  color: #555;
+}
+
+.matchesFiltersBar ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 5px;
+
+  list-style: none;
+  padding-inline-start: 0;
+  margin: 0;
+}
+
+.matchesFiltersBar .option {
+  box-sizing: border-box;
+  padding: 5px 15px 2px;
+  border-radius: 5px;
+
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.matchesFiltersBar .option:hover {
+  cursor: pointer;
+  background: #bed3ff33;
+}
+
+.active {
+  color: #6194ff;
+  font-weight: 800;
+  background: #6194ff33;
+}
+
+.active:hover {
+  cursor: default !important;
+  background: #6194ff33 !important;
+}

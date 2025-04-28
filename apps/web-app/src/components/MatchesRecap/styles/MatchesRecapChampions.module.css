@@ -1,6 +1,5 @@
 .recapChampions {
   max-width: 300px;
-  min-height: 170px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,11 +42,6 @@
 
 .championListItem p {
   font-size: 1.1em;
-}
-
-.championListItem p em {
-  padding-left: 5px;
-  font-size: 0.9em;
 }
 
 .more {

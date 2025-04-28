@@ -1,4 +1,4 @@
-import { SharedTypes } from '@truerank/shared';
+import { SummonerData } from '@truerank/shared/types';
 
 import { SummonerAdapter } from '../summonerAdapter';
 
@@ -15,7 +15,7 @@ type Dependencies = {
 export const getSummonerProfile = async (
   { summonerName, summonerTag, invalidateCache }: Params,
   { summonerAdapter }: Dependencies
-): Promise<SharedTypes.SummonerData> => {
+): Promise<SummonerData> => {
   const summoner = await summonerAdapter.getSummonerByName(
     summonerName,
     summonerTag,

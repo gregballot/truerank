@@ -6,8 +6,8 @@ type WinrateChartProps = {
 };
 
 export function WinrateChart({ winrate, className }: WinrateChartProps) {
-  const size = 100;
-  const strokeWidth = 12;
+  const size = 90;
+  const strokeWidth = 10;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference * (1 - winrate / 100);

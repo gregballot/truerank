@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { SharedTypes } from "@truerank/shared";
+import { MatchParticipant } from "@truerank/shared/types";
 
 import { getChampionIcon } from "../../../helpers/datadragon";
 import { useSummonerPuuid } from "../../../views/SummonerProfile/SummonerProfileContext";
@@ -9,7 +9,7 @@ import styles from "./styles/MatchListCardTeam.module.css";
 import clsx from "clsx";
 
 type Props = {
-  team: SharedTypes.MatchParticipant[];
+  team: MatchParticipant[];
 };
 
 export function MatchListCardTeam({

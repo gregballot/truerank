@@ -7,8 +7,6 @@ export function useCooldown(cooldownSeconds = 10) {
     if (cooldown <= 0) {
       setCooldown(seconds);
     }
-    // I don't want deps: this won't ever need to be regenerated
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

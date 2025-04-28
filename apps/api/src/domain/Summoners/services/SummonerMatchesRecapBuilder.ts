@@ -6,6 +6,8 @@ import {
   RecapRoleAverageMetrics,
   MatchParticipant,
   RecapMetrics,
+  QueueNames,
+  QueueName,
 } from '@truerank/shared/types';
 
 import { SummonerMatch } from '../entities/SummonerMatch';
@@ -14,7 +16,6 @@ export class SummonerMatchesRecapBuilder {
   private _totals: RecapMetrics;
   private _championsTotalsMap: Map<number, RecapMetrics>;
   private _rolesTotalsMap: Map<MatchRole, RecapMetrics>;
-  private _skipped = 0;
 
   constructor(private readonly matches: SummonerMatch[]) {
     this._totals = this.initTotals();
@@ -77,21 +78,23 @@ export class SummonerMatchesRecapBuilder {
   private calcTotals(): void {
     for (const match of this.matches) {
       const summonerData = match.summonerData;
-      if (!summonerData) {
-        this._skipped++;
+      const supportedModes: QueueName[] = [
+        QueueNames.NORMAL_DRAFT,
+        QueueNames.RANKED_SOLODUO,
+        QueueNames.NORMAL_BLIND,
+        QueueNames.RANKED_FLEX,
+        QueueNames.SWIFTPLAY,
+      ];
+
+      const queueName = match.details.match.metadata.queueName;
+      const isMatchSupported = supportedModes.includes(queueName);
+      if (!summonerData || !isMatchSupported) {
+        console.log(`Recap Skip: summSet: ${!!summonerData}, queue: ${queueName}: ${isMatchSupported}`);
         continue;
       }
-
-      if (!this._championsTotalsMap.has(summonerData.championId)) {
-        this._championsTotalsMap.set(summonerData.championId, this.initTotals());
-      }
       
-      if (!this._rolesTotalsMap.has(summonerData.role)) {
-        this._rolesTotalsMap.set(summonerData.role, this.initTotals());
-      }
-      
-      const championTotals = this._championsTotalsMap.get(summonerData.championId);
-      const roleTotals = this._rolesTotalsMap.get(summonerData.role);
+      const championTotals = this._championsTotalsMap.get(summonerData.championId) ?? this.initTotals();
+      const roleTotals = this._rolesTotalsMap.get(summonerData.role) ?? this.initTotals();
 
       this.addToTotals(this._totals, summonerData, match.isWinner);
       this.addToTotals(championTotals!, summonerData, match.isWinner);
@@ -102,16 +105,15 @@ export class SummonerMatchesRecapBuilder {
   }
 
   private calcAverageMetrics(metrics: RecapMetrics): RecapAverageMetrics {
-    const trueTotal = metrics.matchesCount - this._skipped;
     return {
-      matchesCount: trueTotal,
+      matchesCount: metrics.matchesCount,
       wins: metrics.wins,
       losses: metrics.losses,
-      winrate: (metrics.wins / trueTotal) * 100,
+      winrate: (metrics.wins / metrics.matchesCount) * 100,
 
-      averageKills: metrics.kills / trueTotal,
-      averageDeaths: metrics.deaths / trueTotal,
-      averageAssists: metrics.assists / trueTotal,
+      averageKills: metrics.kills / metrics.matchesCount,
+      averageDeaths: metrics.deaths / metrics.matchesCount,
+      averageAssists: metrics.assists / metrics.matchesCount,
 
       averageKda: (metrics.kills + metrics.assists) / metrics.deaths,
     };
@@ -129,6 +131,6 @@ export class SummonerMatchesRecapBuilder {
         share: (metrics.matchesCount / totalMatchesCount) * 100,
         ...averageMetrics,
       };
-    }).sort((a, b) => b.matchesCount - a.matchesCount) as R;
+    }).filter(e => e.matchesCount > 0).sort((a, b) => b.matchesCount - a.matchesCount) as R;
   }
 }

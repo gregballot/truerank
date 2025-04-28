@@ -1,8 +1,10 @@
 import { SummonerMatchDetails, SummonerMatchesRecap } from '@truerank/shared/types';
 
 import { MatchList } from '../MatchList/MatchList';
-import styles from './ProfileMatches.module.css';
 import { MatchesRecap } from '../MatchesRecap/MatchesRecap';
+import { MatchesFiltersBar } from '../MatchesFiltersBar/MatchesFiltersBar';
+
+import styles from './ProfileMatches.module.css';
 
 type Props = {
   isProfileLoading: boolean;
@@ -25,9 +27,11 @@ export function ProfileMatches({
 }: Props) {
   return (
     <div className={styles.profileMatches}>
+      <MatchesFiltersBar />
       <MatchesRecap
         isLoading={isProfileLoading || isMatchesLoading}
         recap={recap}
+        totalMatches={matchesData.length}
       />
       <MatchList
         isProfileLoading={isProfileLoading || isMatchesLoading}

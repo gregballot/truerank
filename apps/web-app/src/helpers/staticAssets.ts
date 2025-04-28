@@ -2,6 +2,7 @@ import { MatchRole, Rank } from "@truerank/shared/types";
 
 export function getEmblemUrl(rank: Rank): string {
   return `/ranks/${rank.toLowerCase()}.png`;
+  // return `/ranks/official/${rank.toLowerCase()}.png`;
 }
 
 export function getMasteryBadgeUrl(masteryLevel: number): string {

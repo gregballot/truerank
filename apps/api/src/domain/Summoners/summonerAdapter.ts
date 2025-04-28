@@ -1,7 +1,17 @@
-import * as SharedTypes from '@truerank/shared/types';
+import {
+  ChampionMastery,
+  QueueType,
+  QueueTypeRankedFlex,
+  QueueTypeRankedSolo,
+  SummonerLeague,
+} from '@truerank/shared/types';
+
+import {
+  RiotChampionMastery,
+  RiotSummonerLeagueEntry,
+} from '../../helpers/riotApiDriver/types';
 
 import { RiotApiDriver } from '../../helpers/riotApiDriver';
-import { RiotChampionMastery, RiotSummonerLeagueEntry } from '../../helpers/riotApiDriver/types';
 import { rankDivisionsMapping } from '../../helpers/riotApiDriver/mappedTypes';
 
 import { Summoner } from './entities/Summoner';
@@ -15,8 +25,8 @@ export class SummonerAdapter {
 
   private mapLeagueEntry(
     leagueEntries: RiotSummonerLeagueEntry[],
-    queueType: SharedTypes.QueueType
-  ): SharedTypes.SummonerLeague | undefined {
+    queueType: QueueType,
+  ): SummonerLeague | undefined {
     const leagueEntry = leagueEntries.find(e => e.queueType === queueType);
     if (!leagueEntry) {
       return undefined;
@@ -35,7 +45,7 @@ export class SummonerAdapter {
 
   private mapChampionMasteries(
     championMasteries: RiotChampionMastery[]
-  ): SharedTypes.ChampionMastery[] {
+  ): ChampionMastery[] {
     return championMasteries.map(
       mastery => ({
         championId: mastery.championId,
@@ -71,8 +81,8 @@ export class SummonerAdapter {
         icon: profile.profileIconId,
         level: profile.summonerLevel,
       },
-      this.mapLeagueEntry(leagueEntries, SharedTypes.QueueTypeRankedSolo),
-      this.mapLeagueEntry(leagueEntries, SharedTypes.QueueTypeRankedFlex),
+      this.mapLeagueEntry(leagueEntries, QueueTypeRankedSolo),
+      this.mapLeagueEntry(leagueEntries, QueueTypeRankedFlex),
       this.mapChampionMasteries(topChampionMasteries),
     );
   }

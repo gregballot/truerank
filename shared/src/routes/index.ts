@@ -1,4 +1,9 @@
 export {
   SummonerProfileRoute,
+} from './summonerProfile.js';
+
+export {
   SummonerMatchesRoute,
-} from './summoner.js';
+  QueueFilters,
+  QueueFilter,
+} from './summonerMatches.js';
