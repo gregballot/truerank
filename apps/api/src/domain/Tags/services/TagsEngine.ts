@@ -1,35 +1,40 @@
-import {
-  MatchTagDetails,
-} from '@truerank/shared/types';
+import { MatchTagDetails } from '@truerank/shared/types';
 
-import { Match } from "../../Matches/entities/Match";
-import { MatchTag } from "../entities/MatchTag";
-import { TagRules } from './TagRules';
+import { SummonerMatch } from '../../Summoners/entities/SummonerMatch';
+import { Match } from '../../Matches/entities/Match';
+import { MatchTag } from '../entities/MatchTag';
+import { MatchTagRules } from './MatchTagRules/MatchTagRules';
+import { MatchSeriesTagRules } from './MatchSeriesTagRules/MatchSeriesTagRules';
 
 export class TagsEngine {
   private _tags: MatchTag[] = [];
 
   constructor(
     private readonly summonerPuuid: string,
-    private readonly match: Match,
+    private readonly matches: Match[]
   ) {}
 
-  static forMatchParticipant(summonerPuuid: string, match: Match): TagsEngine {
-    const engine = new TagsEngine(summonerPuuid, match);
-    engine.generateTags();
-    return engine;
-  }
+  static forMatchParticipant(
+    summonerPuuid: string,
+    match: Match,
+  ): MatchTagDetails[] {
+    const tags = [];
 
-  public generateTags(): void {
-    for (const rule of TagRules) {
-      const tag = rule(this.summonerPuuid, this.match);
+    for (const rule of MatchTagRules) {
+      const tag = rule({
+        summonerPuuid: summonerPuuid,
+        match,
+      });
+
       if (tag !== null) {
-        this._tags.push(tag);
+        tags.push(tag);
       }
     }
+
+    return tags.map((tag) => tag.details);
   }
 
-  public get tagsDetails(): MatchTagDetails[] {
-    return this._tags.map(tag => tag.details);
-  } 
+  static injectInSummonerMatchSeries(summonerMatches: SummonerMatch[]): void {
+    MatchSeriesTagRules.forEach(rule => rule({summonerMatches}));
+  }
 }

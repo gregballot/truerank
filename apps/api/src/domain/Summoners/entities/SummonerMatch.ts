@@ -16,6 +16,10 @@ export class SummonerMatch {
     private readonly tags: MatchTagDetails[] = [],
   ) {}
 
+  public addTag(tag: MatchTagDetails): void {
+    this.tags.unshift(tag);
+  }
+
   get isWinner(): boolean {
     return this.match.isParticipantWinner(this.summoner.puuid);
   }

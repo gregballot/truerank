@@ -51,9 +51,11 @@ export const getSummonerMatches = async (
     return new SummonerMatch(
       match,
       summoner.lightDetails,
-      TagsEngine.forMatchParticipant(summoner.puuid, match).tagsDetails,
+      TagsEngine.forMatchParticipant(summoner.puuid, match),
     );
   });
+
+  TagsEngine.injectInSummonerMatchSeries(summonerMatches);
 
   return {
     page: Number(page),

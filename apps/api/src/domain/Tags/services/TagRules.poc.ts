@@ -1,13 +1,14 @@
 import { MatchParticipant } from '@truerank/shared/types';
-import { TeamMetrics } from '../../Matches/entities/Match';
 import { MatchTag } from '../entities/MatchTag';
+import { TeamMetrics } from '../../Matches/entities/types';
+import { TagRule } from './types';
 
-type TagRule = (
+type TagRuleParams = {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-) => MatchTag | null;
+};
 
-export const TagRules: TagRule[] = [
+export const TagRules: TagRule<TagRuleParams, MatchTag | null>[] = [
   mainCharacter,
   isolatedMenace,
   lifeEnjoyer,
@@ -38,170 +39,151 @@ export const TagRules: TagRule[] = [
 ];
 
 // gloryfying tag rules
-function mainCharacter(
+function mainCharacter(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerKills = participantData.kills;
-  const threshold = teamMetrics.kills.highest * 0.8;
+}): MatchTag | null {
+  const playerKills = params.participantData.kills;
+  const threshold = params.teamMetrics.kills.highest * 0.8;
   if (playerKills > threshold) {
     return new MatchTag(
       'main-character',
       'Main Character',
-      2,
-      'glorifying',
     );
   }
   return null;
 }
 
-function isolatedMenace(
+function isolatedMenace(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerSoloKills = participantData.soloKills;
-  const threshold = teamMetrics.soloKills.highest * 0.8;
+}): MatchTag | null {
+  const playerSoloKills = params.participantData.soloKills;
+  const threshold = params.teamMetrics.soloKills.highest * 0.8;
   if (playerSoloKills > threshold) {
     return new MatchTag(
       'isolated-menace',
       'Isolated Menace',
-      3,
-      'glorifying',
     );
   }
   return null;
 }
 
-function lifeEnjoyer(
+function lifeEnjoyer(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerDeaths = participantData.deaths;
-  const threshold = teamMetrics.deaths.lowest * 1.2;
+}): MatchTag | null {
+  const playerDeaths = params.participantData.deaths;
+  const threshold = params.teamMetrics.deaths.lowest * 1.2;
   if (playerDeaths < threshold) {
     return new MatchTag(
       'life-enjoyer',
       'Life Enjoyer',
-      1,
-      'glorifying',
     );
   }
   return null;
 }
 
-function friendshipSpecialist(
+function friendshipSpecialist(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerAssists = participantData.assists;
-  const threshold = teamMetrics.assists.highest * 0.8;
+}): MatchTag | null {
+  const playerAssists = params.participantData.assists;
+  const threshold = params.teamMetrics.assists.highest * 0.8;
   if (playerAssists > threshold) {
     return new MatchTag(
       'friendship-specialist',
       'Friendship Specialist',
-      2,
-      'glorifying',
     );
   }
   return null;
 }
-function firstResponder(
+function firstResponder(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  if (teamMetrics.kills.total === 0) {
+}): MatchTag | null {
+  if (params.teamMetrics.kills.total === 0) {
     return null;
   }
 
-  const kp = participantData.kills / teamMetrics.kills.total * 100;
+  const kp = params.participantData.kills / params.teamMetrics.kills.total * 100;
   if (kp > 50) {
     return new MatchTag(
       'first-responder',
       'First Responder',
-      2,
-      'glorifying',
     );
   }
   return null;
 }
 
-function existenceNegator(
+function existenceNegator(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerDamage = participantData.damageDealtToChampions;
-  const threshold = teamMetrics.damageDealtToChampions.highest * 0.8;
+}): MatchTag | null {
+  const playerDamage = params.participantData.damageDealtToChampions;
+  const threshold = params.teamMetrics.damageDealtToChampions.highest * 0.8;
   if (playerDamage > threshold) {
     return new MatchTag(
       'existence-negator',
       'Existence Negator',
-      3,
-      'glorifying',
     );
   }
   return null;
 }
 
-function farmingIndustrialist(
+function farmingIndustrialist(params: {
   participantData: MatchParticipant,
-): MatchTag | null {
-  if (participantData.csMin >= 8) {
+  teamMetrics: TeamMetrics,
+}): MatchTag | null {
+  if (params.participantData.csMin >= 8) {
     return new MatchTag(
       'farming-industrialist',
       'Farming Industrialist',
-      1,
-      'glorifying',
     );
   }
   return null;
 }
 
-function goblinLord(
+function goblinLord(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerGold = participantData.goldEarned;
-  const threshold = teamMetrics.goldEarned.highest * 0.8;
+}): MatchTag | null {
+  const playerGold = params.participantData.goldEarned;
+  const threshold = params.teamMetrics.goldEarned.highest * 0.8;
   if (playerGold > threshold) {
     return new MatchTag(
       'goblin-lord',
       'Goblin Lord',
-      2,
-      'glorifying',
     );
   }
   return null;
 }
 
-function painAbsorber(
+function painAbsorber(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerDamageTaken = participantData.damageTaken;
-  const threshold = teamMetrics.damageTaken.highest * 0.8;
+}): MatchTag | null {
+  const playerDamageTaken = params.participantData.damageTaken;
+  const threshold = params.teamMetrics.damageTaken.highest * 0.8;
   if (playerDamageTaken > threshold) {
     return new MatchTag(
       'pain-absorber',
       'Pain Absorber',
-      1,
-      'glorifying',
     );
   }
   return null;
 }
 
-function mythicalPestControl(
+function mythicalPestControl(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerObjDamage = participantData.damageDealtToObjectives;
-  const threshold = teamMetrics.damageDealtToObjectives.highest * 0.8;
+}): MatchTag | null {
+  const playerObjDamage = params.participantData.damageDealtToObjectives;
+  const threshold = params.teamMetrics.damageDealtToObjectives.highest * 0.8;
   if (playerObjDamage > threshold) {
     return new MatchTag(
       'mythical-pest-control',
       'Mythical Pest Control',
-      2,
-      'glorifying',
     );
   }
   return null;
@@ -212,227 +194,208 @@ function laneBully(): MatchTag | null {
   return null;
 }
 
-function minuteOneMenace(
+function minuteOneMenace(params: {
   participantData: MatchParticipant,
-): MatchTag | null {
-  if (participantData.firstBloodAssist > 0) {
+  teamMetrics: TeamMetrics,
+}): MatchTag | null {
+  if (params.participantData.firstBloodAssist > 0) {
     return new MatchTag(
       'minute-one-menace',
       'Minute One Menace',
-      3,
-      'glorifying',
     );
   }
   return null;
 }
 
-function towerEnthusiast(
+function towerEnthusiast(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerTowerTakedowns = participantData.turretTakedowns;
-  const threshold = teamMetrics.turretTakedowns.highest * 0.8;
+}): MatchTag | null {
+  const playerTowerTakedowns = params.participantData.turretTakedowns;
+  const threshold = params.teamMetrics.turretTakedowns.highest * 0.8;
   if (playerTowerTakedowns > threshold) {
     return new MatchTag(
       'tower-enthusiast',
       'Tower Enthusiast',
-      1,
-      'glorifying',
     );
   }
   return null;
 }
 
 // delusional tags rules
-function pacifist(
+function pacifist(params: {
   participantData: MatchParticipant,
-): MatchTag | null {
-  if (participantData.kills === 0) {
+  teamMetrics: TeamMetrics,
+}): MatchTag | null {
+  if (params.participantData.kills === 0) {
     return new MatchTag(
       'pacifist',
       'Pacifist',
-      2,
-      'delusional',
     );
   }
   return null;
 }
 
-function tacticalInting(
+function tacticalInting(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const threshold = teamMetrics.deaths.highest * 0.8;
-  if (participantData.deaths > threshold) {
+}): MatchTag | null {
+  const threshold = params.teamMetrics.deaths.highest * 0.8;
+  if (params.participantData.deaths > threshold) {
     return new MatchTag(
       'tactical-inting',
       'Tactical Inting',
-      1,
-      'delusional',
     );
   }
   return null;
 }
 
-function oneManArmy(
+function oneManArmy(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerAssists = participantData.assists;
-  const threshold = teamMetrics.assists.lowest * 1.2;
+}): MatchTag | null {
+  const playerAssists = params.participantData.assists;
+  const threshold = params.teamMetrics.assists.lowest * 1.2;
   if (playerAssists < threshold) {
     return new MatchTag(
       'one-man-army',
       'One Man Army',
-      2,
-      'delusional',
     );
   }
   return null;
 }
 
-function combatSkeptic(
+function combatSkeptic(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const kp = (participantData.kills + participantData.assists) / teamMetrics.kills.total * 100;
+}): MatchTag | null {
+  const kp = (
+    params.participantData.kills + params.participantData.assists
+  ) / params.teamMetrics.kills.total * 100;
+
   if (kp < 20) {
     return new MatchTag(
       'combat-skeptic',
       'Combat Skeptic',
-      1,
-      'delusional',
     );
   }
   return null;
 }
 
-function gentle(
+function gentle(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerDamage = participantData.damageDealtToChampions;
-  const threshold = teamMetrics.damageDealtToChampions.lowest * 1.2;
+}): MatchTag | null {
+  const playerDamage = params.participantData.damageDealtToChampions;
+  const threshold = params.teamMetrics.damageDealtToChampions.lowest * 1.2;
   if (playerDamage < threshold) {
     return new MatchTag(
       'gentle',
       'Gentle',
-      1,
-      'delusional',
     );
   }
   return null;
 }
 
-function veganActivist(
+function veganActivist(params: {
   participantData: MatchParticipant,
-): MatchTag | null {
-  if (participantData.csMin <= 4) {
+  teamMetrics: TeamMetrics,
+}): MatchTag | null {
+  if (params.participantData.csMin <= 4) {
     return new MatchTag(
       'vegan-activist',
       'Vegan Activist',
-      2,
-      'delusional',
     );
   }
   return null;
 }
 
-function budgetExpert(
+function budgetExpert(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerGold = participantData.goldEarned;
-  const threshold = teamMetrics.goldEarned.lowest * 1.2;
+}): MatchTag | null {
+  const playerGold = params.participantData.goldEarned;
+  const threshold = params.teamMetrics.goldEarned.lowest * 1.2;
   if (playerGold < threshold) {
     return new MatchTag(
       'budget-expert',
       'Budget Expert',
-      1,
-      'delusional',
     );
   }
   return null;
 }
 
-function bulletDodger(
+function bulletDodger(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const playerDamageTaken = participantData.damageTaken;
-  const threshold = teamMetrics.damageTaken.lowest * 1.2;
+}): MatchTag | null {
+  const playerDamageTaken = params.participantData.damageTaken;
+  const threshold = params.teamMetrics.damageTaken.lowest * 1.2;
   if (playerDamageTaken < threshold) {
     return new MatchTag(
       'bullet-dodger',
       'Bullet Dodger',
-      1,
-      'delusional',
     );
   }
   return null;
 }
 
-function fogBeliever(
+function fogBeliever(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const vision = participantData.visionScore;
-  const threshold = teamMetrics.visionScore.lowest * 1.2;
+}): MatchTag | null {
+  const vision = params.participantData.visionScore;
+  const threshold = params.teamMetrics.visionScore.lowest * 1.2;
   if (vision < threshold) {
     return new MatchTag(
       'fog-believer',
       'Fog Believer',
-      1,
-      'delusional',
     );
   }
   return null;
 }
 
-function wildlifeSaver(
+function wildlifeSaver(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const objDamage = participantData.damageDealtToObjectives;
-  const threshold = teamMetrics.damageDealtToObjectives.lowest * 1.2;
+}): MatchTag | null {
+  const objDamage = params.participantData.damageDealtToObjectives;
+  const threshold = params.teamMetrics.damageDealtToObjectives.lowest * 1.2;
   if (objDamage < threshold) {
     return new MatchTag(
       'wildlife-saver',
       'Wildlife Saver',
-      1,
-      'delusional',
     );
   }
   return null;
 }
 
-function urbanPreservationist(
+function urbanPreservationist(params: {
   participantData: MatchParticipant,
-): MatchTag | null {
-  if (participantData.turretTakedowns === 0) {
+  teamMetrics: TeamMetrics,
+}): MatchTag | null {
+  if (params.participantData.turretTakedowns === 0) {
     return new MatchTag(
       'urban-preservationist',
       'Urban Preservationist',
-      1,
-      'delusional',
     );
   }
   return null;
 }
 
-function movementSpecialist(
+function movementSpecialist(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const distance = participantData.distanceTraveled;
-  const kills = participantData.kills;
-  const assists = participantData.assists;
-  const damage = participantData.damageDealtToChampions;
+}): MatchTag | null {
+  const distance = params.participantData.distanceTraveled;
+  const kills = params.participantData.kills;
+  const assists = params.participantData.assists;
+  const damage = params.participantData.damageDealtToChampions;
 
-  const distanceThreshold = teamMetrics.distanceTraveled.highest * 0.7;
-  const killsThreshold = teamMetrics.kills.average;
-  const assistsThreshold = teamMetrics.assists.average;
-  const damageThreshold = teamMetrics.damageDealtToChampions.average;
+  const distanceThreshold = params.teamMetrics.distanceTraveled.highest * 0.7;
+  const killsThreshold = params.teamMetrics.kills.average;
+  const assistsThreshold = params.teamMetrics.assists.average;
+  const damageThreshold = params.teamMetrics.damageDealtToChampions.average;
 
   if (distance > distanceThreshold && (
     kills < killsThreshold ||
@@ -442,27 +405,23 @@ function movementSpecialist(
     return new MatchTag(
       'movement-specialist',
       'Movement Specialist',
-      2,
-      'delusional',
     );
   }
   return null;
 }
 
-function glasscanon(
+function glasscanon(params: {
   participantData: MatchParticipant,
   teamMetrics: TeamMetrics,
-): MatchTag | null {
-  const deaths = participantData.deaths;
-  const damage = participantData.damageDealtToChampions;
-  const thresholdDamage = teamMetrics.damageDealtToChampions.highest * 0.7;
-  const thresholdDeaths = teamMetrics.deaths.highest * 0.7;
+}): MatchTag | null {
+  const deaths = params.participantData.deaths;
+  const damage = params.participantData.damageDealtToChampions;
+  const thresholdDamage = params.teamMetrics.damageDealtToChampions.highest * 0.7;
+  const thresholdDeaths = params.teamMetrics.deaths.highest * 0.7;
   if (deaths > thresholdDeaths && damage > thresholdDamage) {
     return new MatchTag(
       'glasscanon',
       'Glasscanon',
-      3,
-      'delusional',
     );
   }
   return null;
