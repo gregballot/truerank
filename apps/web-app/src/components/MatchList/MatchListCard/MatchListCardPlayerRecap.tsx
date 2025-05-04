@@ -137,7 +137,10 @@ export function MatchListCardPlayerRecap({
         {
           tags.map(tag => {
             return (
-              <div className={styles.gameTag}>
+              <div
+                key={`${tag.id}-${gameDuration}`}
+                className={styles.gameTag}
+              >
                 {tag.label}
               </div>
             )
